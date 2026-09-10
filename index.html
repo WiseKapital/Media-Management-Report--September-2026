@@ -19,237 +19,499 @@
       background-color: #f0f4f8;
       color: #1e293b;
     }
-    .card-border-green { border-top: 4px solid #00d285; }
-    .card-border-blue { border-top: 4px solid #2563eb; }
-    .card-border-purple { border-top: 4px solid #a855f7; }
-    
     .bg-mint-header { background-color: #e8f5e9; }
     .text-green-custom { color: #00b074; }
     .text-red-custom { color: #e11d48; }
     .bg-green-custom { background-color: #00d285; }
     .bg-blue-custom { background-color: #2563eb; }
     .bg-purple-custom { background-color: #a855f7; }
+    .bg-amber-custom { background-color: #f59e0b; }
 
-    /* TABLE GRID STYLE FOR ALL TABLES */
+    /* TABLE GRID STYLE FOR ALL TABLES (BORDES LIMPIOS Y COMPLETOS) */
     table.table-grid,
     table.table-grid th,
     table.table-grid td {
       border: 1px solid #cbd5e1; /* slate-300 */
       border-collapse: collapse;
     }
+
+    /* 7-COLUMN RESPONSIVE LAYOUT */
+    @media (min-width: 1280px) {
+      .grid-cols-7-layout {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 12px;
+      }
+    }
   </style>
 </head>
-<body class="p-4 md:p-6 min-h-screen">
+<body class="p-3 md:p-5 min-h-screen">
 
-  <div class="max-w-[1440px] mx-auto space-y-6">
+  <div class="max-w-[1740px] mx-auto space-y-5">
 
     <!-- TOP NAVIGATION TABS -->
-    <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+    <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-xl shadow-sm border border-slate-200">
       <div class="flex items-center gap-3">
-        <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">MMR Media Management Report</h1>
-        <span class="bg-slate-800 text-white text-xs font-semibold px-3 py-1 rounded-full">September 1-7</span>
+        <h1 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">MMR Media Management Report</h1>
+        <span class="bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-full">September 1-10</span>
       </div>
       <div class="flex gap-2">
         <button onclick="switchTab('all')" id="tab-all" class="px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-900 text-white">All Views</button>
         <button onclick="switchTab('v1')" id="tab-v1" class="px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-100 text-slate-600 hover:bg-slate-200">View 1 (Summary)</button>
         <button onclick="switchTab('v2')" id="tab-v2" class="px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-100 text-slate-600 hover:bg-slate-200">View 2 (General Table)</button>
-        <button onclick="switchTab('v3')" id="tab-v3" class="px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-100 text-slate-600 hover:bg-slate-200">View 3 (Tables)</button>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: CARDS, BARS AND MAIN LINE CHART -->
+    <!-- SECTION 1: 7 COLUMNAS (CUADRO + TABLA)     -->
     <!-- ========================================== -->
-    <div id="section-v1" class="space-y-6">
+    <div id="section-v1" class="space-y-4">
       
-      <!-- TOP METRIC CARDS -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- CONTENEDOR DE LAS 7 COLUMNAS ALINEADAS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 grid-cols-7-layout gap-3 items-start">
         
-        <!-- LEADS (CPL) MTD -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">LEADS (CPL) MTD</span>
-            <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
-              <i class="fa-regular fa-eye"></i>
+        <!-- ========================================== -->
+        <!-- COLUMNA 1: LEADS (CPL)                     -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">LEADS (CPL)</span>
+              <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">
+                <i class="fa-regular fa-eye"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">2793</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">4000</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-green-custom font-extrabold">8379</span>
+              </span>
             </div>
           </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span class="text-4xl font-black text-slate-900">1939</span>
-            <span class="text-xs font-bold text-slate-500">MTD</span>
-          </div>
-          <div class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">KPI</span> <span class="font-extrabold text-slate-900">4000</span>
-            </span>
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">RR</span> <span class="font-extrabold text-green-custom">8310</span>
-            </span>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-emerald-50 text-emerald-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              MTD CPL — LEADS
+            </div>
+            <div class="overflow-x-auto overflow-y-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <tr><td class="py-1.5 px-2 font-bold">FXM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">1641</td><td class="text-green-custom font-black text-center">4923</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">686</td><td class="text-green-custom font-black text-center">2058</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">463</td><td class="text-green-custom font-black text-center">1389</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">CHA</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">4000</td>
+                    <td class="text-center font-black">2793</td>
+                    <td class="text-green-custom font-black text-center">8379</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
           </div>
         </div>
 
-        <!-- SIGNUPS (CPR) MTD -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">SIGNUPS (CPR) MTD</span>
-            <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-              <i class="fa-solid fa-check"></i>
+        <!-- ========================================== -->
+        <!-- COLUMNA 2: CPR (AMARILLA)                  -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-amber-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-700 truncate">CPR</span>
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-bullseye"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">0.0</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-amber-50 rounded text-[9px] font-bold text-amber-800">
+                KPI <span class="text-slate-900 font-extrabold">200</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-amber-50 rounded text-[9px] font-bold text-amber-800">
+                RR <span class="text-slate-500 font-extrabold">0.0</span>
+              </span>
             </div>
           </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span class="text-4xl font-black text-slate-900">178</span>
-            <span class="text-xs font-bold text-slate-500">MTD</span>
-          </div>
-          <div class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">KPI</span> <span class="font-extrabold text-slate-900">1000</span>
-            </span>
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">RR</span> <span class="font-extrabold text-red-custom">762</span>
-            </span>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-amber-200 flex flex-col h-[390px]">
+            <div class="bg-amber-50 text-amber-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              CPR
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">200</td>
+                    <td class="text-center font-black">0.0</td>
+                    <td class="text-red-custom font-black text-center">0.0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
           </div>
         </div>
 
-        <!-- USERS (CPA) MTD -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative">
-          <div class="flex justify-between items-start">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">USERS (CPA) MTD</span>
-            <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
-              <i class="fa-regular fa-user"></i>
+        <!-- ========================================== -->
+        <!-- COLUMNA 3: BUDGET                          -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">BUDGET</span>
+              <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">$228</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">5,500</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-green-custom font-extrabold">684</span>
+              </span>
             </div>
           </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span class="text-4xl font-black text-slate-900">4</span>
-            <span class="text-xs font-bold text-slate-500">MTD</span>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-amber-50 text-amber-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              MTD BUDGET
+            </div>
+            <div class="overflow-x-auto overflow-y-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <tr><td class="py-1.5 px-2 font-bold">FXM</td><td class="text-center text-slate-400 italic">1834</td><td class="text-center font-black">$135</td><td class="text-green-custom font-black text-center">$405</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black">$57</td><td class="text-green-custom font-black text-center">$171</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black">$36</td><td class="text-green-custom font-black text-center">$108</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">5500</td>
+                    <td class="text-center font-black">$228</td>
+                    <td class="text-green-custom text-center font-black">$684</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
           </div>
-          <div class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">KPI</span> <span class="font-extrabold text-slate-900">300</span>
-            </span>
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md text-xs font-bold text-slate-700">
-              <span class="text-slate-500">RR</span> <span class="font-extrabold text-red-custom">17</span>
-            </span>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- COLUMNA 4: SIGNUPS (CPR)                   -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">SIGNUPS</span>
+              <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">237</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">1000</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">711</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- TABLA CON SCROLL INTERNO Y TOTAL PEGADO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-blue-50 text-blue-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              MTD CPR — SIGNUPS
+            </div>
+            <div class="overflow-x-auto overflow-y-auto flex-1 pr-1">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold sticky top-0 shadow-sm z-10">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">126</td><td class="text-green-custom font-black text-center">378</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">MON</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">34</td><td class="text-green-custom font-black text-center">102</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">SPX</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">20</td><td class="text-green-custom font-black text-center">60</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">PRO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">14</td><td class="text-red-custom font-black text-center">42</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">10</td><td class="text-red-custom font-black text-center">30</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">LUM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">7</td><td class="text-red-custom font-black text-center">21</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">WDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">7</td><td class="text-red-custom font-black text-center">21</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">VENE</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">CHA</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">EPV</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">MOD</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">DRCT</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">SDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">WRW</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">REV</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">BTD</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50 sticky bottom-0 shadow-sm z-10">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">1000</td>
+                    <td class="text-center font-black">237</td>
+                    <td class="text-red-custom font-black text-center">711</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- COLUMNA 5: USERS (CPA)                     -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">USERS (CPA)</span>
+              <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">11</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">300</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">33</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-fuchsia-50 text-purple-900 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate tracking-wide">
+              MTD CPA — USERS
+            </div>
+            <div class="overflow-x-auto overflow-y-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-800 text-white font-extrabold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">PL</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-extrabold">
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">PRO</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">5</td><td class="text-red-custom text-center font-black">15</td></tr>
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">MON</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">2</td><td class="text-red-custom text-center font-black">6</td></tr>
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">ADM</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">SPX</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">LGL</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
+                  <tr><td class="py-1.5 px-2 text-slate-900 font-bold">WDG</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-black bg-slate-50">
+                    <td class="py-2 px-2 text-slate-900 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">300</td>
+                    <td class="text-center text-slate-900 font-black">11</td>
+                    <td class="text-red-custom text-center font-black">33</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- COLUMNA 6: REVENUE                         -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">REVENUE</span>
+              <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">$1,340</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">16.5k</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">4,020</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-emerald-50 text-emerald-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              MTD REVENUE
+            </div>
+            <div class="overflow-x-auto overflow-y-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <tr><td class="py-1.5 px-2 font-bold">PRO</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">SPX</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$170</td><td class="text-red-custom font-black text-center">$510</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">16.5k</td>
+                    <td class="text-center font-black">$1340</td>
+                    <td class="text-red-custom font-black text-center">$4020</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- COLUMNA 7: PROFIT (NÚMERO EN NEGRO)        -->
+        <!-- ========================================== -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <!-- CUADRO MÉTRICO -->
+          <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[126px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 truncate">PROFIT</span>
+              <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </div>
+            </div>
+            <div class="my-1 flex items-baseline gap-1.5">
+              <span class="text-2xl font-black text-slate-900">+$1,112</span>
+              <span class="text-[10px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">11k</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">3,336</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- TABLA CON TOTAL PEGADO + CUADRO BLANCO DE ESPACIO ABAJO -->
+          <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-200 flex flex-col h-[390px]">
+            <div class="bg-teal-50 text-teal-800 text-xs font-bold p-2.5 rounded-lg mb-2.5 text-center truncate">
+              MTD PROFIT
+            </div>
+            <div class="overflow-x-auto overflow-y-auto">
+              <table class="w-full text-xs table-grid">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-700 font-bold">
+                    <th class="py-1.5 px-2 text-left">AB</th>
+                    <th class="py-1.5 px-1.5 text-center">KPI</th>
+                    <th class="py-1.5 px-1.5 text-center">MTD</th>
+                    <th class="py-1.5 px-1.5 text-center">RR</th>
+                  </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  <tr><td class="py-1.5 px-2 font-bold">PRO</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">+$730</td><td class="text-red-custom font-black text-center">+$2190</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">SPX</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">+$220</td><td class="text-red-custom font-black text-center">+$660</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">+$184</td><td class="text-red-custom font-black text-center">+$552</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">+$113</td><td class="text-red-custom font-black text-center">+$339</td></tr>
+                  <tr><td class="py-1.5 px-2 font-bold">FXM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-red-custom font-black text-center">-$135</td><td class="text-red-custom font-black text-center">-$405</td></tr>
+                  <!-- TOTAL PEGADO DIRECTAMENTE A LA TABLA -->
+                  <tr class="font-extrabold bg-slate-50">
+                    <td class="py-2 px-2 font-extrabold">Grand total</td>
+                    <td class="text-center text-slate-400 italic font-bold">11k</td>
+                    <td class="text-center font-black text-slate-900">+$1112</td>
+                    <td class="text-red-custom font-black text-center">+$3336</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ESPACIO BLANCO NATURAL ABAJO (FLEX-1) -->
+            <div class="flex-1"></div>
           </div>
         </div>
 
       </div>
 
-      <!-- PROGRESS BARS BY PARTNER -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- CPL BY PARTNER (MTD) -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-          <h3 class="text-xs font-extrabold uppercase text-slate-800 tracking-wider">CPL BY PARTNER (MTD)</h3>
-          
-          <div class="space-y-2.5 pt-2">
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>FXM</span><span>1261</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-green-custom h-full" style="width: 100%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>LGL</span><span>352</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-green-custom h-full" style="width: 27.9%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>ADM</span><span>323</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-green-custom h-full" style="width: 25.6%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>CHA</span><span>3</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-green-custom h-full" style="width: 1.5%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- REGISTRATIONS BY PARTNER (MTD) -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-3">
-          <h3 class="text-xs font-extrabold uppercase text-slate-800 tracking-wider">REGISTRATIONS BY PARTNER (MTD)</h3>
-          
-          <div class="space-y-2 pt-1 max-h-72 overflow-y-auto pr-1">
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>LGL</span><span>112</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 100%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>MON</span><span>21</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 18.8%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>SPX</span><span>18</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 16.1%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>PRO</span><span>6</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 5.4%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>ADM</span><span>5</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 4.5%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>WDG</span><span>5</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 4.5%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>VENE</span><span>2</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 1.8%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>DRCT</span><span>2</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 1.8%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>SDG</span><span>2</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 1.8%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>CHA</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 0.9%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>LUM</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 0.9%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>EPV</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 0.9%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>MOD</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 0.9%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-0.5"><span>REV</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-custom h-full" style="width: 0.9%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CPA BY PARTNER (MTD) -->
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-          <h3 class="text-xs font-extrabold uppercase text-slate-800 tracking-wider">CPA BY PARTNER (MTD)</h3>
-          
-          <div class="space-y-3 pt-2">
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>PRO</span><span>2</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-purple-custom h-full" style="width: 100%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>SPX</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-purple-custom h-full" style="width: 50%;"></div></div>
-            </div>
-            <div>
-              <div class="flex justify-between text-xs font-extrabold mb-1"><span>MON</span><span>1</span></div>
-              <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-purple-custom h-full" style="width: 50%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- MAIN LINE CHART (SEP 1-7) -->
-      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-        <h3 class="text-lg font-extrabold text-slate-900 tracking-tight mb-4">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1-7</h3>
-        <div class="relative w-full h-80 md:h-96">
+      <!-- MAIN LINE CHART (SEP 1-10) -->
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mt-2">
+        <h3 class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1-10</h3>
+        <div class="relative w-full h-80">
           <canvas id="mainLineChart"></canvas>
         </div>
       </div>
@@ -257,16 +519,16 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 2: MAIN GENERAL TABLE (15 ACTIVOS) -->
+    <!-- SECTION 2: MAIN GENERAL TABLE (18 ACTIVOS) -->
     <!-- ========================================== -->
-    <div id="section-v2" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-6 space-y-4 mt-6">
+    <div id="section-v2" class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden p-5 space-y-4">
       
       <!-- CONTROLS AND FILTERS -->
-      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div class="flex flex-wrap items-center gap-3">
-          <input type="text" placeholder="Search partner..." class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs w-60 focus:outline-none focus:ring-1 focus:ring-slate-400">
+          <input type="text" placeholder="Search partner..." class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs w-56 focus:outline-none focus:ring-1 focus:ring-slate-400">
           <select class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white">
-            <option>Show Active (15)</option>
+            <option>Show Active (18)</option>
           </select>
           <select class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white">
             <option>Sort by CPL ↓ High to Low</option>
@@ -274,7 +536,7 @@
           <button class="text-xs text-blue-600 hover:underline font-semibold ml-2">Clear filters</button>
         </div>
         <div class="text-xs font-bold text-slate-800">
-          Showing 15 active partners
+          Showing 18 active partners
         </div>
       </div>
 
@@ -283,282 +545,330 @@
         <table class="w-full text-left text-xs table-grid">
           <thead>
             <tr class="bg-mint-header text-slate-800">
-              <th rowspan="2" class="p-3 font-extrabold uppercase tracking-wider align-middle">MEDIA PARTNER</th>
-              <th colspan="3" class="p-3 font-extrabold uppercase tracking-wider text-center">CPL</th>
-              <th colspan="3" class="p-3 font-extrabold uppercase tracking-wider text-center">REGISTRATIONS</th>
-              <th colspan="3" class="p-3 font-extrabold uppercase tracking-wider text-center">CPA</th>
-              <th rowspan="2" class="p-3 font-extrabold uppercase tracking-wider text-center align-middle">REVENUE</th>
-              <th rowspan="2" class="p-3 font-extrabold uppercase tracking-wider text-center align-middle">BUDGET</th>
-              <th rowspan="2" class="p-3 font-extrabold uppercase tracking-wider text-center align-middle">PROFIT</th>
+              <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider align-middle">MEDIA PARTNER</th>
+              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPL</th>
+              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">REGISTRATIONS</th>
+              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPA</th>
+              <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">REVENUE</th>
+              <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">BUDGET</th>
+              <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">PROFIT</th>
             </tr>
             <tr class="bg-mint-header text-slate-700 text-center font-bold">
-              <th class="p-2 w-16">KPI</th>
-              <th class="p-2 w-16">MTD</th>
-              <th class="p-2 w-16">RR</th>
-              <th class="p-2 w-16">KPI</th>
-              <th class="p-2 w-16">MTD</th>
-              <th class="p-2 w-16">RR</th>
-              <th class="p-2 w-16">KPI</th>
-              <th class="p-2 w-16">MTD</th>
-              <th class="p-2 w-16">RR</th>
+              <th class="p-1.5 w-16">KPI</th>
+              <th class="p-1.5 w-16">MTD</th>
+              <th class="p-1.5 w-16">RR</th>
+              <th class="p-1.5 w-16">KPI</th>
+              <th class="p-1.5 w-16">MTD</th>
+              <th class="p-1.5 w-16">RR</th>
+              <th class="p-1.5 w-16">KPI</th>
+              <th class="p-1.5 w-16">MTD</th>
+              <th class="p-1.5 w-16">RR</th>
             </tr>
           </thead>
           <tbody class="font-semibold text-slate-800">
             <!-- Row: ADM -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">ADM</td>
-              <td class="p-3 text-center text-slate-400 italic">1000</td>
-              <td class="p-3 text-center font-extrabold">323</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">1384</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">5</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">21</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">18</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">-18</td>
+              <td class="p-2.5 font-extrabold">ADM</td>
+              <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+              <td class="p-2.5 text-center font-extrabold">686</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">2058</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">10</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">30</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center font-extrabold">220</td>
+              <td class="p-2.5 text-center font-extrabold">36</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">+184</td>
+            </tr>
+            <!-- Row: ADO -->
+            <tr class="hover:bg-slate-50">
+              <td class="p-2.5 font-extrabold">ADO</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">3</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">9</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+            </tr>
+            <!-- Row: BTD -->
+            <tr class="hover:bg-slate-50">
+              <td class="p-2.5 font-extrabold">BTD</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">58</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: CHA -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">CHA</td>
-              <td class="p-3 text-center text-slate-400 italic">1000</td>
-              <td class="p-3 text-center font-extrabold">3</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">13</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">CHA</td>
+              <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+              <td class="p-2.5 text-center font-extrabold">3</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">9</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: DRCT -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">DRCT</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">2</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">9</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">DRCT</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: EPV -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">EPV</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">EPV</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: FXM -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">FXM</td>
-              <td class="p-3 text-center text-slate-400 italic">1000</td>
-              <td class="p-3 text-center font-extrabold">1261</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">5404</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">123</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">-123</td>
+              <td class="p-2.5 font-extrabold">FXM</td>
+              <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+              <td class="p-2.5 text-center font-extrabold">1641</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">4923</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">135</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">-135</td>
             </tr>
             <!-- Row: LGL -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">LGL</td>
-              <td class="p-3 text-center text-slate-400 italic">1000</td>
-              <td class="p-3 text-center font-extrabold">352</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">1509</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">112</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">480</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">51</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">-51</td>
+              <td class="p-2.5 font-extrabold">LGL</td>
+              <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+              <td class="p-2.5 text-center font-extrabold">463</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">1389</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">126</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">378</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center font-extrabold">170</td>
+              <td class="p-2.5 text-center font-extrabold">57</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">+113</td>
             </tr>
             <!-- Row: LUM -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">LUM</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">LUM</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">7</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">21</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: MOD -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">MOD</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">MOD</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: MON -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">MON</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">21</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">90</td>
-              <td class="p-3 text-center text-slate-400 italic">100</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">MON</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">34</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">102</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: PRO -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">PRO</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">6</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">26</td>
-              <td class="p-3 text-center text-slate-400 italic">100</td>
-              <td class="p-3 text-center font-extrabold">2</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">9</td>
-              <td class="p-3 text-center font-extrabold">300</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">300</td>
+              <td class="p-2.5 font-extrabold">PRO</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">14</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">42</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">5</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">15</td>
+              <td class="p-2.5 text-center font-extrabold">730</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">+730</td>
             </tr>
             <!-- Row: REV -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">REV</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">REV</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">58</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: SDG -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">SDG</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">2</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">9</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">SDG</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">2</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">6</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: SPX -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">SPX</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">18</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">77</td>
-              <td class="p-3 text-center text-slate-400 italic">100</td>
-              <td class="p-3 text-center font-extrabold">1</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">4</td>
-              <td class="p-3 text-center font-extrabold">220</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center text-green-custom font-extrabold">220</td>
+              <td class="p-2.5 font-extrabold">SPX</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">20</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">60</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center font-extrabold">220</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center text-green-custom font-extrabold">+220</td>
             </tr>
             <!-- Row: VENE -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">VENE</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">71</td>
-              <td class="p-3 text-center font-extrabold">2</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">9</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">VENE</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">3</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">9</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: WDG -->
             <tr class="hover:bg-slate-50">
-              <td class="p-3 font-extrabold">WDG</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400 italic">72</td>
-              <td class="p-3 text-center font-extrabold">5</td>
-              <td class="p-3 text-center text-red-custom font-extrabold">21</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center text-slate-400">—</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
-              <td class="p-3 text-center font-extrabold">0</td>
+              <td class="p-2.5 font-extrabold">WDG</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">59</td>
+              <td class="p-2.5 text-center font-extrabold">7</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">21</td>
+              <td class="p-2.5 text-center text-slate-400 italic">50</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+            </tr>
+            <!-- Row: WRW -->
+            <tr class="hover:bg-slate-50">
+              <td class="p-2.5 font-extrabold">WRW</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400 italic">58</td>
+              <td class="p-2.5 text-center font-extrabold">1</td>
+              <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
+              <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Grand total -->
             <tr class="bg-slate-50 font-black">
-              <td class="p-3 font-extrabold">Grand total</td>
-              <td class="p-3 text-center text-slate-400 italic">4000</td>
-              <td class="p-3 text-center">1939</td>
-              <td class="p-3 text-center text-green-custom">8310</td>
-              <td class="p-3 text-center text-slate-400 italic">1000</td>
-              <td class="p-3 text-center">178</td>
-              <td class="p-3 text-center text-red-custom">762</td>
-              <td class="p-3 text-center text-slate-400 italic">300</td>
-              <td class="p-3 text-center">4</td>
-              <td class="p-3 text-center text-red-custom">17</td>
-              <td class="p-3 text-center font-black">520</td>
-              <td class="p-3 text-center font-black">192</td>
-              <td class="p-3 text-center text-green-custom font-black">+328</td>
+              <td class="p-2.5 font-extrabold">Grand total</td>
+              <td class="p-2.5 text-center text-slate-400 italic">4000</td>
+              <td class="p-2.5 text-center">2793</td>
+              <td class="p-2.5 text-center text-green-custom">8379</td>
+              <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+              <td class="p-2.5 text-center">237</td>
+              <td class="p-2.5 text-center text-red-custom">711</td>
+              <td class="p-2.5 text-center text-slate-400 italic">300</td>
+              <td class="p-2.5 text-center">11</td>
+              <td class="p-2.5 text-center text-red-custom">33</td>
+              <td class="p-2.5 text-center font-black">1340</td>
+              <td class="p-2.5 text-center font-black">228</td>
+              <td class="p-2.5 text-center text-green-custom font-black">+1112</td>
             </tr>
           </tbody>
         </table>
@@ -567,172 +877,48 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 3: CAMPAIGN TABLES -->
+    <!-- SECTION 3: UNMAPPED PARTNERS               -->
     <!-- ========================================== -->
-    <div id="section-v3" class="space-y-6">
-      
-      <!-- 4 TABLES GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        
-        <!-- TABLE 1: MTD CPL CAMPAIGNS (SUMA KPI = 4000) -->
-        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-          <div class="bg-emerald-50 text-emerald-800 text-xs font-bold p-2.5 rounded-lg mb-3">
-            MTD CPL CAMPAIGNS — LEADS
-          </div>
-          <table class="w-full text-xs table-grid">
-            <thead>
-              <tr class="bg-slate-50 text-slate-700 font-bold">
-                <th class="py-1 px-2 text-left">AB</th>
-                <th class="py-1 px-2 text-center">KPI</th>
-                <th class="py-1 px-2 text-center">MTD</th>
-                <th class="py-1 px-2 text-center">RR</th>
-              </tr>
-            </thead>
-            <tbody class="font-semibold">
-              <tr><td class="py-1.5 px-2 font-bold">FXM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">1261</td><td class="text-green-custom font-black text-center">5404</td></tr>
-              <tr><td class="py-1.5 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">352</td><td class="text-green-custom font-black text-center">1509</td></tr>
-              <tr><td class="py-1.5 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">323</td><td class="text-green-custom font-black text-center">1384</td></tr>
-              <tr><td class="py-1.5 px-2 font-bold">CHA</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">13</td></tr>
-              <tr class="font-extrabold bg-slate-50"><td class="py-2 px-2">Grand total</td><td class="text-center text-slate-400 italic font-bold">4000</td><td class="text-center">1939</td><td class="text-green-custom text-center">8310</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- TABLE 2: MTD CPR CAMPAIGNS (SUMA KPI = 1000) -->
-        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-          <div class="bg-blue-50 text-blue-800 text-xs font-bold p-2.5 rounded-lg mb-3">
-            MTD CPR CAMPAIGNS — SIGNUPS
-          </div>
-          <div class="max-h-72 overflow-y-auto pr-1">
-            <table class="w-full text-xs table-grid">
-              <thead>
-                <tr class="bg-slate-50 text-slate-700 font-bold sticky top-0">
-                  <th class="py-1 px-2 text-left">AB</th>
-                  <th class="py-1 px-2 text-center">KPI</th>
-                  <th class="py-1 px-2 text-center">MTD</th>
-                  <th class="py-1 px-2 text-center">RR</th>
-                </tr>
-              </thead>
-              <tbody class="font-semibold">
-                <tr><td class="py-1 px-2 font-bold">LGL</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">112</td><td class="text-green-custom font-black text-center">480</td></tr>
-                <tr><td class="py-1 px-2 font-bold">MON</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">21</td><td class="text-green-custom font-black text-center">90</td></tr>
-                <tr><td class="py-1 px-2 font-bold">SPX</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">18</td><td class="text-green-custom font-black text-center">77</td></tr>
-                <tr><td class="py-1 px-2 font-bold">PRO</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">6</td><td class="text-red-custom font-black text-center">26</td></tr>
-                <tr><td class="py-1 px-2 font-bold">ADM</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">5</td><td class="text-red-custom font-black text-center">21</td></tr>
-                <tr><td class="py-1 px-2 font-bold">WDG</td><td class="text-center text-slate-400 italic">72</td><td class="text-center font-black">5</td><td class="text-red-custom font-black text-center">21</td></tr>
-                <tr><td class="py-1 px-2 font-bold">VENE</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">9</td></tr>
-                <tr><td class="py-1 px-2 font-bold">DRCT</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">9</td></tr>
-                <tr><td class="py-1 px-2 font-bold">SDG</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">9</td></tr>
-                <tr><td class="py-1 px-2 font-bold">CHA</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">4</td></tr>
-                <tr><td class="py-1 px-2 font-bold">LUM</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">4</td></tr>
-                <tr><td class="py-1 px-2 font-bold">EPV</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">4</td></tr>
-                <tr><td class="py-1 px-2 font-bold">MOD</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">4</td></tr>
-                <tr><td class="py-1 px-2 font-bold">REV</td><td class="text-center text-slate-400 italic">71</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">4</td></tr>
-                <tr class="font-extrabold bg-slate-50 sticky bottom-0"><td class="py-1.5 px-2">Grand total</td><td class="text-center text-slate-400 italic font-bold">1000</td><td class="text-center">178</td><td class="text-red-custom text-center">762</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- TABLE 3: CPR TARGET (EN CONSTRUCCIÓN) -->
-        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-          <div class="bg-amber-50 text-amber-800 text-xs font-bold p-2.5 rounded-lg mb-3">
-            CPR
-          </div>
-          <div class="text-xs text-amber-700 italic py-10 text-center font-bold flex flex-col items-center justify-center gap-2">
-            <i class="fa-solid fa-person-digging text-xl text-amber-600"></i>
-            <span>In construction</span>
-          </div>
-        </div>
-
-        <!-- TABLE 4: MTD CPA CAMPAIGNS — USERS (SUMA KPI = 300) -->
-        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-          <div class="bg-fuchsia-50 text-purple-900 text-xs font-bold p-2.5 rounded-lg mb-3 tracking-wide">
-            MTD CPA CAMPAIGNS — USERS
-          </div>
-          <table class="w-full text-xs table-grid">
-            <thead>
-              <tr class="bg-slate-800 text-white font-extrabold">
-                <th class="py-1.5 px-2 text-left">AB</th>
-                <th class="py-1.5 px-2 text-center">KPI</th>
-                <th class="py-1.5 px-2 text-center">PLAYERS</th>
-                <th class="py-1.5 px-2 text-center">RR</th>
-              </tr>
-            </thead>
-            <tbody class="font-extrabold">
-              <tr>
-                <td class="py-2 px-2 text-slate-900">PRO</td>
-                <td class="text-center text-slate-400 italic">100</td>
-                <td class="text-center text-slate-900">2</td>
-                <td class="text-red-custom text-center">9</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-slate-900">SPX</td>
-                <td class="text-center text-slate-400 italic">100</td>
-                <td class="text-center text-slate-900">1</td>
-                <td class="text-red-custom text-center">4</td>
-              </tr>
-              <tr>
-                <td class="py-2 px-2 text-slate-900">MON</td>
-                <td class="text-center text-slate-400 italic">100</td>
-                <td class="text-center text-slate-900">1</td>
-                <td class="text-red-custom text-center">4</td>
-              </tr>
-              <tr class="font-black bg-slate-50">
-                <td class="py-2.5 px-2 text-slate-900">Grand total</td>
-                <td class="text-center text-slate-400 italic font-bold">300</td>
-                <td class="text-center text-slate-900">4</td>
-                <td class="text-red-custom text-center">17</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+    <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+      <div class="bg-slate-100 text-slate-800 text-xs font-extrabold p-2.5 rounded-lg mb-3 tracking-wide">
+        UNMAPPED PARTNERS — NO DATA YET
       </div>
-
-      <!-- GREY SINGLE-COLUMN TABLE: UNMAPPED PARTNERS -->
-      <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-        <div class="bg-slate-100 text-slate-800 text-xs font-extrabold p-2.5 rounded-lg mb-3 tracking-wide">
-          UNMAPPED PARTNERS — NO DATA YET
-        </div>
-        <div class="overflow-x-auto max-h-80 overflow-y-auto">
-          <table class="w-full text-xs table-grid">
-            <thead>
-              <tr class="bg-slate-100 text-slate-700 font-extrabold sticky top-0">
-                <th class="py-2 px-3 text-left">AFFILIATE / MEDIA PARTNER CODE (3-4 LETTERS)</th>
-              </tr>
-            </thead>
-            <tbody class="font-semibold divide-y divide-slate-200 text-slate-700">
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">PUR</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GRM</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AWP</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">CFL</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">SIGb</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GDC</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FRA</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ECO</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AKI</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ENJ</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FIG</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FST</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">WAN</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ADD</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">CPX</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GOS</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GRZ</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">MAV</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">XLE</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AGO</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FCM</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">REP</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">TAK</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">iDc</td></tr>
-              <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">sms</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="overflow-x-auto max-h-60 overflow-y-auto">
+        <table class="w-full text-xs table-grid">
+          <thead>
+            <tr class="bg-slate-100 text-slate-700 font-extrabold sticky top-0">
+              <th class="py-2 px-3 text-left">AFFILIATE / MEDIA PARTNER CODE (3-4 LETTERS)</th>
+            </tr>
+          </thead>
+          <tbody class="font-semibold divide-y divide-slate-200 text-slate-700">
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">PUR</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GRM</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AWP</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">CFL</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">SIGb</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GDC</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FRA</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ECO</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AKI</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ENJ</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FIG</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FST</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">WAN</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">ADD</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">CPX</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GOS</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GRZ</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">MAV</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">XLE</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AGO</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FCM</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">REP</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">TAK</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">iDc</td></tr>
+            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">sms</td></tr>
+          </tbody>
+        </table>
       </div>
-
     </div>
 
   </div>
@@ -742,12 +928,10 @@
     function switchTab(tab) {
       const v1 = document.getElementById('section-v1');
       const v2 = document.getElementById('section-v2');
-      const v3 = document.getElementById('section-v3');
 
       const btnAll = document.getElementById('tab-all');
       const btnV1 = document.getElementById('tab-v1');
       const btnV2 = document.getElementById('tab-v2');
-      const btnV3 = document.getElementById('tab-v3');
 
       const activeClass = "px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-900 text-white";
       const inactiveClass = "px-3 py-1.5 text-xs font-bold rounded-lg transition bg-slate-100 text-slate-600 hover:bg-slate-200";
@@ -755,76 +939,67 @@
       btnAll.className = inactiveClass;
       btnV1.className = inactiveClass;
       btnV2.className = inactiveClass;
-      btnV3.className = inactiveClass;
 
       if(tab === 'all') {
         v1.style.display = 'block';
         v2.style.display = 'block';
-        v3.style.display = 'block';
         btnAll.className = activeClass;
       } else if(tab === 'v1') {
         v1.style.display = 'block';
         v2.style.display = 'none';
-        v3.style.display = 'none';
         btnV1.className = activeClass;
       } else if(tab === 'v2') {
         v1.style.display = 'none';
         v2.style.display = 'block';
-        v3.style.display = 'none';
         btnV2.className = activeClass;
-      } else if(tab === 'v3') {
-        v1.style.display = 'none';
-        v2.style.display = 'none';
-        v3.style.display = 'block';
-        btnV3.className = activeClass;
       }
     }
 
-    // MAIN LINE CHART INITIALIZATION (SEP 1-7)
+    // MAIN LINE CHART INITIALIZATION (SEP 1-10)
     document.addEventListener('DOMContentLoaded', () => {
       const ctx = document.getElementById('mainLineChart');
       if (ctx) {
         new Chart(ctx.getContext('2d'), {
           type: 'line',
           data: {
-            labels: ['Sep 1', 'Sep 2', 'Sep 3', 'Sep 4', 'Sep 5', 'Sep 6', 'Sep 7'],
+            labels: ['Sep 1', 'Sep 2', 'Sep 3', 'Sep 4', 'Sep 5', 'Sep 6', 'Sep 7', 'Sep 8', 'Sep 9', 'Sep 10'],
             datasets: [
               {
-                label: 'LEADS Real (Avg: 277/day)',
-                data: [265, 270, 275, 280, 282, 283, 284],
+                label: 'LEADS Real (Avg: 279/day)',
+                data: [265, 270, 275, 280, 282, 283, 284, 284, 285, 285],
                 borderColor: '#00d285',
                 backgroundColor: '#00d285',
                 fill: false,
                 borderWidth: 2.5,
                 pointBackgroundColor: '#00d285',
-                pointRadius: 4,
+                pointRadius: 3.5,
                 tension: 0.2
               },
               {
-                label: 'SIGNUPS Real (Avg: 25/day)',
-                data: [22, 24, 25, 26, 27, 27, 27],
+                label: 'SIGNUPS Real (Avg: 24/day)',
+                data: [22, 23, 23, 24, 24, 24, 24, 24, 24, 25],
                 borderColor: '#2563eb',
                 backgroundColor: '#2563eb',
                 fill: false,
                 borderWidth: 2.5,
                 pointBackgroundColor: '#2563eb',
-                pointRadius: 4,
+                pointRadius: 3.5,
                 tension: 0.2
               },
               {
-                label: 'USERS Real (Avg: 0.6/day)',
-                data: [0, 1, 0, 1, 1, 0, 1],
+                label: 'USERS Real (Avg: 1.1/day)',
+                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
                 borderColor: '#a855f7',
                 backgroundColor: '#a855f7',
                 fill: false,
                 borderWidth: 2.5,
                 pointBackgroundColor: '#a855f7',
-                pointRadius: 4,
+                pointRadius: 3.5,
                 tension: 0.2
               },
               {
                 label: 'KPI LEADS (133.3/day)',
-                data: Array(7).fill(133.3),
+                data: Array(10).fill(133.3),
                 borderColor: '#00d285',
                 borderWidth: 2,
                 borderDash: [6, 4],
@@ -833,7 +1008,7 @@
               },
               {
                 label: 'KPI SIGNUPS (33.3/day)',
-                data: Array(7).fill(33.3),
+                data: Array(10).fill(33.3),
                 borderColor: '#2563eb',
                 borderWidth: 2,
                 borderDash: [6, 4],
@@ -842,7 +1017,7 @@
               },
               {
                 label: 'KPI USERS (10/day)',
-                data: Array(7).fill(10),
+                data: Array(10).fill(10),
                 borderColor: '#a855f7',
                 borderWidth: 2,
                 borderDash: [6, 4],
