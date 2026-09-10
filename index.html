@@ -72,719 +72,611 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: SUMMARY (TABLE + 7 BARS + CHART)-->
+    <!-- SECTION 1: SUMMARY                        -->
     <!-- ========================================== -->
     <div id="section-v1" class="space-y-5">
-      
-      <!-- TABLA RESUMEN EJECUTIVA (TEAM / MEDIA) -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-center text-xs min-w-[1050px]">
-            <thead>
-              <tr class="text-white text-xs font-black uppercase tracking-wider">
-                <th class="p-2.5 text-left text-slate-900 bg-white w-28 pl-4">TEAM</th>
-                <th colspan="5" class="p-2.5 bg-blue-600">KPIS</th>
-                <th colspan="5" class="p-2.5 bg-emerald-600">MTD - SEP 2026</th>
-                <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO SEP 30</th>
-              </tr>
-              <tr class="text-[10px] font-extrabold uppercase text-slate-400 bg-white border-b border-slate-200">
-                <th class="py-2 pl-4 text-left"></th>
-                <th class="py-2 px-2">BUDGET</th>
-                <th class="py-2 px-2">SIGNUPS</th>
-                <th class="py-2 px-2">USERS</th>
-                <th class="py-2 px-2">REVENUE</th>
-                <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
-                <th class="py-2 px-2">BUDGET</th>
-                <th class="py-2 px-2">SIGNUPS</th>
-                <th class="py-2 px-2">USERS</th>
-                <th class="py-2 px-2">REVENUE</th>
-                <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
-                <th class="py-2 px-2">BUDGET</th>
-                <th class="py-2 px-2">SIGNUPS</th>
-                <th class="py-2 px-2">USERS</th>
-                <th class="py-2 px-2">REVENUE</th>
-                <th class="py-2 px-2">PROFIT</th>
-                <th class="py-2 px-2 pr-4">ROI</th>
-              </tr>
-            </thead>
-            <tbody class="font-bold text-slate-800 bg-white divide-y divide-slate-100">
-              <tr class="hover:bg-slate-50 transition">
-                <td class="py-3 pl-4 text-left">
-                  <span class="bg-amber-100 text-amber-800 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
-                    MEDIA
-                  </span>
-                </td>
-                <td class="py-3 px-2">$5,500</td>
-                <td class="py-3 px-2">1,000</td>
-                <td class="py-3 px-2">300</td>
-                <td class="py-3 px-2">$16,500</td>
-                <td class="py-3 px-2 border-r border-slate-200">$11,000</td>
-                <td class="py-3 px-2 font-black">$228</td>
-                <td class="py-3 px-2 font-black">237</td>
-                <td class="py-3 px-2 font-black">11</td>
-                <td class="py-3 px-2 font-black">$1,340</td>
-                <td class="py-3 px-2 font-black border-r border-slate-200">$1,112</td>
-                <td class="py-3 px-2 text-green-custom font-black">$684</td>
-                <td class="py-3 px-2 text-red-custom font-black">711</td>
-                <td class="py-3 px-2 text-red-custom font-black">33</td>
-                <td class="py-3 px-2 text-red-custom font-black">$4,020</td>
-                <td class="py-3 px-2 text-red-custom font-black">$3,336</td>
-                <td class="py-3 px-2 pr-4 text-slate-900 font-extrabold">1:5.9</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
 
       <!-- ============================================================ -->
-      <!-- 7 COLUMNAS: CUADRO MÉTRICO + BARRAS DE PROGRESO (REEMPLAZO)  -->
+      <!-- FILA SUPERIOR: 5 MÉTRICAS (BUDGET, SIGNUPS, USERS, REV, PROFIT) -->
       <!-- ============================================================ -->
-      <div class="overflow-x-auto pb-2">
-        <div class="grid grid-cols-7 gap-3 min-w-[1140px] items-start">
-          
-          <!-- COLUMNA 1: LEADS (CPL) -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">LEADS (CPL)</span>
-                <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-regular fa-eye"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">2793</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">4000</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-green-custom font-extrabold">8379</span>
-                </span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 items-start">
+        
+        <!-- COLUMNA 1: BUDGET -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">BUDGET</span>
+              <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px]">
+                <i class="fa-solid fa-wallet"></i>
               </div>
             </div>
+            <div class="my-0.5 flex items-baseline gap-1">
+              <span class="text-xl font-black text-slate-900">$228</span>
+              <span class="text-[9px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">5.5k</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-green-custom font-extrabold">684</span>
+              </span>
+            </div>
+          </div>
 
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                MTD CPL — LEADS
+          <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[320px]">
+            <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate uppercase tracking-wider">
+              BUDGET
+            </div>
+            <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">FXM</span>
+                  <span class="font-black text-slate-900">$135</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-amber-500 h-2 rounded-full" style="width: 100%"></div>
+                </div>
               </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">FXM</span>
-                    <span class="font-black text-slate-900">1641</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
 
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">686</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 42%"></div>
-                  </div>
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LGL</span>
+                  <span class="font-black text-slate-900">$57</span>
                 </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">463</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 28%"></div>
-                  </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-amber-500 h-2 rounded-full" style="width: 42%"></div>
                 </div>
+              </div>
 
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">CHA</span>
-                    <span class="font-black text-slate-900">3</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 2%"></div>
-                  </div>
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADM</span>
+                  <span class="font-black text-slate-900">$36</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-amber-500 h-2 rounded-full" style="width: 27%"></div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- COLUMNA 2: CPR -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-amber-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 truncate">CPR</span>
-                <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-solid fa-bullseye"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">0.0</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-amber-50 rounded text-[9px] font-bold text-amber-800">
-                  KPI <span class="text-slate-900 font-extrabold">200</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-amber-50 rounded text-[9px] font-bold text-amber-800">
-                  RR <span class="text-slate-500 font-extrabold">0.0</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-amber-200 flex flex-col h-[340px]">
-              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                CPR
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">Total</span>
-                    <span class="font-black text-slate-900">0.0</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-amber-400 h-2 rounded-full" style="width: 0%"></div>
-                  </div>
-                </div>
-                <div class="text-center text-[10px] text-slate-400 italic pt-6">
-                  No partner activity
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMNA 3: BUDGET -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">BUDGET</span>
-                <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-solid fa-wallet"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">$228</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">5.5k</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-green-custom font-extrabold">684</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                MTD BUDGET
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">FXM</span>
-                    <span class="font-black text-slate-900">$135</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-amber-500 h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">$57</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-amber-500 h-2 rounded-full" style="width: 42%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">$36</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-amber-500 h-2 rounded-full" style="width: 27%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMNA 4: SIGNUPS -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">SIGNUPS</span>
-                <div class="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-solid fa-check"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">237</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">1000</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-red-custom font-extrabold">711</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales (scrollable) -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-blue-50 text-blue-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                MTD CPR — SIGNUPS
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1.5 space-y-3">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">126</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">MON</span>
-                    <span class="font-black text-slate-900">34</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 27%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">SPX</span>
-                    <span class="font-black text-slate-900">20</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 16%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">PRO</span>
-                    <span class="font-black text-slate-900">14</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 11%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">10</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 8%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LUM</span>
-                    <span class="font-black text-slate-900">7</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">WDG</span>
-                    <span class="font-black text-slate-900">7</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">VENE</span>
-                    <span class="font-black text-slate-900">3</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADO</span>
-                    <span class="font-black text-slate-900">3</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">CHA</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">EPV</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">MOD</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">DRCT</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">SDG</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">WRW</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">REV</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">BTD</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMNA 5: USERS (CPA) -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">USERS (CPA)</span>
-                <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-regular fa-user"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">11</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">300</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-red-custom font-extrabold">33</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-fuchsia-50 text-purple-900 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate tracking-wide">
-                MTD CPA — USERS
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">PRO</span>
-                    <span class="font-black text-slate-900">5</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">MON</span>
-                    <span class="font-black text-slate-900">2</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 40%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">SPX</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">WDG</span>
-                    <span class="font-black text-slate-900">1</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMNA 6: REVENUE -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">REVENUE</span>
-                <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-solid fa-dollar-sign"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">$1,340</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">16.5k</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-red-custom font-extrabold">4,020</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                MTD REVENUE
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">PRO</span>
-                    <span class="font-black text-slate-900">$730</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">$220</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">SPX</span>
-                    <span class="font-black text-slate-900">$220</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">$170</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 23%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- COLUMNA 7: PROFIT -->
-          <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- Cuadro métrico -->
-            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
-              <div class="flex justify-between items-start">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">PROFIT</span>
-                <div class="w-5 h-5 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-[10px]">
-                  <i class="fa-solid fa-sack-dollar"></i>
-                </div>
-              </div>
-              <div class="my-0.5 flex items-baseline gap-1">
-                <span class="text-xl font-black text-slate-900">$1,112</span>
-                <span class="text-[9px] font-bold text-slate-400">MTD</span>
-              </div>
-              <div class="flex items-center gap-1 flex-wrap">
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  KPI <span class="text-slate-900 font-extrabold">11k</span>
-                </span>
-                <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                  RR <span class="text-red-custom font-extrabold">3,336</span>
-                </span>
-              </div>
-            </div>
-
-            <!-- Gráfica de barras horizontales -->
-            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-teal-50 text-teal-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
-                MTD PROFIT
-              </div>
-              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">PRO</span>
-                    <span class="font-black text-slate-900">$730</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 100%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">SPX</span>
-                    <span class="font-black text-slate-900">$220</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 30%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">ADM</span>
-                    <span class="font-black text-slate-900">$184</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 25%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">LGL</span>
-                    <span class="font-black text-slate-900">$113</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-teal-500 h-2 rounded-full" style="width: 15.5%"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="flex justify-between items-center text-xs mb-1">
-                    <span class="font-extrabold text-slate-800">FXM</span>
-                    <span class="font-black text-red-600">-$135</span>
-                  </div>
-                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                    <div class="bg-red-500 h-2 rounded-full" style="width: 18.5%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <!-- COLUMNA 2: SIGNUPS -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">SIGNUPS</span>
+              <div class="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px]">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            </div>
+            <div class="my-0.5 flex items-baseline gap-1">
+              <span class="text-xl font-black text-slate-900">237</span>
+              <span class="text-[9px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">1000</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">711</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[320px]">
+            <div class="bg-blue-50 text-blue-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate uppercase tracking-wider">
+              SIGNUPS
+            </div>
+            <div class="overflow-y-auto flex-1 pr-1.5 space-y-3">
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LGL</span>
+                  <span class="font-black text-slate-900">126</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">MON</span>
+                  <span class="font-black text-slate-900">34</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 27%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">SPX</span>
+                  <span class="font-black text-slate-900">20</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 16%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">PRO</span>
+                  <span class="font-black text-slate-900">14</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 11%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADM</span>
+                  <span class="font-black text-slate-900">10</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 8%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LUM</span>
+                  <span class="font-black text-slate-900">7</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">WDG</span>
+                  <span class="font-black text-slate-900">7</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">VENE</span>
+                  <span class="font-black text-slate-900">3</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADO</span>
+                  <span class="font-black text-slate-900">3</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">CHA</span>
+                  <span class="font-black text-slate-900">2</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">EPV</span>
+                  <span class="font-black text-slate-900">2</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">MOD</span>
+                  <span class="font-black text-slate-900">2</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA 3: USERS -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">USERS</span>
+              <div class="w-5 h-5 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-[10px]">
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <div class="my-0.5 flex items-baseline gap-1">
+              <span class="text-xl font-black text-slate-900">11</span>
+              <span class="text-[9px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">300</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">33</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[320px]">
+            <div class="bg-fuchsia-50 text-purple-900 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate tracking-wider uppercase">
+              USERS
+            </div>
+            <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">PRO</span>
+                  <span class="font-black text-slate-900">5</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">MON</span>
+                  <span class="font-black text-slate-900">2</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 40%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADM</span>
+                  <span class="font-black text-slate-900">1</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">SPX</span>
+                  <span class="font-black text-slate-900">1</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LGL</span>
+                  <span class="font-black text-slate-900">1</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">WDG</span>
+                  <span class="font-black text-slate-900">1</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA 4: REVENUE -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">REVENUE</span>
+              <div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px]">
+                <i class="fa-solid fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="my-0.5 flex items-baseline gap-1">
+              <span class="text-xl font-black text-slate-900">$1,340</span>
+              <span class="text-[9px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">16.5k</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">4,020</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[320px]">
+            <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate uppercase tracking-wider">
+              REVENUE
+            </div>
+            <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">PRO</span>
+                  <span class="font-black text-slate-900">$730</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-[#00d285] h-2 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADM</span>
+                  <span class="font-black text-slate-900">$220</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">SPX</span>
+                  <span class="font-black text-slate-900">$220</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LGL</span>
+                  <span class="font-black text-slate-900">$170</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-[#00d285] h-2 rounded-full" style="width: 23%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA 5: PROFIT -->
+        <div class="flex flex-col gap-2.5 min-w-0">
+          <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
+            <div class="flex justify-between items-start">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">PROFIT</span>
+              <div class="w-5 h-5 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-[10px]">
+                <i class="fa-solid fa-sack-dollar"></i>
+              </div>
+            </div>
+            <div class="my-0.5 flex items-baseline gap-1">
+              <span class="text-xl font-black text-slate-900">$1,112</span>
+              <span class="text-[9px] font-bold text-slate-400">MTD</span>
+            </div>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                KPI <span class="text-slate-900 font-extrabold">11k</span>
+              </span>
+              <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
+                RR <span class="text-red-custom font-extrabold">3,336</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[320px]">
+            <div class="bg-teal-50 text-teal-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate uppercase tracking-wider">
+              PROFIT
+            </div>
+            <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">PRO</span>
+                  <span class="font-black text-slate-900">$730</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-teal-500 h-2 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">SPX</span>
+                  <span class="font-black text-slate-900">$220</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-teal-500 h-2 rounded-full" style="width: 30%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">ADM</span>
+                  <span class="font-black text-slate-900">$184</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-teal-500 h-2 rounded-full" style="width: 25%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">LGL</span>
+                  <span class="font-black text-slate-900">$113</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-teal-500 h-2 rounded-full" style="width: 15.5%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between items-center text-xs mb-1">
+                  <span class="font-extrabold text-slate-800">FXM</span>
+                  <span class="font-black text-red-600">-$135</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div class="bg-red-500 h-2 rounded-full" style="width: 18.5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- MAIN LINE CHART (SEP 1-10) -->
-      <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200 mt-3">
+      <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
         <h3 class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1-10</h3>
         <div class="relative w-full h-72 md:h-80">
           <canvas id="mainLineChart"></canvas>
         </div>
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- GRÁFICOS CIRCULARES DEBAJO DE LA GRÁFICA: LEADS (CPL) Y CPR -->
+      <!-- ============================================================ -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- CIRCULAR 1: LEADS (CPL) -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
+            <div>
+              <span class="text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">LEADS (CPL)</span>
+              <h4 class="text-sm font-extrabold text-slate-900 mt-1">Lead Share by Partner</h4>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">2,793</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">4,000</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-green-custom">8,379</b></span>
+            </div>
+          </div>
+
+          <!-- Contenedor del gráfico circular -->
+          <div class="relative w-full h-64 flex items-center justify-center">
+            <canvas id="leadsDonutChart"></canvas>
+            <div class="absolute flex flex-col items-center justify-center pointer-events-none">
+              <span class="text-2xl font-black text-slate-900">2,793</span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Total Leads</span>
+            </div>
+          </div>
+
+          <!-- Leyenda con desglose numérico y porcentual -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs">
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#00d285]"></span>
+              <div>
+                <p class="font-black text-slate-900">FXM: 1,641</p>
+                <p class="text-[10px] text-slate-400 font-bold">58.8%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#2563eb]"></span>
+              <div>
+                <p class="font-black text-slate-900">ADM: 686</p>
+                <p class="text-[10px] text-slate-400 font-bold">24.6%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#a855f7]"></span>
+              <div>
+                <p class="font-black text-slate-900">LGL: 463</p>
+                <p class="text-[10px] text-slate-400 font-bold">16.6%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#f59e0b]"></span>
+              <div>
+                <p class="font-black text-slate-900">CHA: 3</p>
+                <p class="text-[10px] text-slate-400 font-bold">0.1%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CIRCULAR 2: CPR -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
+            <div>
+              <span class="text-xs font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">CPR</span>
+              <h4 class="text-sm font-extrabold text-slate-900 mt-1">Registrations Share by Partner</h4>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">237</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">1,000</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-red-custom">711</b></span>
+            </div>
+          </div>
+
+          <!-- Contenedor del gráfico circular -->
+          <div class="relative w-full h-64 flex items-center justify-center">
+            <canvas id="cprDonutChart"></canvas>
+            <div class="absolute flex flex-col items-center justify-center pointer-events-none">
+              <span class="text-2xl font-black text-slate-900">237</span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Total Signups</span>
+            </div>
+          </div>
+
+          <!-- Leyenda con desglose numérico y porcentual -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs">
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#2563eb]"></span>
+              <div>
+                <p class="font-black text-slate-900">LGL: 126</p>
+                <p class="text-[10px] text-slate-400 font-bold">53.2%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#00d285]"></span>
+              <div>
+                <p class="font-black text-slate-900">MON: 34</p>
+                <p class="text-[10px] text-slate-400 font-bold">14.3%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#a855f7]"></span>
+              <div>
+                <p class="font-black text-slate-900">SPX: 20</p>
+                <p class="text-[10px] text-slate-400 font-bold">8.4%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#f59e0b]"></span>
+              <div>
+                <p class="font-black text-slate-900">PRO: 14</p>
+                <p class="text-[10px] text-slate-400 font-bold">5.9%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#06b6d4]"></span>
+              <div>
+                <p class="font-black text-slate-900">ADM: 10</p>
+                <p class="text-[10px] text-slate-400 font-bold">4.2%</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+              <span class="w-3 h-3 rounded-full bg-[#94a3b8]"></span>
+              <div>
+                <p class="font-black text-slate-900">Others: 33</p>
+                <p class="text-[10px] text-slate-400 font-bold">13.9%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1223,11 +1115,13 @@
       }
     }
 
-    // MAIN LINE CHART INITIALIZATION (SEP 1-10)
+    // CHARTS INITIALIZATION
     document.addEventListener('DOMContentLoaded', () => {
-      const ctx = document.getElementById('mainLineChart');
-      if (ctx) {
-        new Chart(ctx.getContext('2d'), {
+      
+      // 1. MAIN LINE CHART (SEP 1-10)
+      const ctxLine = document.getElementById('mainLineChart');
+      if (ctxLine) {
+        new Chart(ctxLine.getContext('2d'), {
           type: 'line',
           data: {
             labels: ['Sep 1', 'Sep 2', 'Sep 3', 'Sep 4', 'Sep 5', 'Sep 6', 'Sep 7', 'Sep 8', 'Sep 9', 'Sep 10'],
@@ -1355,6 +1249,89 @@
           }
         });
       }
+
+      // 2. LEADS (CPL) DOUGHNUT CHART
+      const ctxLeads = document.getElementById('leadsDonutChart');
+      if (ctxLeads) {
+        new Chart(ctxLeads.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: ['FXM', 'ADM', 'LGL', 'CHA'],
+            datasets: [{
+              data: [1641, 686, 463, 3],
+              backgroundColor: ['#00d285', '#2563eb', '#a855f7', '#f59e0b'],
+              borderWidth: 3,
+              borderColor: '#ffffff',
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleFont: { family: "'Inter', sans-serif", size: 12, weight: 'bold' },
+                bodyFont: { family: "'Inter', sans-serif", size: 12 },
+                padding: 10,
+                cornerRadius: 8,
+                callbacks: {
+                  label: function(context) {
+                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    const val = context.raw;
+                    const pct = ((val / total) * 100).toFixed(1);
+                    return ` ${context.label}: ${val.toLocaleString()} (${pct}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // 3. CPR DOUGHNUT CHART
+      const ctxCPR = document.getElementById('cprDonutChart');
+      if (ctxCPR) {
+        new Chart(ctxCPR.getContext('2d'), {
+          type: 'doughnut',
+          data: {
+            labels: ['LGL', 'MON', 'SPX', 'PRO', 'ADM', 'Others'],
+            datasets: [{
+              data: [126, 34, 20, 14, 10, 33],
+              backgroundColor: ['#2563eb', '#00d285', '#a855f7', '#f59e0b', '#06b6d4', '#94a3b8'],
+              borderWidth: 3,
+              borderColor: '#ffffff',
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleFont: { family: "'Inter', sans-serif", size: 12, weight: 'bold' },
+                bodyFont: { family: "'Inter', sans-serif", size: 12 },
+                padding: 10,
+                cornerRadius: 8,
+                callbacks: {
+                  label: function(context) {
+                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    const val = context.raw;
+                    const pct = ((val / total) * 100).toFixed(1);
+                    return ` ${context.label}: ${val.toLocaleString()} (${pct}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
     });
   </script>
 </body>
