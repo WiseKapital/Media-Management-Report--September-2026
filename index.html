@@ -27,21 +27,12 @@
     .bg-purple-custom { background-color: #a855f7; }
     .bg-amber-custom { background-color: #f59e0b; }
 
-    /* TABLE GRID STYLE FOR ALL TABLES */
+    /* TABLE GRID STYLE FOR MAIN TABLES */
     table.table-grid,
     table.table-grid th,
     table.table-grid td {
-      border: 1px solid #cbd5e1; /* slate-300 */
+      border: 1px solid #cbd5e1;
       border-collapse: collapse;
-    }
-
-    /* 7-COLUMN RESPONSIVE LAYOUT */
-    @media (min-width: 1280px) {
-      .grid-cols-7-layout {
-        display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-        gap: 12px;
-      }
     }
 
     /* SCROLLBAR REFINEMENT */
@@ -81,40 +72,33 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: SUMMARY (TABLE + 7 COLS + CHART)-->
+    <!-- SECTION 1: SUMMARY (TABLE + 7 BARS + CHART)-->
     <!-- ========================================== -->
     <div id="section-v1" class="space-y-5">
       
-      <!-- ========================================== -->
-      <!-- TABLA RESUMEN EJECUTIVA (ARRIBA DEL TOP)   -->
-      <!-- ========================================== -->
+      <!-- TABLA RESUMEN EJECUTIVA (TEAM / MEDIA) -->
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-center text-xs min-w-[1050px]">
             <thead>
-              <!-- FILA 1: BLOQUES DE COLOR -->
               <tr class="text-white text-xs font-black uppercase tracking-wider">
                 <th class="p-2.5 text-left text-slate-900 bg-white w-28 pl-4">TEAM</th>
                 <th colspan="5" class="p-2.5 bg-blue-600">KPIS</th>
                 <th colspan="5" class="p-2.5 bg-emerald-600">MTD - SEP 2026</th>
                 <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO SEP 30</th>
               </tr>
-              <!-- FILA 2: SUB-ENCABEZADOS -->
               <tr class="text-[10px] font-extrabold uppercase text-slate-400 bg-white border-b border-slate-200">
                 <th class="py-2 pl-4 text-left"></th>
-                <!-- KPIS -->
                 <th class="py-2 px-2">BUDGET</th>
                 <th class="py-2 px-2">SIGNUPS</th>
                 <th class="py-2 px-2">USERS</th>
                 <th class="py-2 px-2">REVENUE</th>
                 <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
-                <!-- MTD -->
                 <th class="py-2 px-2">BUDGET</th>
                 <th class="py-2 px-2">SIGNUPS</th>
                 <th class="py-2 px-2">USERS</th>
                 <th class="py-2 px-2">REVENUE</th>
                 <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
-                <!-- RR -->
                 <th class="py-2 px-2">BUDGET</th>
                 <th class="py-2 px-2">SIGNUPS</th>
                 <th class="py-2 px-2">USERS</th>
@@ -125,25 +109,21 @@
             </thead>
             <tbody class="font-bold text-slate-800 bg-white divide-y divide-slate-100">
               <tr class="hover:bg-slate-50 transition">
-                <!-- TEAM BADGE -->
                 <td class="py-3 pl-4 text-left">
                   <span class="bg-amber-100 text-amber-800 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
                     MEDIA
                   </span>
                 </td>
-                <!-- KPIS VALUES -->
                 <td class="py-3 px-2">$5,500</td>
                 <td class="py-3 px-2">1,000</td>
                 <td class="py-3 px-2">300</td>
                 <td class="py-3 px-2">$16,500</td>
                 <td class="py-3 px-2 border-r border-slate-200">$11,000</td>
-                <!-- MTD VALUES -->
                 <td class="py-3 px-2 font-black">$228</td>
                 <td class="py-3 px-2 font-black">237</td>
                 <td class="py-3 px-2 font-black">11</td>
                 <td class="py-3 px-2 font-black">$1,340</td>
                 <td class="py-3 px-2 font-black border-r border-slate-200">$1,112</td>
-                <!-- RR VALUES -->
                 <td class="py-3 px-2 text-green-custom font-black">$684</td>
                 <td class="py-3 px-2 text-red-custom font-black">711</td>
                 <td class="py-3 px-2 text-red-custom font-black">33</td>
@@ -156,14 +136,15 @@
         </div>
       </div>
 
-      <!-- ========================================== -->
-      <!-- 7 COLUMNAS: CUADRO MÉTRICO + TABLA         -->
-      <!-- ========================================== -->
+      <!-- ============================================================ -->
+      <!-- 7 COLUMNAS: CUADRO MÉTRICO + BARRAS DE PROGRESO (REEMPLAZO)  -->
+      <!-- ============================================================ -->
       <div class="overflow-x-auto pb-2">
         <div class="grid grid-cols-7 gap-3 min-w-[1140px] items-start">
           
           <!-- COLUMNA 1: LEADS (CPL) -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">LEADS (CPL)</span>
@@ -185,40 +166,58 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 MTD CPL — LEADS
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">1641</td><td class="text-green-custom font-black text-center">4923</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">686</td><td class="text-green-custom font-black text-center">2058</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">463</td><td class="text-green-custom font-black text-center">1389</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
-                    <tr class="font-extrabold bg-slate-50">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">4000</td>
-                      <td class="text-center font-black text-slate-900">2793</td>
-                      <td class="text-green-custom font-black text-center">8379</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">FXM</span>
+                    <span class="font-black text-slate-900">1641</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">686</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 42%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">463</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 28%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">CHA</span>
+                    <span class="font-black text-slate-900">3</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 2%"></div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
-          <!-- COLUMNA 2: CPR (AMARILLA) -->
+          <!-- COLUMNA 2: CPR -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-amber-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 truncate">CPR</span>
@@ -240,36 +239,31 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-amber-200 flex flex-col h-[340px]">
-              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-amber-200 flex flex-col h-[340px]">
+              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 CPR
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr class="font-extrabold bg-slate-50">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">200</td>
-                      <td class="text-center font-black text-slate-900">0.0</td>
-                      <td class="text-red-custom font-black text-center">0.0</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">Total</span>
+                    <span class="font-black text-slate-900">0.0</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-amber-400 h-2 rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="text-center text-[10px] text-slate-400 italic pt-6">
+                  No partner activity
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
           <!-- COLUMNA 3: BUDGET -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">BUDGET</span>
@@ -291,39 +285,48 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 MTD BUDGET
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1834</td><td class="text-center font-black text-slate-900">$135</td><td class="text-green-custom font-black text-center">$405</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black text-slate-900">$57</td><td class="text-green-custom font-black text-center">$171</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black text-slate-900">$36</td><td class="text-green-custom font-black text-center">$108</td></tr>
-                    <tr class="font-extrabold bg-slate-50">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">5500</td>
-                      <td class="text-center font-black text-slate-900">$228</td>
-                      <td class="text-green-custom text-center font-black">$684</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">FXM</span>
+                    <span class="font-black text-slate-900">$135</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">$57</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width: 42%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">$36</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width: 27%"></div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
-          <!-- COLUMNA 4: SIGNUPS (CPR) -->
+          <!-- COLUMNA 4: SIGNUPS -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">SIGNUPS</span>
@@ -345,52 +348,188 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-blue-50 text-blue-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales (scrollable) -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-blue-50 text-blue-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 MTD CPR — SIGNUPS
               </div>
-              <div class="overflow-y-auto flex-1 pr-0.5">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold sticky top-0 shadow-sm z-10">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">126</td><td class="text-green-custom font-black text-center">378</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">MON</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">34</td><td class="text-green-custom font-black text-center">102</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">20</td><td class="text-green-custom font-black text-center">60</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">14</td><td class="text-red-custom font-black text-center">42</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">10</td><td class="text-red-custom font-black text-center">30</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LUM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">7</td><td class="text-red-custom font-black text-center">21</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">WDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">7</td><td class="text-red-custom font-black text-center">21</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">VENE</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">EPV</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">MOD</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">DRCT</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">WRW</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">REV</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">BTD</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
-                    <tr class="font-extrabold bg-slate-50 sticky bottom-0 shadow-sm z-10">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">1000</td>
-                      <td class="text-center font-black text-slate-900">237</td>
-                      <td class="text-red-custom font-black text-center">711</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1.5 space-y-3">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">126</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">MON</span>
+                    <span class="font-black text-slate-900">34</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 27%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">SPX</span>
+                    <span class="font-black text-slate-900">20</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 16%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">PRO</span>
+                    <span class="font-black text-slate-900">14</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 11%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">10</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 8%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LUM</span>
+                    <span class="font-black text-slate-900">7</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">WDG</span>
+                    <span class="font-black text-slate-900">7</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">VENE</span>
+                    <span class="font-black text-slate-900">3</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADO</span>
+                    <span class="font-black text-slate-900">3</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 2.5%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">CHA</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">EPV</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">MOD</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">DRCT</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">SDG</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">WRW</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">REV</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">BTD</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-600 h-2 rounded-full" style="width: 1%"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- COLUMNA 5: USERS (CPA) -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">USERS (CPA)</span>
@@ -412,42 +551,78 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-fuchsia-50 text-purple-900 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate tracking-wide">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-fuchsia-50 text-purple-900 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate tracking-wide">
                 MTD CPA — USERS
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-800 text-white font-extrabold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">PL</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-extrabold">
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">PRO</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">5</td><td class="text-red-custom text-center font-black">15</td></tr>
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">MON</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">2</td><td class="text-red-custom text-center font-black">6</td></tr>
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">ADM</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">SPX</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">LGL</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
-                    <tr><td class="py-1 px-1 text-slate-900 font-bold">WDG</td><td class="text-center text-slate-400 italic font-medium">50</td><td class="text-center text-slate-900 font-black">1</td><td class="text-red-custom text-center font-black">3</td></tr>
-                    <tr class="font-black bg-slate-50">
-                      <td class="py-1.5 px-1 text-slate-900 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">300</td>
-                      <td class="text-center text-slate-900 font-black">11</td>
-                      <td class="text-red-custom text-center font-black">33</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">PRO</span>
+                    <span class="font-black text-slate-900">5</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">MON</span>
+                    <span class="font-black text-slate-900">2</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 40%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">SPX</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">WDG</span>
+                    <span class="font-black text-slate-900">1</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
           <!-- COLUMNA 6: REVENUE -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">REVENUE</span>
@@ -469,40 +644,58 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 MTD REVENUE
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$170</td><td class="text-red-custom font-black text-center">$510</td></tr>
-                    <tr class="font-extrabold bg-slate-50">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">16.5k</td>
-                      <td class="text-center font-black text-slate-900">$1340</td>
-                      <td class="text-red-custom font-black text-center">$4020</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">PRO</span>
+                    <span class="font-black text-slate-900">$730</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">$220</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">SPX</span>
+                    <span class="font-black text-slate-900">$220</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 30%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">$170</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-[#00d285] h-2 rounded-full" style="width: 23%"></div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
-          <!-- COLUMNA 7: PROFIT (NÚMEROS DE MTD EN NEGRO) -->
+          <!-- COLUMNA 7: PROFIT -->
           <div class="flex flex-col gap-2.5 min-w-0">
+            <!-- Cuadro métrico -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">PROFIT</span>
@@ -524,36 +717,62 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
-              <div class="bg-teal-50 text-teal-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
+            <!-- Gráfica de barras horizontales -->
+            <div class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex flex-col h-[340px]">
+              <div class="bg-teal-50 text-teal-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-3 text-center truncate">
                 MTD PROFIT
               </div>
-              <div class="overflow-x-auto">
-                <table class="w-full text-[11px] table-grid table-fixed">
-                  <thead>
-                    <tr class="bg-slate-50 text-slate-700 font-bold">
-                      <th class="py-1 px-1 text-left w-[28%]">AB</th>
-                      <th class="py-1 px-1 text-center w-[24%]">KPI</th>
-                      <th class="py-1 px-1 text-center w-[24%]">MTD</th>
-                      <th class="py-1 px-1 text-center w-[24%]">RR</th>
-                    </tr>
-                  </thead>
-                  <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$184</td><td class="text-red-custom font-black text-center">$552</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$113</td><td class="text-red-custom font-black text-center">$339</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">-$135</td><td class="text-red-custom font-black text-center">-$405</td></tr>
-                    <tr class="font-extrabold bg-slate-50">
-                      <td class="py-1.5 px-1 font-extrabold">Total</td>
-                      <td class="text-center text-slate-400 italic font-bold">11k</td>
-                      <td class="text-center font-black text-slate-900">$1112</td>
-                      <td class="text-red-custom font-black text-center">$3336</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="overflow-y-auto flex-1 pr-1 space-y-3.5">
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">PRO</span>
+                    <span class="font-black text-slate-900">$730</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-teal-500 h-2 rounded-full" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">SPX</span>
+                    <span class="font-black text-slate-900">$220</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-teal-500 h-2 rounded-full" style="width: 30%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">ADM</span>
+                    <span class="font-black text-slate-900">$184</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-teal-500 h-2 rounded-full" style="width: 25%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">LGL</span>
+                    <span class="font-black text-slate-900">$113</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-teal-500 h-2 rounded-full" style="width: 15.5%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center text-xs mb-1">
+                    <span class="font-extrabold text-slate-800">FXM</span>
+                    <span class="font-black text-red-600">-$135</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-red-500 h-2 rounded-full" style="width: 18.5%"></div>
+                  </div>
+                </div>
               </div>
-              <div class="flex-1"></div>
             </div>
           </div>
 
@@ -592,7 +811,7 @@
         </div>
       </div>
 
-      <!-- DETAILED MAIN TABLE CON TODAS LAS CELDAS DE FXM ALINEADAS -->
+      <!-- DETAILED MAIN TABLE (13 COLUMNAS COMPLETAS Y ALINEADAS) -->
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs table-grid">
           <thead>
@@ -714,7 +933,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
-            <!-- Row: FXM (CORREGIDO CON LAS 13 CELDAS COMPLETAS) -->
+            <!-- Row: FXM -->
             <tr class="hover:bg-slate-50">
               <td class="p-2.5 font-extrabold">FXM</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
@@ -808,7 +1027,7 @@
               <td class="p-2.5 text-center text-red-custom font-extrabold">15</td>
               <td class="p-2.5 text-center font-extrabold">730</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
-              <td class="p-2.5 text-center text-green-custom font-bold">730</td>
+              <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">730</td>
             </tr>
             <!-- Row: REV -->
             <tr class="hover:bg-slate-50">
@@ -856,7 +1075,7 @@
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
               <td class="p-2.5 text-center font-extrabold">220</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
-              <td class="p-2.5 text-center text-green-custom font-bold">220</td>
+              <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">220</td>
             </tr>
             <!-- Row: VENE -->
             <tr class="hover:bg-slate-50">
