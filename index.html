@@ -35,6 +35,15 @@
       border-collapse: collapse;
     }
 
+    /* 7-COLUMN RESPONSIVE LAYOUT */
+    @media (min-width: 1280px) {
+      .grid-cols-7-layout {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 12px;
+      }
+    }
+
     /* SCROLLBAR REFINEMENT */
     ::-webkit-scrollbar {
       width: 5px;
@@ -54,8 +63,8 @@
 </head>
 <body class="p-3 md:p-6 min-h-screen">
 
-  <!-- CONTENEDOR PRINCIPAL CENTRADO (MÁXIMO 1400PX IGUAL AL REPORTE DE REFERENCIA) -->
-  <div class="max-w-[1400px] mx-auto space-y-6">
+  <!-- CONTENEDOR PRINCIPAL CENTRADO (MÁXIMO 1400PX) -->
+  <div class="max-w-[1400px] mx-auto space-y-5">
 
     <!-- TOP TITLE HEADER -->
     <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
@@ -72,19 +81,89 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SECTION 1: 7 COLUMNAS (CUADRO + TABLA)     -->
+    <!-- SECTION 1: SUMMARY (TABLE + 7 COLS + CHART)-->
     <!-- ========================================== -->
     <div id="section-v1" class="space-y-5">
       
-      <!-- WRAPPER CON SCROLL SUAVE PARA NO COMPRIMIR EN PANTALLAS MENORES -->
+      <!-- ========================================== -->
+      <!-- TABLA RESUMEN EJECUTIVA (ARRIBA DEL TOP)   -->
+      <!-- ========================================== -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-center text-xs min-w-[1050px]">
+            <thead>
+              <!-- FILA 1: BLOQUES DE COLOR -->
+              <tr class="text-white text-xs font-black uppercase tracking-wider">
+                <th class="p-2.5 text-left text-slate-900 bg-white w-28 pl-4">TEAM</th>
+                <th colspan="5" class="p-2.5 bg-blue-600">KPIS</th>
+                <th colspan="5" class="p-2.5 bg-emerald-600">MTD - SEP 2026</th>
+                <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO SEP 30</th>
+              </tr>
+              <!-- FILA 2: SUB-ENCABEZADOS -->
+              <tr class="text-[10px] font-extrabold uppercase text-slate-400 bg-white border-b border-slate-200">
+                <th class="py-2 pl-4 text-left"></th>
+                <!-- KPIS -->
+                <th class="py-2 px-2">BUDGET</th>
+                <th class="py-2 px-2">SIGNUPS</th>
+                <th class="py-2 px-2">USERS</th>
+                <th class="py-2 px-2">REVENUE</th>
+                <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
+                <!-- MTD -->
+                <th class="py-2 px-2">BUDGET</th>
+                <th class="py-2 px-2">SIGNUPS</th>
+                <th class="py-2 px-2">USERS</th>
+                <th class="py-2 px-2">REVENUE</th>
+                <th class="py-2 px-2 border-r border-slate-200">PROFIT</th>
+                <!-- RR -->
+                <th class="py-2 px-2">BUDGET</th>
+                <th class="py-2 px-2">SIGNUPS</th>
+                <th class="py-2 px-2">USERS</th>
+                <th class="py-2 px-2">REVENUE</th>
+                <th class="py-2 px-2">PROFIT</th>
+                <th class="py-2 px-2 pr-4">ROI</th>
+              </tr>
+            </thead>
+            <tbody class="font-bold text-slate-800 bg-white divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50 transition">
+                <!-- TEAM BADGE -->
+                <td class="py-3 pl-4 text-left">
+                  <span class="bg-amber-100 text-amber-800 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                    MEDIA
+                  </span>
+                </td>
+                <!-- KPIS VALUES -->
+                <td class="py-3 px-2">$5,500</td>
+                <td class="py-3 px-2">1,000</td>
+                <td class="py-3 px-2">300</td>
+                <td class="py-3 px-2">$16,500</td>
+                <td class="py-3 px-2 border-r border-slate-200">$11,000</td>
+                <!-- MTD VALUES -->
+                <td class="py-3 px-2 font-black">$228</td>
+                <td class="py-3 px-2 font-black">237</td>
+                <td class="py-3 px-2 font-black">11</td>
+                <td class="py-3 px-2 font-black">$1,340</td>
+                <td class="py-3 px-2 font-black border-r border-slate-200">$1,112</td>
+                <!-- RR VALUES -->
+                <td class="py-3 px-2 text-green-custom font-black">$684</td>
+                <td class="py-3 px-2 text-red-custom font-black">711</td>
+                <td class="py-3 px-2 text-red-custom font-black">33</td>
+                <td class="py-3 px-2 text-red-custom font-black">$4,020</td>
+                <td class="py-3 px-2 text-red-custom font-black">$3,336</td>
+                <td class="py-3 px-2 pr-4 text-slate-900 font-extrabold">1:5.9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 7 COLUMNAS: CUADRO MÉTRICO + TABLA         -->
+      <!-- ========================================== -->
       <div class="overflow-x-auto pb-2">
         <div class="grid grid-cols-7 gap-3 min-w-[1140px] items-start">
           
-          <!-- ========================================== -->
-          <!-- COLUMNA 1: LEADS (CPL)                     -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 1: LEADS (CPL) -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">LEADS (CPL)</span>
@@ -106,7 +185,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 MTD CPL — LEADS
@@ -122,14 +200,14 @@
                     </tr>
                   </thead>
                   <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">1641</td><td class="text-green-custom font-black text-center">4923</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">686</td><td class="text-green-custom font-black text-center">2058</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">463</td><td class="text-green-custom font-black text-center">1389</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">1641</td><td class="text-green-custom font-black text-center">4923</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">686</td><td class="text-green-custom font-black text-center">2058</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">463</td><td class="text-green-custom font-black text-center">1389</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">1000</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
                     <tr class="font-extrabold bg-slate-50">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">4000</td>
-                      <td class="text-center font-black">2793</td>
+                      <td class="text-center font-black text-slate-900">2793</td>
                       <td class="text-green-custom font-black text-center">8379</td>
                     </tr>
                   </tbody>
@@ -139,11 +217,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 2: CPR (AMARILLA)                  -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 2: CPR (AMARILLA) -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-amber-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 truncate">CPR</span>
@@ -165,7 +240,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-amber-200 flex flex-col h-[340px]">
               <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 CPR
@@ -184,7 +258,7 @@
                     <tr class="font-extrabold bg-slate-50">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">200</td>
-                      <td class="text-center font-black">0.0</td>
+                      <td class="text-center font-black text-slate-900">0.0</td>
                       <td class="text-red-custom font-black text-center">0.0</td>
                     </tr>
                   </tbody>
@@ -194,11 +268,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 3: BUDGET                          -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 3: BUDGET -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">BUDGET</span>
@@ -220,7 +291,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-amber-50 text-amber-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 MTD BUDGET
@@ -236,13 +306,13 @@
                     </tr>
                   </thead>
                   <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1834</td><td class="text-center font-black">$135</td><td class="text-green-custom font-black text-center">$405</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black">$57</td><td class="text-green-custom font-black text-center">$171</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black">$36</td><td class="text-green-custom font-black text-center">$108</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">1834</td><td class="text-center font-black text-slate-900">$135</td><td class="text-green-custom font-black text-center">$405</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black text-slate-900">$57</td><td class="text-green-custom font-black text-center">$171</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">1833</td><td class="text-center font-black text-slate-900">$36</td><td class="text-green-custom font-black text-center">$108</td></tr>
                     <tr class="font-extrabold bg-slate-50">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">5500</td>
-                      <td class="text-center font-black">$228</td>
+                      <td class="text-center font-black text-slate-900">$228</td>
                       <td class="text-green-custom text-center font-black">$684</td>
                     </tr>
                   </tbody>
@@ -252,11 +322,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 4: SIGNUPS (CPR)                   -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 4: SIGNUPS (CPR) -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">SIGNUPS</span>
@@ -278,7 +345,6 @@
               </div>
             </div>
 
-            <!-- TABLA CON SCROLL INTERNO Y TOTAL PEGADO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-blue-50 text-blue-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 MTD CPR — SIGNUPS
@@ -294,27 +360,27 @@
                     </tr>
                   </thead>
                   <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">126</td><td class="text-green-custom font-black text-center">378</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">MON</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">34</td><td class="text-green-custom font-black text-center">102</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">20</td><td class="text-green-custom font-black text-center">60</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">14</td><td class="text-red-custom font-black text-center">42</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">10</td><td class="text-red-custom font-black text-center">30</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LUM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">7</td><td class="text-red-custom font-black text-center">21</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">WDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">7</td><td class="text-red-custom font-black text-center">21</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">VENE</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">3</td><td class="text-red-custom font-black text-center">9</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">EPV</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">MOD</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">DRCT</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black">2</td><td class="text-red-custom font-black text-center">6</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">WRW</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">REV</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">BTD</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">126</td><td class="text-green-custom font-black text-center">378</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">MON</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">34</td><td class="text-green-custom font-black text-center">102</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">20</td><td class="text-green-custom font-black text-center">60</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">14</td><td class="text-red-custom font-black text-center">42</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">10</td><td class="text-red-custom font-black text-center">30</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LUM</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">7</td><td class="text-red-custom font-black text-center">21</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">WDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">7</td><td class="text-red-custom font-black text-center">21</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">VENE</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADO</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">3</td><td class="text-red-custom font-black text-center">9</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">CHA</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">EPV</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">MOD</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">DRCT</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">SDG</td><td class="text-center text-slate-400 italic">59</td><td class="text-center font-black text-slate-900">2</td><td class="text-red-custom font-black text-center">6</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">WRW</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">REV</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">BTD</td><td class="text-center text-slate-400 italic">58</td><td class="text-center font-black text-slate-900">1</td><td class="text-red-custom font-black text-center">3</td></tr>
                     <tr class="font-extrabold bg-slate-50 sticky bottom-0 shadow-sm z-10">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">1000</td>
-                      <td class="text-center font-black">237</td>
+                      <td class="text-center font-black text-slate-900">237</td>
                       <td class="text-red-custom font-black text-center">711</td>
                     </tr>
                   </tbody>
@@ -323,11 +389,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 5: USERS (CPA)                     -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 5: USERS (CPA) -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">USERS (CPA)</span>
@@ -349,7 +412,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-fuchsia-50 text-purple-900 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate tracking-wide">
                 MTD CPA — USERS
@@ -384,11 +446,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 6: REVENUE                         -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 6: REVENUE -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">REVENUE</span>
@@ -410,7 +469,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-emerald-50 text-emerald-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 MTD REVENUE
@@ -426,14 +484,14 @@
                     </tr>
                   </thead>
                   <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black">$170</td><td class="text-red-custom font-black text-center">$510</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">4125</td><td class="text-center font-black text-slate-900">$170</td><td class="text-red-custom font-black text-center">$510</td></tr>
                     <tr class="font-extrabold bg-slate-50">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">16.5k</td>
-                      <td class="text-center font-black">$1340</td>
+                      <td class="text-center font-black text-slate-900">$1340</td>
                       <td class="text-red-custom font-black text-center">$4020</td>
                     </tr>
                   </tbody>
@@ -443,11 +501,8 @@
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA 7: PROFIT (SIN SIGNO +)            -->
-          <!-- ========================================== -->
+          <!-- COLUMNA 7: PROFIT (NÚMEROS DE MTD EN NEGRO) -->
           <div class="flex flex-col gap-2.5 min-w-0">
-            <!-- CUADRO MÉTRICO -->
             <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-[115px]">
               <div class="flex justify-between items-start">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 truncate">PROFIT</span>
@@ -469,7 +524,6 @@
               </div>
             </div>
 
-            <!-- TABLA DIRECTAMENTE DEBAJO -->
             <div class="bg-white rounded-xl p-2.5 shadow-sm border border-slate-200 flex flex-col h-[340px]">
               <div class="bg-teal-50 text-teal-800 text-[10px] font-extrabold p-1.5 rounded-lg mb-2 text-center truncate">
                 MTD PROFIT
@@ -485,11 +539,11 @@
                     </tr>
                   </thead>
                   <tbody class="font-semibold">
-                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">$184</td><td class="text-red-custom font-black text-center">$552</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">2200</td><td class="text-green-custom font-black text-center">$113</td><td class="text-red-custom font-black text-center">$339</td></tr>
-                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-red-custom font-black text-center">-$135</td><td class="text-red-custom font-black text-center">-$405</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">PRO</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$730</td><td class="text-red-custom font-black text-center">$2190</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">SPX</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$220</td><td class="text-red-custom font-black text-center">$660</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">ADM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$184</td><td class="text-red-custom font-black text-center">$552</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">LGL</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">$113</td><td class="text-red-custom font-black text-center">$339</td></tr>
+                    <tr><td class="py-1 px-1 font-bold">FXM</td><td class="text-center text-slate-400 italic">2200</td><td class="text-center font-black text-slate-900">-$135</td><td class="text-red-custom font-black text-center">-$405</td></tr>
                     <tr class="font-extrabold bg-slate-50">
                       <td class="py-1.5 px-1 font-extrabold">Total</td>
                       <td class="text-center text-slate-400 italic font-bold">11k</td>
@@ -752,7 +806,7 @@
               <td class="p-2.5 text-center text-red-custom font-extrabold">15</td>
               <td class="p-2.5 text-center font-extrabold">730</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
-              <td class="p-2.5 text-center text-green-custom font-extrabold">730</td>
+              <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">730</td>
             </tr>
             <!-- Row: REV -->
             <tr class="hover:bg-slate-50">
@@ -800,7 +854,7 @@
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
               <td class="p-2.5 text-center font-extrabold">220</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
-              <td class="p-2.5 text-center text-green-custom font-extrabold">220</td>
+              <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">220</td>
             </tr>
             <!-- Row: VENE -->
             <tr class="hover:bg-slate-50">
@@ -854,14 +908,14 @@
             <tr class="bg-slate-50 font-black">
               <td class="p-2.5 font-extrabold">Grand total</td>
               <td class="p-2.5 text-center text-slate-400 italic">4000</td>
-              <td class="p-2.5 text-center">2793</td>
-              <td class="p-2.5 text-center text-green-custom">8379</td>
+              <td class="p-2.5 text-center font-black">2793</td>
+              <td class="p-2.5 text-center text-green-custom font-black">8379</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
-              <td class="p-2.5 text-center">237</td>
-              <td class="p-2.5 text-center text-red-custom">711</td>
+              <td class="p-2.5 text-center font-black">237</td>
+              <td class="p-2.5 text-center text-red-custom font-black">711</td>
               <td class="p-2.5 text-center text-slate-400 italic">300</td>
-              <td class="p-2.5 text-center">11</td>
-              <td class="p-2.5 text-center text-red-custom">33</td>
+              <td class="p-2.5 text-center font-black">11</td>
+              <td class="p-2.5 text-center text-red-custom font-black">33</td>
               <td class="p-2.5 text-center font-black">1340</td>
               <td class="p-2.5 text-center font-black">228</td>
               <td class="p-2.5 text-center text-green-custom font-black">1112</td>
