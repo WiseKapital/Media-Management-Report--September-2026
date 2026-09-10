@@ -547,7 +547,7 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- GRÁFICOS CIRCULARES DEBAJO DE LA GRÁFICA: LEADS (CPL) Y CPR -->
+      <!-- GRÁFICOS CIRCULARES: LEADS (CPL) Y CPR (CON ESTADO REAL 0.0) -->
       <!-- ============================================================ -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
@@ -607,72 +607,34 @@
           </div>
         </div>
 
-        <!-- CIRCULAR 2: CPR -->
+        <!-- CIRCULAR 2: CPR (CORREGIDO A ESTADO REAL SIN DATOS) -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
             <div>
               <span class="text-xs font-black uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">CPR</span>
-              <h4 class="text-sm font-extrabold text-slate-900 mt-1">Registrations Share by Partner</h4>
+              <h4 class="text-sm font-extrabold text-slate-900 mt-1">CPR Performance</h4>
             </div>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">237</b></span>
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">1,000</b></span>
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-red-custom">711</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">0.0</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">200</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-slate-500">0.0</b></span>
             </div>
           </div>
 
-          <!-- Contenedor del gráfico circular -->
+          <!-- Contenedor del gráfico circular vacío -->
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="cprDonutChart"></canvas>
             <div class="absolute flex flex-col items-center justify-center pointer-events-none">
-              <span class="text-2xl font-black text-slate-900">237</span>
-              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Total Signups</span>
+              <span class="text-3xl font-black text-slate-300">0.0</span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">No Data Yet</span>
             </div>
           </div>
 
-          <!-- Leyenda con desglose numérico y porcentual -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs">
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#2563eb]"></span>
-              <div>
-                <p class="font-black text-slate-900">LGL: 126</p>
-                <p class="text-[10px] text-slate-400 font-bold">53.2%</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#00d285]"></span>
-              <div>
-                <p class="font-black text-slate-900">MON: 34</p>
-                <p class="text-[10px] text-slate-400 font-bold">14.3%</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#a855f7]"></span>
-              <div>
-                <p class="font-black text-slate-900">SPX: 20</p>
-                <p class="text-[10px] text-slate-400 font-bold">8.4%</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#f59e0b]"></span>
-              <div>
-                <p class="font-black text-slate-900">PRO: 14</p>
-                <p class="text-[10px] text-slate-400 font-bold">5.9%</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#06b6d4]"></span>
-              <div>
-                <p class="font-black text-slate-900">ADM: 10</p>
-                <p class="text-[10px] text-slate-400 font-bold">4.2%</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-              <span class="w-3 h-3 rounded-full bg-[#94a3b8]"></span>
-              <div>
-                <p class="font-black text-slate-900">Others: 33</p>
-                <p class="text-[10px] text-slate-400 font-bold">13.9%</p>
-              </div>
+          <!-- Estado informativo -->
+          <div class="pt-4 border-t border-slate-100 mt-3">
+            <div class="flex items-center justify-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-center text-xs font-bold text-slate-500">
+              <i class="fa-solid fa-circle-info text-amber-500"></i>
+              <span>No partner data recorded yet for CPR (Target KPI: 200)</span>
             </div>
           </div>
         </div>
@@ -1291,42 +1253,27 @@
         });
       }
 
-      // 3. CPR DOUGHNUT CHART
+      // 3. CPR DOUGHNUT CHART (ESTADO REAL SIN DATOS)
       const ctxCPR = document.getElementById('cprDonutChart');
       if (ctxCPR) {
         new Chart(ctxCPR.getContext('2d'), {
           type: 'doughnut',
           data: {
-            labels: ['LGL', 'MON', 'SPX', 'PRO', 'ADM', 'Others'],
+            labels: ['No Data Yet'],
             datasets: [{
-              data: [126, 34, 20, 14, 10, 33],
-              backgroundColor: ['#2563eb', '#00d285', '#a855f7', '#f59e0b', '#06b6d4', '#94a3b8'],
-              borderWidth: 3,
-              borderColor: '#ffffff',
-              hoverOffset: 6
+              data: [1],
+              backgroundColor: ['#e2e8f0'],
+              borderWidth: 0,
+              hoverOffset: 0
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '72%',
+            cutout: '76%',
             plugins: {
               legend: { display: false },
-              tooltip: {
-                backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                titleFont: { family: "'Inter', sans-serif", size: 12, weight: 'bold' },
-                bodyFont: { family: "'Inter', sans-serif", size: 12 },
-                padding: 10,
-                cornerRadius: 8,
-                callbacks: {
-                  label: function(context) {
-                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                    const val = context.raw;
-                    const pct = ((val / total) * 100).toFixed(1);
-                    return ` ${context.label}: ${val.toLocaleString()} (${pct}%)`;
-                  }
-                }
-              }
+              tooltip: { enabled: false }
             }
           }
         });
