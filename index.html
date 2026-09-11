@@ -236,7 +236,7 @@
                   <span class="font-black text-slate-900">7</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 5%"></div>
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
                 </div>
               </div>
 
@@ -246,7 +246,7 @@
                   <span class="font-black text-slate-900">7</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 5%"></div>
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 6%"></div>
                 </div>
               </div>
 
@@ -608,20 +608,12 @@
 
       </div>
 
-      <!-- MAIN LINE CHART (SEP 1-11) -->
-      <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h3 class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1-11</h3>
-        <div class="relative w-full h-72 md:h-80">
-          <canvas id="mainLineChart"></canvas>
-        </div>
-      </div>
-
       <!-- ============================================================ -->
-      <!-- GRÁFICOS CIRCULARES: LEADS (CPL) Y CPR                       -->
+      <!-- GRÁFICOS CIRCULARES (AHORA ARRIBA DE LA GRÁFICA DE LÍNEAS)   -->
       <!-- ============================================================ -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
-        <!-- CIRCULAR 1: LEADS (CPL) ACTUALIZADO A 3,219 -->
+        <!-- CIRCULAR 1: LEADS (CPL) -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
             <div>
@@ -635,7 +627,6 @@
             </div>
           </div>
 
-          <!-- Contenedor del gráfico circular -->
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="leadsDonutChart"></canvas>
             <div class="absolute flex flex-col items-center justify-center pointer-events-none">
@@ -644,7 +635,6 @@
             </div>
           </div>
 
-          <!-- Leyenda con desglose numérico y porcentual -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs">
             <div class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
               <span class="w-3 h-3 rounded-full bg-[#00d285]"></span>
@@ -691,7 +681,6 @@
             </div>
           </div>
 
-          <!-- Contenedor del gráfico circular vacío -->
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="cprDonutChart"></canvas>
             <div class="absolute flex flex-col items-center justify-center pointer-events-none">
@@ -700,7 +689,6 @@
             </div>
           </div>
 
-          <!-- Estado informativo -->
           <div class="pt-4 border-t border-slate-100 mt-3">
             <div class="flex items-center justify-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-center text-xs font-bold text-slate-500">
               <i class="fa-solid fa-circle-info text-amber-500"></i>
@@ -711,11 +699,19 @@
 
       </div>
 
+      <!-- MAIN LINE CHART (SEP 1-11) (AHORA DEBAJO DE LOS CIRCULARES) -->
+      <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
+        <h3 class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1-11</h3>
+        <div class="relative w-full h-72 md:h-80">
+          <canvas id="mainLineChart"></canvas>
+        </div>
+      </div>
+
     </div>
 
-    <!-- ========================================== -->
-    <!-- SECTION 2: MAIN GENERAL TABLE (18 ACTIVOS) -->
-    <!-- ========================================== -->
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN GENERAL TABLE (16 COLUMNAS)              -->
+    <!-- ========================================================= -->
     <div id="section-v2" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-4 md:p-6 space-y-4">
       
       <!-- CONTROLS AND FILTERS -->
@@ -735,29 +731,33 @@
         </div>
       </div>
 
-      <!-- DETAILED MAIN TABLE (13 COLUMNAS COMPLETAS Y ALINEADAS) -->
+      <!-- DETAILED MAIN TABLE -->
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs table-grid">
           <thead>
             <tr class="bg-mint-header text-slate-800">
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider align-middle">MEDIA PARTNER</th>
               <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPL</th>
-              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">REGISTRATIONS</th>
+              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">SIGNUPS</th>
               <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPA</th>
+              <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPR</th>
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">REVENUE</th>
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">BUDGET</th>
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">PROFIT</th>
             </tr>
             <tr class="bg-mint-header text-slate-700 text-center font-bold">
-              <th class="p-1.5 w-16">KPI</th>
-              <th class="p-1.5 w-16">MTD</th>
-              <th class="p-1.5 w-16">RR</th>
-              <th class="p-1.5 w-16">KPI</th>
-              <th class="p-1.5 w-16">MTD</th>
-              <th class="p-1.5 w-16">RR</th>
-              <th class="p-1.5 w-16">KPI</th>
-              <th class="p-1.5 w-16">MTD</th>
-              <th class="p-1.5 w-16">RR</th>
+              <th class="p-1.5 w-14">KPI</th>
+              <th class="p-1.5 w-14">MTD</th>
+              <th class="p-1.5 w-14">RR</th>
+              <th class="p-1.5 w-14">KPI</th>
+              <th class="p-1.5 w-14">MTD</th>
+              <th class="p-1.5 w-14">RR</th>
+              <th class="p-1.5 w-14">KPI</th>
+              <th class="p-1.5 w-14">MTD</th>
+              <th class="p-1.5 w-14">RR</th>
+              <th class="p-1.5 w-14">KPI</th>
+              <th class="p-1.5 w-14">MTD</th>
+              <th class="p-1.5 w-14">RR</th>
             </tr>
           </thead>
           <tbody class="font-semibold text-slate-800">
@@ -773,6 +773,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">220</td>
               <td class="p-2.5 text-center font-extrabold">45</td>
               <td class="p-2.5 text-center text-green-custom font-extrabold">175</td>
@@ -786,6 +789,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">59</td>
               <td class="p-2.5 text-center font-extrabold">3</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">8</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -805,6 +811,9 @@
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -818,6 +827,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">59</td>
               <td class="p-2.5 text-center font-extrabold">2</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">5</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -837,6 +849,9 @@
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -853,6 +868,9 @@
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -863,6 +881,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">1875</td>
               <td class="p-2.5 text-center text-green-custom font-extrabold">5114</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -885,6 +906,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">170</td>
               <td class="p-2.5 text-center font-extrabold">60</td>
               <td class="p-2.5 text-center text-green-custom font-extrabold">110</td>
@@ -898,6 +922,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">59</td>
               <td class="p-2.5 text-center font-extrabold">7</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">19</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -917,6 +944,9 @@
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -933,6 +963,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">2</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">5</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -949,6 +982,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">5</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">14</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">730</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">730</td>
@@ -962,6 +998,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">58</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -981,6 +1020,9 @@
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -997,6 +1039,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">220</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">220</td>
@@ -1010,6 +1055,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">59</td>
               <td class="p-2.5 text-center font-extrabold">4</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">11</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1029,6 +1077,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">50</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
@@ -1042,6 +1093,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">58</td>
               <td class="p-2.5 text-center font-extrabold">1</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">3</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
+              <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1061,6 +1115,9 @@
               <td class="p-2.5 text-center text-slate-400 italic">300</td>
               <td class="p-2.5 text-center font-black">11</td>
               <td class="p-2.5 text-center text-red-custom font-black">31</td>
+              <td class="p-2.5 text-center text-slate-400 italic">200</td>
+              <td class="p-2.5 text-center font-black">0.0</td>
+              <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
               <td class="p-2.5 text-center font-black">1340</td>
               <td class="p-2.5 text-center font-black">264</td>
               <td class="p-2.5 text-center text-green-custom font-black">1076</td>
@@ -1282,7 +1339,7 @@
         });
       }
 
-      // 2. LEADS (CPL) DOUGHNUT CHART (ACTUALIZADO AL CORTE DE 3,219)
+      // 2. LEADS (CPL) DOUGHNUT CHART
       const ctxLeads = document.getElementById('leadsDonutChart');
       if (ctxLeads) {
         new Chart(ctxLeads.getContext('2d'), {
@@ -1323,7 +1380,7 @@
         });
       }
 
-      // 3. CPR DOUGHNUT CHART (ESTADO REAL SIN DATOS)
+      // 3. CPR DOUGHNUT CHART
       const ctxCPR = document.getElementById('cprDonutChart');
       if (ctxCPR) {
         new Chart(ctxCPR.getContext('2d'), {
