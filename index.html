@@ -84,14 +84,12 @@
         <div class="overflow-x-auto">
           <table class="w-full text-center text-xs min-w-[1050px]">
             <thead>
-              <!-- FILA 1: BLOQUES DE COLOR -->
               <tr class="text-white text-xs font-black uppercase tracking-wider">
                 <th class="p-2.5 text-left text-slate-900 bg-white w-28 pl-4">TEAM</th>
                 <th colspan="5" class="p-2.5 bg-blue-600">KPIS</th>
                 <th colspan="5" class="p-2.5 bg-emerald-600">MTD - SEP 2026</th>
                 <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO SEP 30</th>
               </tr>
-              <!-- FILA 2: SUB-ENCABEZADOS -->
               <tr class="text-[10px] font-extrabold uppercase text-slate-400 bg-white border-b border-slate-200">
                 <th class="py-2 pl-4 text-left"></th>
                 <th class="py-2 px-2">BUDGET</th>
@@ -694,7 +692,7 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- GRÁFICOS CIRCULARES: LEADS (CPL) Y CPR                       -->
+      <!-- GRÁFICOS CIRCULARES (ARRIBA DE LA GRÁFICA DE LÍNEAS)         -->
       <!-- ============================================================ -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
@@ -802,32 +800,53 @@
     </div>
 
     <!-- ========================================================= -->
-    <!-- SECTION 2: MAIN GENERAL TABLE (20 PARTNERS ACTIVOS)       -->
+    <!-- SECTION 2: MAIN GENERAL TABLE CON SELECTORES SOLICITADOS -->
     <!-- ========================================================= -->
     <div id="section-v2" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-4 md:p-6 space-y-4">
       
-      <!-- CONTROLS AND FILTERS -->
+      <!-- BARRA LIMPIA DE CONTROLES: SEARCH, FILTRO Y SORT BY -->
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div class="flex flex-wrap items-center gap-3">
-          <input type="text" placeholder="Search partner..." class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs w-56 focus:outline-none focus:ring-1 focus:ring-slate-400">
-          <select class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white">
-            <option>Show Active (20)</option>
+          <!-- Búsqueda -->
+          <input type="text" id="partnerSearch" oninput="applyTableSorting()" placeholder="Search partner..." class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs w-48 font-medium focus:outline-none focus:ring-1 focus:ring-slate-400 bg-white">
+          
+          <!-- Filtro de Estado / Condición -->
+          <select id="filterSelect" onchange="applyTableSorting()" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white font-semibold focus:outline-none focus:ring-1 focus:ring-slate-400">
+            <option value="all">Show Active (20)</option>
+            <option value="profitable">Show: Profitable</option>
+            <option value="loss">Show: Loss</option>
+            <option value="budget">Show: With Budget</option>
+            <option value="leads">Show: With Leads</option>
+            <option value="signups">Show: With Signups</option>
           </select>
-          <select class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white">
-            <option>Sort by CPL ↓ High to Low</option>
+
+          <!-- ORDENAR POR (PROFITABLE, LOSS, BUDGET, LEADS, SIGNUPS, CPL, CPA, CPR) -->
+          <select id="sortBySelect" onchange="applyTableSorting()" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 bg-white font-bold focus:outline-none focus:ring-1 focus:ring-slate-400">
+            <option value="name">Sort by: Partner (A → Z)</option>
+            <option value="profitable">Sort by: Profitable</option>
+            <option value="loss">Sort by: Loss</option>
+            <option value="budget">Sort by: Budget</option>
+            <option value="leads">Sort by: Leads</option>
+            <option value="signups">Sort by: Signups</option>
+            <option value="cpl">Sort by: CPL</option>
+            <option value="cpa">Sort by: CPA</option>
+            <option value="cpr">Sort by: CPR</option>
           </select>
-          <button class="text-xs text-blue-600 hover:underline font-semibold ml-2">Clear filters</button>
+
+          <!-- Limpiar filtros -->
+          <button onclick="clearTableFilters()" class="text-xs text-blue-600 hover:underline font-semibold ml-1">Clear filters</button>
         </div>
-        <div class="text-xs font-bold text-slate-800">
+
+        <div id="tableCounter" class="text-xs font-bold text-slate-800">
           Showing 20 active partners (as of Sep 14)
         </div>
       </div>
 
-      <!-- DETAILED MAIN TABLE (16 COLUMNAS PERFECTAMENTE ALINEADAS) -->
+      <!-- DETAILED MAIN TABLE (16 COLUMNAS) -->
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs table-grid">
+        <table class="w-full text-left text-xs table-grid" id="mainPartnersTable">
           <thead>
-            <tr class="bg-mint-header text-slate-800">
+            <tr class="bg-mint-header text-slate-800 select-none">
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider align-middle">MEDIA PARTNER</th>
               <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">CPL</th>
               <th colspan="3" class="p-2 font-extrabold uppercase tracking-wider text-center">SIGNUPS</th>
@@ -837,7 +856,7 @@
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">BUDGET</th>
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider text-center align-middle">PROFIT</th>
             </tr>
-            <tr class="bg-mint-header text-slate-700 text-center font-bold">
+            <tr class="bg-mint-header text-slate-700 text-center font-bold select-none">
               <th class="p-1.5 w-14">KPI</th>
               <th class="p-1.5 w-14">MTD</th>
               <th class="p-1.5 w-14">RR</th>
@@ -852,9 +871,9 @@
               <th class="p-1.5 w-14">RR</th>
             </tr>
           </thead>
-          <tbody class="font-semibold text-slate-800">
+          <tbody id="partnersTableBody" class="font-semibold text-slate-800">
             <!-- Row: ADM -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="ADM" data-cpl="1146" data-signups="12" data-users="1" data-revenue="220" data-budget="75" data-profit="145">
               <td class="p-2.5 font-extrabold">ADM</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">1146</td>
@@ -873,7 +892,7 @@
               <td class="p-2.5 text-center text-green-custom font-extrabold">145</td>
             </tr>
             <!-- Row: ADO -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="ADO" data-cpl="0" data-signups="3" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">ADO</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -891,8 +910,8 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
-            <!-- Row: ADV (NUEVO) -->
-            <tr class="hover:bg-slate-50">
+            <!-- Row: ADV -->
+            <tr class="hover:bg-slate-50 partner-row" data-name="ADV" data-cpl="0" data-signups="1" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">ADV</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -911,7 +930,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: BTD -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="BTD" data-cpl="0" data-signups="1" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">BTD</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -930,7 +949,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: CHA -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="CHA" data-cpl="11" data-signups="2" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">CHA</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">11</td>
@@ -949,7 +968,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: DRCT -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="DRCT" data-cpl="0" data-signups="2" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">DRCT</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -968,7 +987,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: EPV -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="EPV" data-cpl="0" data-signups="4" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">EPV</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -987,7 +1006,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: FXM -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="FXM" data-cpl="2132" data-signups="0" data-users="0" data-revenue="0" data-budget="159" data-profit="-159">
               <td class="p-2.5 font-extrabold">FXM</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">2132</td>
@@ -1005,8 +1024,8 @@
               <td class="p-2.5 text-center font-extrabold">159</td>
               <td class="p-2.5 text-center text-red-custom font-extrabold">-159</td>
             </tr>
-            <!-- Row: FZY (NUEVO) -->
-            <tr class="hover:bg-slate-50">
+            <!-- Row: FZY -->
+            <tr class="hover:bg-slate-50 partner-row" data-name="FZY" data-cpl="12" data-signups="1" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">FZY</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">12</td>
@@ -1025,7 +1044,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: LGL -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="LGL" data-cpl="613" data-signups="146" data-users="1" data-revenue="170" data-budget="66" data-profit="104">
               <td class="p-2.5 font-extrabold">LGL</td>
               <td class="p-2.5 text-center text-slate-400 italic">1000</td>
               <td class="p-2.5 text-center font-extrabold">613</td>
@@ -1044,7 +1063,7 @@
               <td class="p-2.5 text-center text-green-custom font-extrabold">104</td>
             </tr>
             <!-- Row: LUM -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="LUM" data-cpl="0" data-signups="9" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">LUM</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1063,7 +1082,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: MOD -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="MOD" data-cpl="0" data-signups="2" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">MOD</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1082,7 +1101,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: MON -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="MON" data-cpl="0" data-signups="48" data-users="3" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">MON</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1101,7 +1120,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: PRO -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="PRO" data-cpl="0" data-signups="22" data-users="5" data-revenue="730" data-budget="0" data-profit="730">
               <td class="p-2.5 font-extrabold">PRO</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1120,7 +1139,7 @@
               <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">730</td>
             </tr>
             <!-- Row: REV -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="REV" data-cpl="0" data-signups="1" data-users="0" data-revenue="0" data-budget="75" data-profit="-75">
               <td class="p-2.5 font-extrabold">REV</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1139,7 +1158,7 @@
               <td class="p-2.5 text-center text-red-custom font-extrabold">-75</td>
             </tr>
             <!-- Row: SDG -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="SDG" data-cpl="0" data-signups="2" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">SDG</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1158,7 +1177,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: SPX -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="SPX" data-cpl="0" data-signups="20" data-users="1" data-revenue="220" data-budget="0" data-profit="220">
               <td class="p-2.5 font-extrabold">SPX</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1177,7 +1196,7 @@
               <td class="p-2.5 text-center font-extrabold text-green-custom font-bold">220</td>
             </tr>
             <!-- Row: VENE -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="VENE" data-cpl="0" data-signups="4" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">VENE</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1196,7 +1215,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: WDG -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="WDG" data-cpl="0" data-signups="8" data-users="1" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">WDG</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1215,7 +1234,7 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
             <!-- Row: WRW -->
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-slate-50 partner-row" data-name="WRW" data-cpl="0" data-signups="1" data-users="0" data-revenue="0" data-budget="0" data-profit="0">
               <td class="p-2.5 font-extrabold">WRW</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
               <td class="p-2.5 text-center text-slate-400">—</td>
@@ -1233,8 +1252,10 @@
               <td class="p-2.5 text-center font-extrabold">0</td>
               <td class="p-2.5 text-center font-extrabold">0</td>
             </tr>
-            <!-- Grand total -->
-            <tr class="bg-slate-50 font-black">
+          </tbody>
+          <!-- TFOOT PINNED GRAND TOTAL ROW -->
+          <tfoot>
+            <tr class="bg-slate-50 font-black border-t-2 border-slate-300">
               <td class="p-2.5 font-extrabold">Grand total</td>
               <td class="p-2.5 text-center text-slate-400 italic">4000</td>
               <td class="p-2.5 text-center font-black">3914</td>
@@ -1252,7 +1273,7 @@
               <td class="p-2.5 text-center font-black">375</td>
               <td class="p-2.5 text-center text-green-custom font-black">965</td>
             </tr>
-          </tbody>
+          </tfoot>
         </table>
       </div>
 
@@ -1302,7 +1323,7 @@
 
   </div>
 
-  <!-- JAVASCRIPT FOR TABS AND CHART.JS -->
+  <!-- JAVASCRIPT FOR TABS, SORTING, FILTERING & CHART.JS -->
   <script>
     function switchTab(tab) {
       const v1 = document.getElementById('section-v1');
@@ -1332,6 +1353,96 @@
         v2.style.display = 'block';
         btnV2.className = activeClass;
       }
+    }
+
+    // ==========================================
+    // ORDENAMIENTO Y FILTRADO EXACTO
+    // ==========================================
+    function applyTableSorting() {
+      const search = document.getElementById('partnerSearch').value.trim().toUpperCase();
+      const filter = document.getElementById('filterSelect').value;
+      const sort = document.getElementById('sortBySelect').value;
+
+      const tbody = document.getElementById('partnersTableBody');
+      const rows = Array.from(tbody.querySelectorAll('tr.partner-row'));
+
+      let visible = 0;
+
+      rows.forEach(row => {
+        const name = row.dataset.name.toUpperCase();
+        const leads = parseFloat(row.dataset.cpl) || 0;
+        const signups = parseFloat(row.dataset.signups) || 0;
+        const budget = parseFloat(row.dataset.budget) || 0;
+        const profit = parseFloat(row.dataset.profit) || 0;
+
+        let matchesSearch = name.includes(search);
+        let matchesFilter = true;
+
+        if (filter === 'profitable') matchesFilter = profit > 0;
+        else if (filter === 'loss') matchesFilter = profit < 0;
+        else if (filter === 'budget') matchesFilter = budget > 0;
+        else if (filter === 'leads') matchesFilter = leads > 0;
+        else if (filter === 'signups') matchesFilter = signups > 0;
+
+        if (matchesSearch && matchesFilter) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      // Ordenar por las opciones exactas
+      rows.sort((a, b) => {
+        const nameA = a.dataset.name;
+        const nameB = b.dataset.name;
+        const leadsA = parseFloat(a.dataset.cpl) || 0;
+        const leadsB = parseFloat(b.dataset.cpl) || 0;
+        const signupsA = parseFloat(a.dataset.signups) || 0;
+        const signupsB = parseFloat(b.dataset.signups) || 0;
+        const usersA = parseFloat(a.dataset.users) || 0;
+        const usersB = parseFloat(b.dataset.users) || 0;
+        const budgetA = parseFloat(a.dataset.budget) || 0;
+        const budgetB = parseFloat(b.dataset.budget) || 0;
+        const profitA = parseFloat(a.dataset.profit) || 0;
+        const profitB = parseFloat(b.dataset.profit) || 0;
+
+        switch (sort) {
+          case 'profitable': 
+            return profitB - profitA;
+          case 'loss': 
+            return profitA - profitB;
+          case 'budget': 
+            return budgetB - budgetA;
+          case 'leads': 
+          case 'cpl':
+            return leadsB - leadsA;
+          case 'signups': 
+          case 'cpr':
+            return signupsB - signupsA;
+          case 'cpa': 
+            return usersB - usersA;
+          case 'name':
+          default: 
+            return nameA.localeCompare(nameB);
+        }
+      });
+
+      // Reinsertar filas ordenadas
+      rows.forEach(row => tbody.appendChild(row));
+
+      // Actualizar contador
+      const counter = document.getElementById('tableCounter');
+      if (counter) {
+        counter.textContent = `Showing ${visible} active partners (as of Sep 14)`;
+      }
+    }
+
+    function clearTableFilters() {
+      document.getElementById('partnerSearch').value = '';
+      document.getElementById('filterSelect').value = 'all';
+      document.getElementById('sortBySelect').value = 'name';
+      applyTableSorting();
     }
 
     // CHARTS INITIALIZATION
@@ -1469,7 +1580,7 @@
         });
       }
 
-      // 2. LEADS (CPL) DOUGHNUT CHART (ACTUALIZADO AL 14 DE SEPTIEMBRE: 3,914)
+      // 2. LEADS (CPL) DOUGHNUT CHART (3,914)
       const ctxLeads = document.getElementById('leadsDonutChart');
       if (ctxLeads) {
         new Chart(ctxLeads.getContext('2d'), {
