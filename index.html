@@ -460,15 +460,15 @@
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="cprDonutChart"></canvas>
             <div class="absolute flex flex-col items-center justify-center pointer-events-none">
-              <span class="text-3xl font-black text-slate-300">0.0</span>
-              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">No Data Yet</span>
+              <span id="cpr-center-val" class="text-3xl font-black text-slate-300">0.0</span>
+              <span id="cpr-center-sub" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">No Data Yet</span>
             </div>
           </div>
 
           <div class="pt-4 border-t border-slate-100 mt-3">
-            <div class="flex items-center justify-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-center text-xs font-bold text-slate-500">
+            <div id="cpr-info-box" class="flex items-center justify-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-center text-xs font-bold text-slate-500">
               <i class="fa-solid fa-circle-info text-amber-500"></i>
-              <span>No partner data recorded yet for CPR (Target KPI: 200)</span>
+              <span id="cpr-info-text">No partner data recorded yet for CPR (Target KPI: 200)</span>
             </div>
           </div>
         </div>
@@ -689,8 +689,8 @@
                   <tr>
                     <td class="py-1 px-2 text-left font-extrabold">Grand total</td>
                     <td class="py-1 px-1.5 text-center text-slate-400 italic">200</td>
-                    <td class="py-1 px-1.5 text-center font-black">0.0</td>
-                    <td class="py-1 px-1.5 text-center text-slate-400 font-bold">0.0</td>
+                    <td class="py-1 px-1.5 text-center font-black" id="mini-cpr-total-val">0.0</td>
+                    <td class="py-1 px-1.5 text-center font-bold" id="mini-cpr-total-rr">0.0</td>
                   </tr>
                 </tfoot>
               </table>
@@ -743,9 +743,10 @@
 
   </div>
 
-  <!-- JAVASCRIPT: DATA HANDLER, STRICT DATE-FILTERING & FIX -->
+  <!-- JAVASCRIPT: SUPPORTS JULY, AUGUST AND SEPTEMBER JSONs -->
   <script>
     const DATA_CACHE = {
+      july: null,
       august: null,
       september: null
     };
@@ -765,15 +766,18 @@
       "July", "August", "September", "October", "November", "December"
     ];
 
+    // FETCHES ALL 3 JSON FILES
     async function loadAllJSONs() {
       try {
-        const [resSep, resAug] = await Promise.all([
+        const [resSep, resAug, resJul] = await Promise.all([
           fetch('./data_september.json'),
-          fetch('./data_august.json')
+          fetch('./data_august.json'),
+          fetch('./data_july.json')
         ]);
 
         if (resSep.ok) DATA_CACHE.september = await resSep.json();
         if (resAug.ok) DATA_CACHE.august = await resAug.json();
+        if (resJul.ok) DATA_CACHE.july = await resJul.json();
 
         updateDateButtons();
         dispatchDateRange(fromDate, toDate);
@@ -925,14 +929,16 @@
       dispatchDateRange(fromDate, toDate);
     }
 
-    // DISPATCHER USING STRING DATES TO AVOID ANY TIMEZONE DRIFT
+    // DISPATCHER USING STRING COMPARISONS FOR JULY, AUGUST, AND SEPTEMBER
     function dispatchDateRange(sDate, eDate) {
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
       // CASE 1: STRICTLY JULY
-      if (eYMD <= '2026-07-31') {
-        renderZeroDataState(sDate, eDate);
+      if (sYMD >= '2026-07-01' && eYMD <= '2026-07-31') {
+        if (DATA_CACHE.july) {
+          renderSingleMonth(DATA_CACHE.july, sDate, eDate, 'Jul');
+        }
         return;
       }
 
@@ -940,42 +946,40 @@
       if (sYMD >= '2026-08-01' && eYMD <= '2026-08-31') {
         if (DATA_CACHE.august) {
           renderSingleMonth(DATA_CACHE.august, sDate, eDate, 'Aug');
-        } else {
-          renderZeroDataState(sDate, eDate);
         }
         return;
       }
 
       // CASE 3: STRICTLY SEPTEMBER
-      if (sYMD >= '2026-09-01') {
+      if (sYMD >= '2026-09-01' && eYMD <= '2026-09-24') {
         if (DATA_CACHE.september) {
           renderSingleMonth(DATA_CACHE.september, sDate, eDate, 'Sep');
-        } else {
-          renderZeroDataState(sDate, eDate);
         }
         return;
       }
 
-      // CASE 4: COMBINED AUGUST + SEPTEMBER
+      // CASE 4: MULTI-MONTH CROSSING (JULY, AUGUST, AND/OR SEPTEMBER)
       renderCombinedMultiMonth(sDate, eDate);
     }
 
     // RENDER A SINGLE MONTH SUB-RANGE
     function renderSingleMonth(monthData, sDate, eDate, prefix) {
+      const isJul = (prefix === 'Jul');
       const isAug = (prefix === 'Aug');
-      document.getElementById('tp-header-period').textContent = isAug ? 'MTD - AUG 2026' : 'MTD - SEP 2026';
+      document.getElementById('tp-header-period').textContent = isJul ? 'MTD - JUL 2026' : (isAug ? 'MTD - AUG 2026' : 'MTD - SEP 2026');
 
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
-      // Check if full month range is selected
-      const isFull = isAug 
-        ? (sYMD === '2026-08-01' && eYMD === '2026-08-31')
-        : (sYMD === '2026-09-01' && eYMD === '2026-09-24');
+      const isFull = isJul
+        ? (sYMD === '2026-07-01' && eYMD === '2026-07-31')
+        : (isAug
+          ? (sYMD === '2026-08-01' && eYMD === '2026-08-31')
+          : (sYMD === '2026-09-01' && eYMD === '2026-09-24'));
 
       const daily = monthData.daily_series || [];
       const slice = daily.filter(r => {
-        const rDate = r.date || (r.d ? `2026-${isAug ? '08' : '09'}-${String(r.d).padStart(2, '0')}` : '');
+        const rDate = r.date || (r.d ? `2026-${isJul ? '07' : (isAug ? '08' : '09')}-${String(r.d).padStart(2, '0')}` : '');
         return rDate >= sYMD && rDate <= eYMD;
       });
 
@@ -1007,11 +1011,10 @@
       const budgetRatio = intBudget / (monthData.totals.budget || 1);
       const revRatio = intRevenue / (monthData.totals.revenue || 1);
 
-      // SAFE PARTNERS MAPPING (NO UNDEFINED VARIABLES)
       const partners = (monthData.partners || []).map(p => {
-        const pLeads = isFull ? p.cplMtd : (p.cplMtd !== '—' && p.cplMtd > 0 ? Math.round(p.cplMtd * leadRatio) : '—');
-        const pSig = isFull ? p.sigMtd : (p.sigMtd !== '—' && p.sigMtd > 0 ? Math.round(p.sigMtd * sigRatio) : '—');
-        const pUsers = isFull ? p.cpaMtd : (p.cpaMtd !== '—' && p.cpaMtd > 0 ? Math.round(p.cpaMtd * userRatio) : '—');
+        const pLeads = isFull ? p.cplMtd : (typeof p.cplMtd === 'number' && p.cplMtd > 0 ? Math.round(p.cplMtd * leadRatio) : '—');
+        const pSig = isFull ? p.sigMtd : (typeof p.sigMtd === 'number' && p.sigMtd > 0 ? Math.round(p.sigMtd * sigRatio) : '—');
+        const pUsers = isFull ? p.cpaMtd : (typeof p.cpaMtd === 'number' && p.cpaMtd > 0 ? Math.round(p.cpaMtd * userRatio) : '—');
         const pBudget = isFull ? p.budget : Math.round((p.budget || 0) * budgetRatio);
         const pRev = isFull ? p.rev : Number(((p.rev || 0) * revRatio).toFixed(2));
         const pProfit = Number((pRev - pBudget).toFixed(2));
@@ -1030,8 +1033,8 @@
           sigMtd: pSig,
           sigRr: isFull ? p.sigRr : (typeof pSig === 'number' && pSig > 0 ? Math.round((pSig / daysCount) * 30) : (p.sigKpi !== '—' ? 0 : '—')),
           cprKpi: p.cprKpi || 200,
-          cprMtd: 0,
-          cprRr: 0,
+          cprMtd: p.cprMtd || 0,
+          cprRr: p.cprRr || 0,
           cpaKpi: p.cpaKpi,
           cpaMtd: pUsers,
           cpaRr: isFull ? p.cpaRr : (typeof pUsers === 'number' && pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : (p.cpaKpi !== '—' ? 0 : '—')),
@@ -1046,34 +1049,44 @@
       renderLeadsDonutFromPartners(partners, intLeads, rrLeads);
       renderDynamicLineChart(slice, prefix);
 
+      const cprMtd = monthData.totals.cpr ? monthData.totals.cpr.mtd : 0;
+      const cprRr = monthData.totals.cpr ? monthData.totals.cpr.rr : 0;
+      updateCPRDonutUI(cprMtd, cprRr);
+
       renderTableRows(partners, {
         cplMtd: intLeads, cplRr: rrLeads,
         sigMtd: intSignups, sigRr: rrSignups,
+        cprMtd: cprMtd, cprRr: cprRr,
         cpaMtd: intUsers, cpaRr: rrUsers,
         rev: intRevenue, budget: intBudget, profit: intProfit
       });
+
       renderMiniCampaignTables(partners, {
         cplMtd: intLeads, cplRr: rrLeads,
         sigMtd: intSignups, sigRr: rrSignups,
+        cprMtd: cprMtd, cprRr: cprRr,
         cpaMtd: intUsers, cpaRr: rrUsers
       });
+
       renderInactivePartners(monthData.inactive_partners);
     }
 
-    // RENDER COMBINED MULTI-MONTH CONSOLIDATION (AUGUST + SEPTEMBER)
+    // RENDER COMBINED MULTI-MONTH CONSOLIDATION
     function renderCombinedMultiMonth(sDate, eDate) {
       document.getElementById('tp-header-period').textContent = 'TOTAL CONSOLIDATED';
 
+      const julDaily = (DATA_CACHE.july && DATA_CACHE.july.daily_series) ? DATA_CACHE.july.daily_series : [];
       const augDaily = (DATA_CACHE.august && DATA_CACHE.august.daily_series) ? DATA_CACHE.august.daily_series : [];
       const sepDaily = (DATA_CACHE.september && DATA_CACHE.september.daily_series) ? DATA_CACHE.september.daily_series : [];
 
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
+      const julPart = julDaily.filter(r => (r.date ? (r.date >= sYMD && r.date <= eYMD) : false)).map(r => ({ ...r, label: `Jul ${parseInt(r.date.split('-')[2])}` }));
       const augPart = augDaily.filter(r => (r.date ? (r.date >= sYMD && r.date <= eYMD) : false)).map(r => ({ ...r, label: `Aug ${parseInt(r.date.split('-')[2])}` }));
       const sepPart = sepDaily.filter(r => (r.date ? (r.date >= sYMD && r.date <= eYMD) : false)).map(r => ({ ...r, label: `Sep ${parseInt(r.date.split('-')[2])}` }));
 
-      const combinedSlice = augPart.concat(sepPart);
+      const combinedSlice = julPart.concat(augPart).concat(sepPart);
       const totalDays = Math.max(combinedSlice.length, 1);
 
       const intLeads = combinedSlice.reduce((acc, r) => acc + r.leads, 0);
@@ -1095,6 +1108,7 @@
         rrBudget, rrSignups, rrUsers, rrRevenue, rrProfit, rrLeads
       });
 
+      // Consolidate Partner Lists
       const pMap = {};
       const addPartnerData = (pList) => {
         (pList || []).forEach(p => {
@@ -1102,17 +1116,19 @@
             pMap[p.name] = {
               name: p.name,
               cplKpi: p.cplKpi, sigKpi: p.sigKpi, cprKpi: p.cprKpi, cpaKpi: p.cpaKpi,
-              cplMtd: 0, sigMtd: 0, cpaMtd: 0, rev: 0, budget: 0
+              cplMtd: 0, sigMtd: 0, cprMtd: 0, cpaMtd: 0, rev: 0, budget: 0
             };
           }
           if (typeof p.cplMtd === 'number') pMap[p.name].cplMtd += p.cplMtd;
           if (typeof p.sigMtd === 'number') pMap[p.name].sigMtd += p.sigMtd;
+          if (typeof p.cprMtd === 'number') pMap[p.name].cprMtd += p.cprMtd;
           if (typeof p.cpaMtd === 'number') pMap[p.name].cpaMtd += p.cpaMtd;
           pMap[p.name].rev += Number((p.rev || 0).toFixed(2));
           pMap[p.name].budget += (p.budget || 0);
         });
       };
 
+      if (DATA_CACHE.july) addPartnerData(DATA_CACHE.july.partners);
       if (DATA_CACHE.august) addPartnerData(DATA_CACHE.august.partners);
       if (DATA_CACHE.september) addPartnerData(DATA_CACHE.september.partners);
 
@@ -1131,7 +1147,9 @@
           sigKpi: p.sigKpi,
           sigMtd: p.sigMtd > 0 ? p.sigMtd : '—',
           sigRr: p.sigMtd > 0 ? Math.round((p.sigMtd / totalDays) * 30) : '—',
-          cprKpi: 200, cprMtd: 0, cprRr: 0,
+          cprKpi: 200,
+          cprMtd: p.cprMtd,
+          cprRr: p.cprMtd > 0 ? Number(((p.cprMtd / totalDays) * 30).toFixed(1)) : 0,
           cpaKpi: p.cpaKpi,
           cpaMtd: p.cpaMtd > 0 ? p.cpaMtd : '—',
           cpaRr: p.cpaMtd > 0 ? Math.round((p.cpaMtd / totalDays) * 30) : '—',
@@ -1143,18 +1161,48 @@
       renderLeadsDonutFromPartners(consolidatedPartners, intLeads, rrLeads);
       renderCustomLabelsLineChart(combinedSlice);
 
+      let totalCprMtd = 0;
+      if (DATA_CACHE.july && DATA_CACHE.july.totals.cpr) totalCprMtd += DATA_CACHE.july.totals.cpr.mtd;
+      if (DATA_CACHE.august && DATA_CACHE.august.totals.cpr) totalCprMtd += DATA_CACHE.august.totals.cpr.mtd;
+      const totalCprRr = Number(((totalCprMtd / totalDays) * 30).toFixed(1));
+
+      updateCPRDonutUI(totalCprMtd, totalCprRr);
+
       renderTableRows(consolidatedPartners, {
         cplMtd: intLeads, cplRr: rrLeads,
         sigMtd: intSignups, sigRr: rrSignups,
+        cprMtd: totalCprMtd, cprRr: totalCprRr,
         cpaMtd: intUsers, cpaRr: rrUsers,
         rev: intRevenue, budget: intBudget, profit: intProfit
       });
+
       renderMiniCampaignTables(consolidatedPartners, {
         cplMtd: intLeads, cplRr: rrLeads,
         sigMtd: intSignups, sigRr: rrSignups,
+        cprMtd: totalCprMtd, cprRr: totalCprRr,
         cpaMtd: intUsers, cpaRr: rrUsers
       });
+
       renderInactivePartners(DATA_CACHE.september ? DATA_CACHE.september.inactive_partners : []);
+    }
+
+    function updateCPRDonutUI(cprMtd, cprRr) {
+      document.getElementById('cpr-badge-mtd').textContent = cprMtd > 0 ? cprMtd.toFixed(1) : '0.0';
+      document.getElementById('cpr-badge-rr').textContent = cprRr > 0 ? cprRr : '0.0';
+
+      const centerVal = document.getElementById('cpr-center-val');
+      const centerSub = document.getElementById('cpr-center-sub');
+      const infoBoxText = document.getElementById('cpr-info-text');
+
+      if (cprMtd > 0) {
+        if (centerVal) { centerVal.textContent = cprMtd.toFixed(1); centerVal.classList.remove('text-slate-300'); centerVal.classList.add('text-slate-900'); }
+        if (centerSub) centerSub.textContent = 'Active CPR (LUM)';
+        if (infoBoxText) infoBoxText.textContent = `LUM active with ${cprMtd.toFixed(1)} conversions (RR: ${cprRr})`;
+      } else {
+        if (centerVal) { centerVal.textContent = '0.0'; centerVal.classList.remove('text-slate-900'); centerVal.classList.add('text-slate-300'); }
+        if (centerSub) centerSub.textContent = 'No Data Yet';
+        if (infoBoxText) infoBoxText.textContent = 'No partner data recorded yet for CPR (Target KPI: 200)';
+      }
     }
 
     // HELPER: RENDER METRICS & TOTALS UI
@@ -1376,102 +1424,6 @@
       });
     }
 
-    // ZERO DATA STATE (JULY)
-    function renderZeroDataState(sDate, eDate) {
-      const sStr = formatMDY(sDate);
-      const eStr = formatMDY(eDate);
-
-      document.getElementById('tp-header-period').textContent = 'MTD - NO DATA';
-      document.getElementById('tp-mtd-budget').textContent = '$0';
-      document.getElementById('tp-mtd-signups').textContent = '0';
-      document.getElementById('tp-mtd-users').textContent = '0';
-      document.getElementById('tp-mtd-revenue').textContent = '$0';
-      document.getElementById('tp-mtd-profit').textContent = '$0';
-
-      document.getElementById('tp-rr-budget').textContent = '$0';
-      document.getElementById('tp-rr-signups').textContent = '0';
-      document.getElementById('tp-rr-users').textContent = '0';
-      document.getElementById('tp-rr-revenue').textContent = '$0';
-      document.getElementById('tp-rr-profit').textContent = '$0';
-      document.getElementById('tp-rr-roi').textContent = '—';
-
-      document.getElementById('card-budget-mtd').textContent = '$0';
-      document.getElementById('card-budget-rr').textContent = '0';
-      document.getElementById('card-signups-mtd').textContent = '0';
-      document.getElementById('card-signups-rr').textContent = '0';
-      document.getElementById('card-users-mtd').textContent = '0';
-      document.getElementById('card-users-rr').textContent = '0';
-      document.getElementById('card-rev-mtd').textContent = '$0';
-      document.getElementById('card-rev-rr').textContent = '0';
-      document.getElementById('card-profit-mtd').textContent = '$0';
-      document.getElementById('card-profit-rr').textContent = '0';
-
-      ['budget', 'signups', 'users', 'revenue', 'profit'].forEach(cat => {
-        const el = document.getElementById(`bars-container-${cat}`);
-        if (el) el.innerHTML = `<div class="h-full flex items-center justify-center text-center text-xs text-slate-400 font-bold italic py-8">No data recorded for this period</div>`;
-      });
-
-      const leadsCanvas = document.getElementById('leadsDonutChart');
-      if (leadsCanvas) {
-        const existing = Chart.getChart(leadsCanvas);
-        if (existing) existing.destroy();
-        new Chart(leadsCanvas.getContext('2d'), {
-          type: 'doughnut',
-          data: { labels: ['No Data'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
-          options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false } } }
-        });
-      }
-      document.getElementById('leads-donut-total').textContent = '0';
-      document.getElementById('leads-badge-mtd').textContent = '0';
-      document.getElementById('leads-badge-rr').textContent = '0';
-      document.getElementById('leads-legend-container').innerHTML = `<div class="col-span-full py-2 text-center text-xs text-slate-400 font-bold italic">No active leads recorded for this period</div>`;
-
-      const tbody = document.getElementById('partnersTableBody');
-      if (tbody) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="17" class="p-8 text-center text-slate-400 font-bold text-sm italic">
-              <i class="fa-regular fa-folder-open text-2xl mb-1.5 block text-slate-300"></i>
-              No data recorded between ${sStr} and ${eStr}
-            </td>
-          </tr>
-        `;
-      }
-      const tfoot = document.getElementById('partnersTableFoot');
-      if (tfoot) {
-        tfoot.innerHTML = `
-          <tr class="bg-slate-50 font-black border-t-2 border-slate-300">
-            <td class="p-2.5 font-extrabold">Grand total</td>
-            <td class="p-2.5 text-center text-slate-400 italic">4000</td>
-            <td class="p-2.5 text-center font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 italic">1000</td>
-            <td class="p-2.5 text-center font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 italic">200</td>
-            <td class="p-2.5 text-center font-black">0.0</td>
-            <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
-            <td class="p-2.5 text-center text-slate-400 italic">0</td>
-            <td class="p-2.5 text-center font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
-            <td class="p-2.5 text-center font-black">0</td>
-            <td class="p-2.5 text-center font-black">0</td>
-            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
-            <td class="p-2 text-center whitespace-nowrap"><span class="text-[10px] font-black uppercase text-slate-400">0 Media</span></td>
-          </tr>
-        `;
-      }
-
-      ['mini-cpl', 'mini-cpr', 'mini-cpa'].forEach(prefix => {
-        const tb = document.getElementById(`${prefix}-tbody`);
-        const tf = document.getElementById(`${prefix}-tfoot`);
-        if (tb) tb.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400 italic font-semibold">No data for selected period</td></tr>`;
-        if (tf) tf.innerHTML = `<tr><td class="py-1 px-2 text-left font-black">Grand total</td><td class="py-1 px-1.5 text-center text-slate-400 italic">—</td><td class="py-1 px-1.5 text-center font-black">0</td><td class="py-1 px-1.5 text-center text-slate-400 font-black">0</td></tr>`;
-      });
-
-      document.getElementById('tableCounter').textContent = `Showing 0 active partners`;
-    }
-
     // GENERAL TABLE RENDERER
     function renderTableRows(partners, totals) {
       const tbody = document.getElementById('partnersTableBody');
@@ -1495,7 +1447,7 @@
         const sigRrClass = p.sigRr > p.sigKpi && p.sigKpi !== '—' ? 'text-green-custom font-extrabold' : (p.sigRr !== '—' ? 'text-red-custom font-extrabold' : 'text-slate-400');
 
         return `
-          <tr class="hover:bg-slate-50 partner-row" data-name="${p.name}" data-status="${p.status}" data-cpl="${p.cplMtd === '—' ? 0 : p.cplMtd}" data-signups="${p.sigMtd === '—' ? 0 : p.sigMtd}" data-cpr="${p.cprMtd === '—' ? 0 : (p.cprMtd || 0)}" data-cpa="${p.cpaMtd === '—' ? 0 : p.cpaMtd}" data-revenue="${p.rev}" data-budget="${p.budget}" data-profit="${p.profit}">
+          <tr class="hover:bg-slate-50 partner-row" data-name="${p.name}" data-status="${p.status}" data-cpl="${p.cplMtd === '—' ? 0 : p.cplMtd}" data-signups="${p.sigMtd === '—' ? 0 : p.sigMtd}" data-cpr="${p.cprMtd || 0}" data-cpa="${p.cpaMtd === '—' ? 0 : p.cpaMtd}" data-revenue="${p.rev}" data-budget="${p.budget}" data-profit="${p.profit}">
             <td class="p-2.5 font-extrabold">${p.name}</td>
             <td class="p-2.5 text-center text-slate-400 italic">${p.cplKpi}</td>
             <td class="p-2.5 text-center font-extrabold">${p.cplMtd}</td>
@@ -1503,9 +1455,9 @@
             <td class="p-2.5 text-center text-slate-400 italic">${p.sigKpi}</td>
             <td class="p-2.5 text-center font-extrabold">${p.sigMtd}</td>
             <td class="p-2.5 text-center ${sigRrClass}">${p.sigRr}</td>
-            <td class="p-2.5 text-center text-slate-400">—</td>
-            <td class="p-2.5 text-center text-slate-400">—</td>
-            <td class="p-2.5 text-center text-slate-400">—</td>
+            <td class="p-2.5 text-center text-slate-400 italic">${p.cprMtd > 0 ? p.cprKpi : '—'}</td>
+            <td class="p-2.5 text-center font-extrabold">${p.cprMtd > 0 ? Number(p.cprMtd).toFixed(1) : '—'}</td>
+            <td class="p-2.5 text-center text-slate-700 font-extrabold">${p.cprRr > 0 ? p.cprRr : '—'}</td>
             <td class="p-2.5 text-center text-slate-400 italic">${p.cpaKpi}</td>
             <td class="p-2.5 text-center font-extrabold">${p.cpaMtd}</td>
             <td class="p-2.5 text-center text-red-custom font-extrabold">${p.cpaRr}</td>
@@ -1517,6 +1469,9 @@
         `;
       }).join('');
 
+      const cprMtdVal = totals.cprMtd > 0 ? Number(totals.cprMtd).toFixed(1) : '0.0';
+      const cprRrVal = totals.cprRr > 0 ? totals.cprRr : '0.0';
+
       tfoot.innerHTML = `
         <tr class="bg-slate-50 font-black border-t-2 border-slate-300">
           <td class="p-2.5 font-extrabold">Grand total</td>
@@ -1527,8 +1482,8 @@
           <td class="p-2.5 text-center font-black">${totals.sigMtd}</td>
           <td class="p-2.5 text-center text-red-custom font-black">${totals.sigRr}</td>
           <td class="p-2.5 text-center text-slate-400 italic">200</td>
-          <td class="p-2.5 text-center font-black">0.0</td>
-          <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
+          <td class="p-2.5 text-center font-black">${cprMtdVal}</td>
+          <td class="p-2.5 text-center font-bold">${cprRrVal}</td>
           <td class="p-2.5 text-center text-slate-400 italic">0</td>
           <td class="p-2.5 text-center font-black">${totals.cpaMtd}</td>
           <td class="p-2.5 text-center text-red-custom font-black">${totals.cpaRr}</td>
@@ -1596,8 +1551,24 @@
       const cprConvTbody = document.getElementById('mini-cpr-conv-tbody');
       const cprConvTfoot = document.getElementById('mini-cpr-conv-tfoot');
       if (cprConvTbody && cprConvTfoot) {
-        cprConvTbody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold">No active CPR records</td></tr>`;
-        cprConvTfoot.innerHTML = `<tr><td class="py-1 px-2 text-left font-black">Grand total</td><td class="py-1 px-1.5 text-center text-slate-400 italic">200</td><td class="py-1 px-1.5 text-center font-black">0.0</td><td class="py-1 px-1.5 text-center text-slate-400 font-bold">0.0</td></tr>`;
+        const activeCPRList = partners.filter(p => typeof p.cprMtd === 'number' && p.cprMtd > 0);
+        if (activeCPRList.length > 0) {
+          cprConvTbody.innerHTML = activeCPRList.map(p => `
+            <tr class="hover:bg-slate-50">
+              <td class="py-1 px-2 text-slate-800 font-extrabold text-left">${p.name}</td>
+              <td class="py-1 px-1.5 text-center text-slate-400 italic">${p.cprKpi || 200}</td>
+              <td class="py-1 px-1.5 text-center font-black text-slate-900">${Number(p.cprMtd).toFixed(1)}</td>
+              <td class="py-1 px-1.5 text-center font-extrabold text-slate-700">${p.cprRr}</td>
+            </tr>
+          `).join('');
+        } else {
+          cprConvTbody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold">No active CPR records</td></tr>`;
+        }
+
+        const cprMtdVal = totals.cprMtd > 0 ? Number(totals.cprMtd).toFixed(1) : '0.0';
+        const cprRrVal = totals.cprRr > 0 ? totals.cprRr : '0.0';
+        document.getElementById('mini-cpr-total-val').textContent = cprMtdVal;
+        document.getElementById('mini-cpr-total-rr').textContent = cprRrVal;
       }
 
       // 4. CPA
@@ -1731,7 +1702,7 @@
       }
     }
 
-    // INITIALIZATION: LOAD JSONS ON LOAD
+    // INITIALIZATION: CALL FETCH ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
       loadAllJSONs();
 
