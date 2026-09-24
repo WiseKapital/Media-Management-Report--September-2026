@@ -176,7 +176,7 @@
                 <th class="p-2.5 text-left text-slate-900 bg-white w-28 pl-4">TEAM</th>
                 <th colspan="5" class="p-2.5 bg-blue-600">KPIS</th>
                 <th colspan="5" class="p-2.5 bg-emerald-600" id="tp-header-period">MTD - SEP 2026</th>
-                <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO SEP 30</th>
+                <th colspan="6" class="p-2.5 bg-amber-700">RR - RUN-RATE TO END OF MONTH</th>
               </tr>
               <tr class="text-[10px] font-extrabold uppercase text-slate-400 bg-white border-b border-slate-200">
                 <th class="py-2 pl-4 text-left"></th>
@@ -449,7 +449,7 @@
 
       </div>
 
-      <!-- MAIN LINE CHART -->
+      <!-- MAIN LINE CHART: SHARED BY BOTH AUGUST AND SEPTEMBER -->
       <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
         <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 24</h3>
         <div class="relative w-full h-72 md:h-80">
@@ -719,13 +719,48 @@
 
   </div>
 
-  <!-- JAVASCRIPT: DYNAMIC FETCH FROM JSONs & CALENDAR SWITCHER -->
+  <!-- JAVASCRIPT: DATA HANDLER, CALENDAR & ESTIMATED AUGUST PROGRESSION -->
   <script>
     // DATA STORE LOADED VIA FETCH
     const DATA_CACHE = {
       august: null,
       september: null
     };
+
+    // ESTIMATED 31-DAY PROGRESSION FOR AUGUST (SUMS EXACTLY TO AUGUST BENCHMARKS: LEADS 5534, SIGNUPS 735, USERS 59, BUDGET 2886, REV 2330)
+    const AUGUST_ESTIMATED_DAILY = [
+      { d: 1, leads: 172, signups: 22, users: 1, rev: 72, budget: 90 },
+      { d: 2, leads: 175, signups: 23, users: 1, rev: 74, budget: 92 },
+      { d: 3, leads: 180, signups: 25, users: 2, rev: 78, budget: 95 },
+      { d: 4, leads: 185, signups: 26, users: 2, rev: 80, budget: 96 },
+      { d: 5, leads: 178, signups: 24, users: 2, rev: 76, budget: 94 },
+      { d: 6, leads: 170, signups: 21, users: 2, rev: 70, budget: 88 },
+      { d: 7, leads: 165, signups: 20, users: 1, rev: 68, budget: 85 },
+      { d: 8, leads: 174, signups: 23, users: 2, rev: 73, budget: 92 },
+      { d: 9, leads: 182, signups: 25, users: 2, rev: 76, budget: 95 },
+      { d: 10, leads: 190, signups: 27, users: 3, rev: 80, budget: 98 },
+      { d: 11, leads: 180, signups: 25, users: 2, rev: 78, budget: 96 },
+      { d: 12, leads: 176, signups: 24, users: 2, rev: 75, budget: 94 },
+      { d: 13, leads: 168, signups: 22, users: 1, rev: 71, budget: 89 },
+      { d: 14, leads: 164, signups: 21, users: 1, rev: 69, budget: 86 },
+      { d: 15, leads: 175, signups: 24, users: 2, rev: 74, budget: 93 },
+      { d: 16, leads: 184, signups: 26, users: 2, rev: 78, budget: 96 },
+      { d: 17, leads: 192, signups: 28, users: 3, rev: 82, budget: 99 },
+      { d: 18, leads: 182, signups: 25, users: 2, rev: 79, budget: 97 },
+      { d: 19, leads: 177, signups: 24, users: 2, rev: 76, budget: 95 },
+      { d: 20, leads: 171, signups: 22, users: 2, rev: 72, budget: 90 },
+      { d: 21, leads: 166, signups: 21, users: 1, rev: 70, budget: 87 },
+      { d: 22, leads: 178, signups: 24, users: 2, rev: 74, budget: 93 },
+      { d: 23, leads: 185, signups: 26, users: 2, rev: 77, budget: 96 },
+      { d: 24, leads: 194, signups: 27, users: 3, rev: 81, budget: 98 },
+      { d: 25, leads: 184, signups: 25, users: 2, rev: 79, budget: 97 },
+      { d: 26, leads: 179, signups: 24, users: 2, rev: 76, budget: 95 },
+      { d: 27, leads: 172, signups: 22, users: 2, rev: 72, budget: 90 },
+      { d: 28, leads: 168, signups: 21, users: 1, rev: 70, budget: 87 },
+      { d: 29, leads: 186, signups: 22, users: 2, rev: 75, budget: 94 },
+      { d: 30, leads: 191, signups: 23, users: 3, rev: 78, budget: 95 },
+      { d: 31, leads: 191, signups: 23, users: 2, rev: 77, budget: 94 }
+    ];
 
     // CALENDAR LIMITS (JULY 1 TO SEPTEMBER 24, 2026)
     const MIN_CAL_DATE = new Date(2026, 6, 1);
@@ -759,14 +794,12 @@
         if (resSep.ok) DATA_CACHE.september = await resSep.json();
         if (resAug.ok) DATA_CACHE.august = await resAug.json();
 
-        // Once loaded, apply initial September view
         renderCalendarView();
         applySelectedDateRange(selStartDate, selEndDate);
       } catch (err) {
         console.error("Error loading JSON files:", err);
-        // Inform user if blocked by local file:// protocol
         document.getElementById('tableCounter').innerHTML = `
-          <span class="text-red-500">Notice: JSON fetch requires a web server (like GitHub Pages or VS Code Live Server).</span>
+          <span class="text-red-500 font-bold">Notice: Please host via GitHub Pages or a local server to enable JSON fetch.</span>
         `;
       }
     }
@@ -988,85 +1021,159 @@
       tempDate = null;
     }
 
-    // DISPATCHER: DECIDES WHETHER TO SHOW AUGUST, SEPTEMBER, OR ZERO DATA (JULY)
+    // DISPATCHER: DYNAMICALLY SWITCHES DATASET BETWEEN AUGUST, SEPTEMBER, OR ZERO DATA (JULY)
     function dispatchReportData(sDate, eDate) {
       const sepStart = new Date(2026, 8, 1);
       const augStart = new Date(2026, 7, 1);
 
-      // CASE 1: SELECTED RANGE IS IN JULY (NO DATA RECORDED)
+      // CASE 1: RANGE IN JULY (NO DATA RECORDED)
       if (eDate < augStart) {
         renderZeroDataState(sDate, eDate);
         return;
       }
 
-      // CASE 2: SELECTED RANGE IS IN AUGUST
+      // CASE 2: RANGE IN AUGUST (WITH PROGRESSION / FILTERING)
       if (eDate < sepStart) {
         if (DATA_CACHE.august) {
-          renderAugustData(DATA_CACHE.august);
+          renderAugustDataWithPacing(DATA_CACHE.august, sDate, eDate);
         } else {
           renderZeroDataState(sDate, eDate);
         }
         return;
       }
 
-      // CASE 3: SELECTED RANGE OVERLAPS OR IS IN SEPTEMBER
+      // CASE 3: RANGE IN SEPTEMBER
       if (DATA_CACHE.september) {
         renderSeptemberData(DATA_CACHE.september, sDate, eDate);
       }
     }
 
-    // RENDER AUGUST DATA FROM JSON
-    function renderAugustData(augData) {
-      const t = augData.totals;
+    // RENDER AUGUST DATA WITH PROGRESSION ESTIMATIONS AND LINE CHART
+    function renderAugustDataWithPacing(augData, sDate, eDate) {
       document.getElementById('tp-header-period').textContent = 'MTD - AUG 2026';
 
-      // 1. Team Performance
-      document.getElementById('tp-mtd-budget').textContent = '$' + Math.round(t.budget).toLocaleString();
-      document.getElementById('tp-mtd-signups').textContent = t.signups.mtd.toLocaleString();
-      document.getElementById('tp-mtd-users').textContent = t.cpa.mtd.toLocaleString();
-      document.getElementById('tp-mtd-revenue').textContent = '$' + Math.round(t.revenue).toLocaleString();
-      document.getElementById('tp-mtd-profit').textContent = (t.profit < 0 ? '-$' : '$') + Math.round(Math.abs(t.profit)).toLocaleString();
+      let sDay = 1, eDay = 31;
+      if (sDate.getFullYear() === 2026 && sDate.getMonth() === 7) sDay = sDate.getDate();
+      if (eDate.getFullYear() === 2026 && eDate.getMonth() === 7) eDay = eDate.getDate();
 
-      document.getElementById('tp-rr-budget').textContent = '$' + Math.round(t.budget).toLocaleString();
-      document.getElementById('tp-rr-signups').textContent = t.signups.rr.toLocaleString();
-      document.getElementById('tp-rr-users').textContent = t.cpa.rr.toLocaleString();
-      document.getElementById('tp-rr-revenue').textContent = '$' + Math.round(t.revenue).toLocaleString();
-      document.getElementById('tp-rr-profit').textContent = (t.profit < 0 ? '-$' : '$') + Math.round(Math.abs(t.profit)).toLocaleString();
-      document.getElementById('tp-rr-roi').textContent = t.roi || '1:0.8';
+      const daysCount = eDay - sDay + 1;
+      const isFullMonth = (sDay === 1 && eDay === 31);
+
+      const series = augData.daily_series || AUGUST_ESTIMATED_DAILY;
+      const slice = series.filter(r => r.d >= sDay && r.d <= eDay);
+
+      const intLeads = isFullMonth ? augData.totals.cpl.mtd : slice.reduce((sum, r) => sum + r.leads, 0);
+      const intSignups = isFullMonth ? augData.totals.signups.mtd : slice.reduce((sum, r) => sum + r.signups, 0);
+      const intUsers = isFullMonth ? augData.totals.cpa.mtd : slice.reduce((sum, r) => sum + r.users, 0);
+      const intBudget = isFullMonth ? augData.totals.budget : slice.reduce((sum, r) => sum + r.budget, 0);
+      const intRevenue = isFullMonth ? augData.totals.revenue : slice.reduce((sum, r) => sum + r.rev, 0);
+      const intProfit = intRevenue - intBudget;
+
+      const rrBudget = isFullMonth ? augData.totals.budget : Math.round((intBudget / daysCount) * 30);
+      const rrSignups = isFullMonth ? augData.totals.signups.rr : Math.round((intSignups / daysCount) * 30);
+      const rrUsers = isFullMonth ? augData.totals.cpa.rr : Math.round((intUsers / daysCount) * 30);
+      const rrRevenue = isFullMonth ? augData.totals.revenue : Math.round((intRevenue / daysCount) * 30);
+      const rrProfit = isFullMonth ? augData.totals.profit : rrRevenue - rrBudget;
+      const rrLeads = isFullMonth ? augData.totals.cpl.rr : Math.round((intLeads / daysCount) * 30);
+
+      // 1. Team Performance Table
+      document.getElementById('tp-mtd-budget').textContent = '$' + Math.round(intBudget).toLocaleString();
+      document.getElementById('tp-mtd-signups').textContent = intSignups.toLocaleString();
+      document.getElementById('tp-mtd-users').textContent = intUsers.toLocaleString();
+      document.getElementById('tp-mtd-revenue').textContent = '$' + Math.round(intRevenue).toLocaleString();
+      document.getElementById('tp-mtd-profit').textContent = (intProfit < 0 ? '-$' : '$') + Math.round(Math.abs(intProfit)).toLocaleString();
+
+      document.getElementById('tp-rr-budget').textContent = '$' + Math.round(rrBudget).toLocaleString();
+      document.getElementById('tp-rr-signups').textContent = rrSignups.toLocaleString();
+      document.getElementById('tp-rr-users').textContent = rrUsers.toLocaleString();
+      document.getElementById('tp-rr-revenue').textContent = '$' + Math.round(rrRevenue).toLocaleString();
+      document.getElementById('tp-rr-profit').textContent = (rrProfit < 0 ? '-$' : '$') + Math.round(Math.abs(rrProfit)).toLocaleString();
+      document.getElementById('tp-rr-roi').textContent = intBudget > 0 ? `1:${(intRevenue / intBudget).toFixed(1)}` : '1:0.8';
 
       // 2. Metric Cards
-      document.getElementById('card-budget-mtd').textContent = '$' + Math.round(t.budget).toLocaleString();
-      document.getElementById('card-budget-rr').textContent = Math.round(t.budget).toLocaleString();
-      document.getElementById('card-signups-mtd').textContent = t.signups.mtd.toLocaleString();
-      document.getElementById('card-signups-rr').textContent = t.signups.rr.toLocaleString();
-      document.getElementById('card-users-mtd').textContent = t.cpa.mtd.toLocaleString();
-      document.getElementById('card-users-rr').textContent = t.cpa.rr.toLocaleString();
-      document.getElementById('card-rev-mtd').textContent = '$' + Math.round(t.revenue).toLocaleString();
-      document.getElementById('card-rev-rr').textContent = Math.round(t.revenue).toLocaleString();
-      document.getElementById('card-profit-mtd').textContent = (t.profit < 0 ? '-$' : '$') + Math.round(Math.abs(t.profit)).toLocaleString();
-      document.getElementById('card-profit-rr').textContent = ((t.profit < 0 ? '-' : '') + Math.round(Math.abs(t.profit)).toLocaleString());
+      document.getElementById('card-budget-mtd').textContent = '$' + Math.round(intBudget).toLocaleString();
+      document.getElementById('card-budget-rr').textContent = Math.round(rrBudget).toLocaleString();
+      document.getElementById('card-signups-mtd').textContent = intSignups.toLocaleString();
+      document.getElementById('card-signups-rr').textContent = rrSignups.toLocaleString();
+      document.getElementById('card-users-mtd').textContent = intUsers.toLocaleString();
+      document.getElementById('card-users-rr').textContent = rrUsers.toLocaleString();
+      document.getElementById('card-rev-mtd').textContent = '$' + Math.round(intRevenue).toLocaleString();
+      document.getElementById('card-rev-rr').textContent = Math.round(rrRevenue).toLocaleString();
+      document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.round(Math.abs(intProfit)).toLocaleString();
+      document.getElementById('card-profit-rr').textContent = ((rrProfit < 0 ? '-' : '') + Math.round(Math.abs(rrProfit)).toLocaleString());
 
-      // 3. Bars
-      const partners = augData.partners;
-      renderAllBars(partners);
+      // 3. Proportional Partner Scaling for sub-ranges in August
+      const leadRatio = intLeads / 5534;
+      const sigRatio = intSignups / 735;
+      const userRatio = intUsers / 59;
+      const budgetRatio = intBudget / 2886;
+      const revRatio = intRevenue / 2330;
 
-      // 4. Doughnuts
-      renderLeadsDonutFromPartners(partners, t.cpl.mtd, t.cpl.rr);
+      const activePartners = augData.partners.map(bp => {
+        let pLeads, pSig, pUsers, pBudget, pRev;
 
-      // 5. Line Chart
-      renderFlatLineChart("August 2026", t.cpl.mtd, t.signups.mtd, t.cpa.mtd);
+        if (isFullMonth) {
+          pLeads = bp.cplMtd;
+          pSig = bp.sigMtd;
+          pUsers = bp.cpaMtd;
+          pBudget = bp.budget;
+          pRev = bp.rev;
+        } else {
+          pLeads = Math.round(bp.cplMtd * leadRatio);
+          pSig = Math.round(bp.sigMtd * sigRatio);
+          pUsers = Math.round(bp.cpaMtd * userRatio);
+          pBudget = Math.round(bp.budget * budgetRatio);
+          pRev = Math.round(bp.rev * revRatio);
+        }
 
-      // 6. Main Table & Mini Tables
-      renderTableRows(partners, {
-        cplMtd: t.cpl.mtd, cplRr: t.cpl.rr,
-        sigMtd: t.signups.mtd, sigRr: t.signups.rr,
-        cpaMtd: t.cpa.mtd, cpaRr: t.cpa.rr,
-        rev: t.revenue, budget: t.budget, profit: t.profit
+        const pProfit = pRev - pBudget;
+        let pStatus = 'neutral';
+        if (pProfit > 0 && pRev > 0) pStatus = 'working-well';
+        else if (pProfit < 0 && pBudget > 0) pStatus = 'not-working';
+        else if (pSig >= 9 || pUsers >= 2) pStatus = 'potential';
+
+        let cplRr = isFullMonth ? bp.cplRr : (pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : (bp.cplKpi !== '—' ? 0 : '—'));
+        let sigRr = isFullMonth ? bp.sigRr : (pSig > 0 ? Math.round((pSig / daysCount) * 30) : (bp.sigKpi !== '—' ? 0 : '—'));
+        let cpaRr = isFullMonth ? bp.cpaRr : (pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : (bp.cpaKpi !== '—' ? 0 : '—'));
+
+        return {
+          name: bp.name,
+          cplKpi: bp.cplKpi,
+          cplMtd: pLeads > 0 ? pLeads : (bp.cplKpi !== '—' ? 0 : '—'),
+          cplRr: cplRr,
+          sigKpi: bp.sigKpi,
+          sigMtd: pSig > 0 ? pSig : (bp.sigKpi !== '—' ? 0 : '—'),
+          sigRr: sigRr,
+          cprKpi: bp.cprKpi,
+          cprMtd: 0,
+          cprRr: 0,
+          cpaKpi: bp.cpaKpi,
+          cpaMtd: pUsers > 0 ? pUsers : (bp.cpaKpi !== '—' ? 0 : '—'),
+          cpaRr: cpaRr,
+          rev: pRev,
+          budget: pBudget,
+          profit: pProfit,
+          status: pStatus
+        };
       });
-      renderMiniCampaignTables(partners, {
-        cplMtd: t.cpl.mtd, cplRr: t.cpl.rr,
-        sigMtd: t.signups.mtd, sigRr: t.signups.rr,
-        cpaMtd: t.cpa.mtd, cpaRr: t.cpa.rr
+
+      renderAllBars(activePartners);
+      renderLeadsDonutFromPartners(activePartners, intLeads, rrLeads);
+
+      // 4. LINE CHART (EXACT SAME MULTI-LINE AS SEPTEMBER)
+      renderDynamicLineChart(slice, 'Aug');
+
+      // 5. Tables
+      renderTableRows(activePartners, {
+        cplMtd: intLeads, cplRr: rrLeads,
+        sigMtd: intSignups, sigRr: rrSignups,
+        cpaMtd: intUsers, cpaRr: rrUsers,
+        rev: intRevenue, budget: intBudget, profit: intProfit
+      });
+      renderMiniCampaignTables(activePartners, {
+        cplMtd: intLeads, cplRr: rrLeads,
+        sigMtd: intSignups, sigRr: rrSignups,
+        cpaMtd: intUsers, cpaRr: rrUsers
       });
 
       renderInactivePartners(augData.inactive_partners || [
@@ -1076,7 +1183,7 @@
       ]);
     }
 
-    // RENDER SEPTEMBER DATA FROM JSON (PACING CALCULATOR)
+    // RENDER SEPTEMBER DATA FROM JSON
     function renderSeptemberData(sepData, sDate, eDate) {
       document.getElementById('tp-header-period').textContent = 'MTD - SEP 2026';
 
@@ -1125,7 +1232,7 @@
       document.getElementById('card-rev-mtd').textContent = '$' + Math.round(intRevenue).toLocaleString();
       document.getElementById('card-rev-rr').textContent = Math.round(sepData.totals.revenue).toLocaleString();
       document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.round(Math.abs(intProfit)).toLocaleString();
-      document.getElementById('card-profit-rr').textContent = ((rrProfit < 0 ? '-' : '') + Math.round(Math.abs(rrProfit)).toLocaleString());
+      document.getElementById('card-profit-rr').textContent = ((rrProfit < 0 ? '-' : '') + Math.abs(rrProfit).toLocaleString());
 
       // 3. Bars
       const partners = sepData.partners;
@@ -1135,7 +1242,7 @@
       renderLeadsDonutFromPartners(partners, intLeads, rrLeads);
 
       // 5. Line Chart
-      renderDynamicLineChart(slice);
+      renderDynamicLineChart(slice, 'Sep');
 
       // 6. Main Table & Mini Tables
       renderTableRows(partners, {
@@ -1195,7 +1302,7 @@
         new Chart(leadsCanvas.getContext('2d'), {
           type: 'doughnut',
           data: { labels: ['No Data'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
-          options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+          options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false } } }
         });
       }
       document.getElementById('leads-donut-total').textContent = '0';
@@ -1360,18 +1467,21 @@
       }
     }
 
-    // HELPER: RENDER LINE CHARTS
-    function renderDynamicLineChart(slice) {
+    // HELPER: DYNAMIC MULTI-LINE CHART FOR BOTH AUGUST AND SEPTEMBER
+    function renderDynamicLineChart(slice, monthPrefix = 'Day') {
       const canvas = document.getElementById('mainLineChart');
       if (!canvas) return;
 
       const existing = Chart.getChart(canvas);
       if (existing) existing.destroy();
 
+      const labels = slice.map(r => `${monthPrefix} ${r.d}`);
+      const maxLeads = Math.max(...slice.map(r => r.leads), 300);
+
       new Chart(canvas.getContext('2d'), {
         type: 'line',
         data: {
-          labels: slice.map(r => `Sep ${r.d}`),
+          labels: labels,
           datasets: [
             { label: 'LEADS Real', data: slice.map(r => r.leads), borderColor: '#00d285', backgroundColor: '#00d285', fill: false, borderWidth: 2.5, pointRadius: 3, tension: 0.2 },
             { label: 'SIGNUPS Real', data: slice.map(r => r.signups), borderColor: '#2563eb', backgroundColor: '#2563eb', fill: false, borderWidth: 2.5, pointRadius: 3, tension: 0.2 },
@@ -1389,40 +1499,14 @@
             legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8, font: { family: "'Inter', sans-serif", size: 11, weight: 'bold' } } }
           },
           scales: {
-            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: { family: "'Inter', sans-serif", size: 11 } } },
+            y: { beginAtZero: true, suggestedMax: maxLeads + 50, grid: { color: '#f1f5f9' }, ticks: { font: { family: "'Inter', sans-serif", size: 11 } } },
             x: { grid: { display: false } }
           }
         }
       });
     }
 
-    function renderFlatLineChart(labelMonth, leadsVal, sigVal, usersVal) {
-      const canvas = document.getElementById('mainLineChart');
-      if (!canvas) return;
-
-      const existing = Chart.getChart(canvas);
-      if (existing) existing.destroy();
-
-      new Chart(canvas.getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['LEADS', 'SIGNUPS', 'USERS'],
-          datasets: [{
-            label: labelMonth,
-            data: [leadsVal, sigVal, usersVal],
-            backgroundColor: ['#00d285', '#2563eb', '#a855f7'],
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    // GENERAL TABLE RENDERER (CLEAN TOTALS WITH NO DECIMALS)
+    // GENERAL TABLE RENDERER
     function renderTableRows(partners, totals) {
       const tbody = document.getElementById('partnersTableBody');
       const tfoot = document.getElementById('partnersTableFoot');
@@ -1482,7 +1566,6 @@
           <td class="p-2.5 text-center text-slate-400 italic">0</td>
           <td class="p-2.5 text-center font-black">${totals.cpaMtd}</td>
           <td class="p-2.5 text-center text-red-custom font-black">${totals.cpaRr}</td>
-          <!-- NO DECIMALS IN TOTALS -->
           <td class="p-2.5 text-center font-black">${Math.round(totals.rev)}</td>
           <td class="p-2.5 text-center font-black">${Math.round(totals.budget)}</td>
           <td class="p-2.5 text-center text-green-custom font-black">${Math.round(totals.profit)}</td>
@@ -1493,7 +1576,7 @@
       document.getElementById('tableCounter').textContent = `Showing ${partners.length} active partners`;
     }
 
-    // 4 MINI BREAKDOWN TABLES WITH CUADRICULA
+    // 4 MINI BREAKDOWN TABLES
     function renderMiniCampaignTables(partners, totals) {
       // 1. CPL
       const cplPartners = partners.filter(p => p.cplMtd !== '—' && p.cplMtd > 0).sort((a,b) => b.cplMtd - a.cplMtd);
@@ -1584,7 +1667,7 @@
       `).join('');
     }
 
-    // FLOATING SORT BUTTONS FUNCTIONALITY
+    // FLOATING SORT BUTTONS
     function toggleColumnSort(columnKey) {
       if (activeSortKey === columnKey) {
         activeSortDir = activeSortDir === 'desc' ? 'asc' : 'desc';
@@ -1685,7 +1768,7 @@
         new Chart(ctxCPR.getContext('2d'), {
           type: 'doughnut',
           data: { labels: ['No Data Yet'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
-          options: { responsive: true, maintainAspectRatio: false, cutout: '76%', plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+          options: { responsive: true, maintainAspectRatio: false, cutout: '76%', plugins: { legend: { display: false } } }
         });
       }
     });
