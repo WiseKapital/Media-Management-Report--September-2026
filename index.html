@@ -453,7 +453,7 @@
             <div class="flex items-center gap-1.5 flex-wrap">
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">TOTAL <b id="cpr-badge-mtd" class="text-slate-900">0.0</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">200</b></span>
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-slate-500">0.0</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b id="cpr-badge-rr" class="text-slate-500">0.0</b></span>
             </div>
           </div>
 
@@ -766,27 +766,28 @@
       "July", "August", "September", "October", "November", "December"
     ];
 
-    // FETCHES ALL 3 JSON FILES
-    async function loadAllJSONs() {
+    // INDEPENDENT ASYNC FETCHER PREVENTS ONE MISSING FILE FROM BREAKING THE OTHERS
+    async function fetchJSON(url) {
       try {
-        const [resSep, resAug, resJul] = await Promise.all([
-          fetch('./data_september.json'),
-          fetch('./data_august.json'),
-          fetch('./data_july.json')
-        ]);
-
-        if (resSep.ok) DATA_CACHE.september = await resSep.json();
-        if (resAug.ok) DATA_CACHE.august = await resAug.json();
-        if (resJul.ok) DATA_CACHE.july = await resJul.json();
-
-        updateDateButtons();
-        dispatchDateRange(fromDate, toDate);
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.warn(`File ${url} returned status ${res.status}`);
+          return null;
+        }
+        return await res.json();
       } catch (err) {
-        console.error("Error loading JSON files:", err);
-        document.getElementById('tableCounter').innerHTML = `
-          <span class="text-red-500 font-bold">Notice: Please host via GitHub Pages or a web server to enable JSON fetch.</span>
-        `;
+        console.warn(`Error fetching ${url}:`, err);
+        return null;
       }
+    }
+
+    async function loadAllJSONs() {
+      DATA_CACHE.september = await fetchJSON('./data_september.json');
+      DATA_CACHE.august = await fetchJSON('./data_august.json');
+      DATA_CACHE.july = await fetchJSON('./data_july.json');
+
+      updateDateButtons();
+      dispatchDateRange(fromDate, toDate);
     }
 
     function formatMDY(d) {
@@ -958,7 +959,7 @@
         return;
       }
 
-      // CASE 4: MULTI-MONTH CROSSING (JULY, AUGUST, AND/OR SEPTEMBER)
+      // CASE 4: MULTI-MONTH CROSSING
       renderCombinedMultiMonth(sDate, eDate);
     }
 
@@ -1011,6 +1012,7 @@
       const budgetRatio = intBudget / (monthData.totals.budget || 1);
       const revRatio = intRevenue / (monthData.totals.revenue || 1);
 
+      // SAFE MAPPING WITHOUT UNDEFINED VARIABLES
       const partners = (monthData.partners || []).map(p => {
         const pLeads = isFull ? p.cplMtd : (typeof p.cplMtd === 'number' && p.cplMtd > 0 ? Math.round(p.cplMtd * leadRatio) : '—');
         const pSig = isFull ? p.sigMtd : (typeof p.sigMtd === 'number' && p.sigMtd > 0 ? Math.round(p.sigMtd * sigRatio) : '—');
@@ -1108,7 +1110,6 @@
         rrBudget, rrSignups, rrUsers, rrRevenue, rrProfit, rrLeads
       });
 
-      // Consolidate Partner Lists
       const pMap = {};
       const addPartnerData = (pList) => {
         (pList || []).forEach(p => {
@@ -1187,8 +1188,11 @@
     }
 
     function updateCPRDonutUI(cprMtd, cprRr) {
-      document.getElementById('cpr-badge-mtd').textContent = cprMtd > 0 ? cprMtd.toFixed(1) : '0.0';
-      document.getElementById('cpr-badge-rr').textContent = cprRr > 0 ? cprRr : '0.0';
+      const badgeMtd = document.getElementById('cpr-badge-mtd');
+      if (badgeMtd) badgeMtd.textContent = cprMtd > 0 ? cprMtd.toFixed(1) : '0.0';
+
+      const badgeRr = document.getElementById('cpr-badge-rr');
+      if (badgeRr) badgeRr.textContent = cprRr > 0 ? cprRr : '0.0';
 
       const centerVal = document.getElementById('cpr-center-val');
       const centerSub = document.getElementById('cpr-center-sub');
@@ -1424,6 +1428,102 @@
       });
     }
 
+    // ZERO DATA STATE (DATES WITH NO DATA)
+    function renderZeroDataState(sDate, eDate) {
+      const sStr = formatMDY(sDate);
+      const eStr = formatMDY(eDate);
+
+      document.getElementById('tp-header-period').textContent = 'MTD - NO DATA';
+      document.getElementById('tp-mtd-budget').textContent = '$0';
+      document.getElementById('tp-mtd-signups').textContent = '0';
+      document.getElementById('tp-mtd-users').textContent = '0';
+      document.getElementById('tp-mtd-revenue').textContent = '$0';
+      document.getElementById('tp-mtd-profit').textContent = '$0';
+
+      document.getElementById('tp-rr-budget').textContent = '$0';
+      document.getElementById('tp-rr-signups').textContent = '0';
+      document.getElementById('tp-rr-users').textContent = '0';
+      document.getElementById('tp-rr-revenue').textContent = '$0';
+      document.getElementById('tp-rr-profit').textContent = '$0';
+      document.getElementById('tp-rr-roi').textContent = '—';
+
+      document.getElementById('card-budget-mtd').textContent = '$0';
+      document.getElementById('card-budget-rr').textContent = '0';
+      document.getElementById('card-signups-mtd').textContent = '0';
+      document.getElementById('card-signups-rr').textContent = '0';
+      document.getElementById('card-users-mtd').textContent = '0';
+      document.getElementById('card-users-rr').textContent = '0';
+      document.getElementById('card-rev-mtd').textContent = '$0';
+      document.getElementById('card-rev-rr').textContent = '0';
+      document.getElementById('card-profit-mtd').textContent = '$0';
+      document.getElementById('card-profit-rr').textContent = '0';
+
+      ['budget', 'signups', 'users', 'revenue', 'profit'].forEach(cat => {
+        const el = document.getElementById(`bars-container-${cat}`);
+        if (el) el.innerHTML = `<div class="h-full flex items-center justify-center text-center text-xs text-slate-400 font-bold italic py-8">No data recorded for this period</div>`;
+      });
+
+      const leadsCanvas = document.getElementById('leadsDonutChart');
+      if (leadsCanvas) {
+        const existing = Chart.getChart(leadsCanvas);
+        if (existing) existing.destroy();
+        new Chart(leadsCanvas.getContext('2d'), {
+          type: 'doughnut',
+          data: { labels: ['No Data'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
+          options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false } } }
+        });
+      }
+      document.getElementById('leads-donut-total').textContent = '0';
+      document.getElementById('leads-badge-mtd').textContent = '0';
+      document.getElementById('leads-badge-rr').textContent = '0';
+      document.getElementById('leads-legend-container').innerHTML = `<div class="col-span-full py-2 text-center text-xs text-slate-400 font-bold italic">No active leads recorded for this period</div>`;
+
+      const tbody = document.getElementById('partnersTableBody');
+      if (tbody) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="17" class="p-8 text-center text-slate-400 font-bold text-sm italic">
+              <i class="fa-regular fa-folder-open text-2xl mb-1.5 block text-slate-300"></i>
+              No data recorded between ${sStr} and ${eStr}
+            </td>
+          </tr>
+        `;
+      }
+      const tfoot = document.getElementById('partnersTableFoot');
+      if (tfoot) {
+        tfoot.innerHTML = `
+          <tr class="bg-slate-50 font-black border-t-2 border-slate-300">
+            <td class="p-2.5 font-extrabold">Grand total</td>
+            <td class="p-2.5 text-center text-slate-400 italic">4000</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">200</td>
+            <td class="p-2.5 text-center font-black">0.0</td>
+            <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2 text-center whitespace-nowrap"><span class="text-[10px] font-black uppercase text-slate-400">0 Media</span></td>
+          </tr>
+        `;
+      }
+
+      ['mini-cpl', 'mini-cpr', 'mini-cpa'].forEach(prefix => {
+        const tb = document.getElementById(`${prefix}-tbody`);
+        const tf = document.getElementById(`${prefix}-tfoot`);
+        if (tb) tb.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400 italic font-semibold">No data for selected period</td></tr>`;
+        if (tf) tf.innerHTML = `<tr><td class="py-1 px-2 text-left font-black">Grand total</td><td class="py-1 px-1.5 text-center text-slate-400 italic">—</td><td class="py-1 px-1.5 text-center font-black">0</td><td class="py-1 px-1.5 text-center text-slate-400 font-black">0</td></tr>`;
+      });
+
+      document.getElementById('tableCounter').textContent = `Showing 0 active partners`;
+    }
+
     // GENERAL TABLE RENDERER
     function renderTableRows(partners, totals) {
       const tbody = document.getElementById('partnersTableBody');
@@ -1567,8 +1667,10 @@
 
         const cprMtdVal = totals.cprMtd > 0 ? Number(totals.cprMtd).toFixed(1) : '0.0';
         const cprRrVal = totals.cprRr > 0 ? totals.cprRr : '0.0';
-        document.getElementById('mini-cpr-total-val').textContent = cprMtdVal;
-        document.getElementById('mini-cpr-total-rr').textContent = cprRrVal;
+        const miniCprTotalVal = document.getElementById('mini-cpr-total-val');
+        const miniCprTotalRr = document.getElementById('mini-cpr-total-rr');
+        if (miniCprTotalVal) miniCprTotalVal.textContent = cprMtdVal;
+        if (miniCprTotalRr) miniCprTotalRr.textContent = cprRrVal;
       }
 
       // 4. CPA
@@ -1702,7 +1804,7 @@
       }
     }
 
-    // INITIALIZATION: CALL FETCH ON LOAD
+    // INITIALIZATION
     document.addEventListener('DOMContentLoaded', () => {
       loadAllJSONs();
 
