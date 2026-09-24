@@ -107,7 +107,7 @@
         <span class="w-3 h-3 rounded-full bg-blue-600 shrink-0"></span>
         <h1 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">MMR Media Management Report</h1>
 
-        <!-- FROM & TO CONTROLS -->
+        <!-- FROM & TO DATE SELECTORS -->
         <div class="flex items-center gap-2 text-xs font-extrabold text-slate-500">
           
           <!-- FROM CALENDAR TRIGGER -->
@@ -475,7 +475,7 @@
 
       </div>
 
-      <!-- MAIN LINE CHART: CONTINUOUS MULTI-MONTH LABELED -->
+      <!-- MAIN LINE CHART: SHARED & MULTI-MONTH CONTINUOUS -->
       <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
         <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 24</h3>
         <div class="relative w-full h-72 md:h-80">
@@ -745,7 +745,7 @@
 
   </div>
 
-  <!-- JAVASCRIPT: TWO INDEPENDENT POPUP CALENDARS & MULTI-MONTH FETCH -->
+  <!-- JAVASCRIPT: TWO INDEPENDENT POPUP CALENDARS & STRICT DATE-MATCHING FETCH -->
   <script>
     // DATA STORE LOADED EXCLUSIVELY VIA FETCH
     const DATA_CACHE = {
@@ -753,11 +753,11 @@
       september: null
     };
 
-    // CURRENT DATES
+    // CURRENT SELECTED DATES
     let fromDate = new Date(2026, 8, 1);
     let toDate = new Date(2026, 8, 24);
 
-    // CURRENT MONTHS VIEWED IN EACH CALENDAR POPOVER
+    // CURRENT MONTHS VIEWED IN EACH POPUP CALENDAR
     let fromViewMonth = 8;
     let toViewMonth = 8;
     const viewYear = 2026;
@@ -795,6 +795,13 @@
       const mm = String(d.getMonth() + 1).padStart(2, '0');
       const dd = String(d.getDate()).padStart(2, '0');
       return `${mm}/${dd}/${d.getFullYear()}`;
+    }
+
+    function formatYMD(d) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
     }
 
     function updateDateButtons() {
@@ -861,7 +868,7 @@
 
       const firstDay = new Date(viewYear, curMonth, 1);
       const daysInMonth = new Date(viewYear, curMonth + 1, 0).getDate();
-      const startDayIndex = (firstDay.getDay() + 6) % 7; // Monday is 0
+      const startDayIndex = (firstDay.getDay() + 6) % 7; // Monday = 0
 
       for (let i = 0; i < startDayIndex; i++) {
         const blank = document.createElement('div');
@@ -926,7 +933,7 @@
       dispatchDateRange(fromDate, toDate);
     }
 
-    // MULTI-MONTH CONSOLIDATOR
+    // MULTI-MONTH CONSOLIDATOR (MATCHES BY EXACT DATE STRINGS IN JSON)
     function dispatchDateRange(sDate, eDate) {
       const julEnd = new Date(2026, 6, 31);
       const augStart = new Date(2026, 7, 1);
@@ -964,14 +971,14 @@
       const isAug = (prefix === 'Aug');
       document.getElementById('tp-header-period').textContent = isAug ? 'MTD - AUG 2026' : 'MTD - SEP 2026';
 
-      const maxDays = isAug ? 31 : 24;
-      const sDay = sDate.getDate();
-      const eDay = Math.min(eDate.getDate(), maxDays);
-      const daysCount = Math.max(eDay - sDay + 1, 1);
-      const isFull = (sDay === 1 && eDay === maxDays);
+      const sYMD = formatYMD(sDate);
+      const eYMD = formatYMD(eDate);
+      const isFull = (sYMD === monthData.date_range.start && eYMD === monthData.date_range.end);
 
       const daily = monthData.daily_series || [];
-      const slice = daily.filter(r => r.d >= sDay && r.d <= eDay);
+      // Match by exact date strings from JSON
+      const slice = daily.filter(r => r.date >= sYMD && r.date <= eYMD);
+      const daysCount = Math.max(slice.length, 1);
 
       const intLeads = isFull ? monthData.totals.cpl.mtd : slice.reduce((acc, r) => acc + r.leads, 0);
       const intSignups = isFull ? monthData.totals.signups.mtd : slice.reduce((acc, r) => acc + r.signups, 0);
@@ -1018,7 +1025,7 @@
           cplMtd: pLeads > 0 ? pLeads : (p.cplKpi !== '—' ? 0 : '—'),
           cplRr: isFull ? p.cplRr : (pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : 0),
           sigKpi: p.sigKpi,
-          sigMtd: pSig > 0 ? pSig : (p.sigKpi !== '—' ? 0 : '—'),
+          sigMtd: pSig > 0 ? pSig : (bp.sigKpi !== '—' ? 0 : '—'),
           sigRr: isFull ? p.sigRr : (pSig > 0 ? Math.round((pSig / daysCount) * 30) : 0),
           cprKpi: p.cprKpi, cprMtd: 0, cprRr: 0,
           cpaKpi: p.cpaKpi,
@@ -1053,24 +1060,13 @@
       const augDaily = (DATA_CACHE.august && DATA_CACHE.august.daily_series) ? DATA_CACHE.august.daily_series : [];
       const sepDaily = (DATA_CACHE.september && DATA_CACHE.september.daily_series) ? DATA_CACHE.september.daily_series : [];
 
-      let combinedSlice = [];
+      const sYMD = formatYMD(sDate);
+      const eYMD = formatYMD(eDate);
 
-      // Filter August days
-      if (sDate.getMonth() <= 7) {
-        const augSDay = (sDate.getMonth() < 7) ? 1 : sDate.getDate();
-        const augEDay = (eDate.getMonth() > 7) ? 31 : eDate.getDate();
-        const augPart = augDaily.filter(r => r.d >= augSDay && r.d <= augEDay).map(r => ({ ...r, label: `Aug ${r.d}` }));
-        combinedSlice = combinedSlice.concat(augPart);
-      }
+      const augPart = augDaily.filter(r => r.date >= sYMD && r.date <= eYMD).map(r => ({ ...r, label: `Aug ${r.date.split('-')[2]}` }));
+      const sepPart = sepDaily.filter(r => r.date >= sYMD && r.date <= eYMD).map(r => ({ ...r, label: `Sep ${r.date.split('-')[2]}` }));
 
-      // Filter September days
-      if (eDate.getMonth() >= 8) {
-        const sepSDay = (sDate.getMonth() < 8) ? 1 : sDate.getDate();
-        const sepEDay = Math.min(eDate.getDate(), 24);
-        const sepPart = sepDaily.filter(r => r.d >= sepSDay && r.d <= sepEDay).map(r => ({ ...r, label: `Sep ${r.d}` }));
-        combinedSlice = combinedSlice.concat(sepPart);
-      }
-
+      const combinedSlice = augPart.concat(sepPart);
       const totalDays = Math.max(combinedSlice.length, 1);
 
       const intLeads = combinedSlice.reduce((acc, r) => acc + r.leads, 0);
@@ -1301,7 +1297,7 @@
       const existing = Chart.getChart(canvas);
       if (existing) existing.destroy();
 
-      const labels = slice.map(r => `${monthPrefix} ${r.d}`);
+      const labels = slice.map(r => `${monthPrefix} ${r.date.split('-')[2]}`);
       const maxLeads = Math.max(...slice.map(r => r.leads), 300);
 
       new Chart(canvas.getContext('2d'), {
@@ -1674,11 +1670,7 @@
         rows.sort((a, b) => {
           let valA = parseFloat(a.dataset[activeSortKey]) || 0;
           let valB = parseFloat(b.dataset[activeSortKey]) || 0;
-          if (activeSortDir === 'desc') {
-            return valB - valA;
-          } else {
-            return valA - valB;
-          }
+          return activeSortDir === 'desc' ? valB - valA : valA - valB;
         });
       }
 
@@ -1730,7 +1722,7 @@
       }
     }
 
-    // INITIALIZATION: CALL FETCH ON LOAD
+    // INITIALIZATION: LOAD BOTH JSONs ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
       loadAllJSONs();
 
