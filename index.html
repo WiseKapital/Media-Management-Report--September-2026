@@ -107,7 +107,7 @@
         <span class="w-3 h-3 rounded-full bg-blue-600 shrink-0"></span>
         <h1 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">MMR Media Management Report</h1>
 
-        <!-- FROM & TO DATE SELECTORS -->
+        <!-- FROM & TO CONTROLS -->
         <div class="flex items-center gap-2 text-xs font-extrabold text-slate-500">
           
           <!-- FROM CALENDAR TRIGGER -->
@@ -475,7 +475,7 @@
 
       </div>
 
-      <!-- MAIN LINE CHART: SHARED & MULTI-MONTH CONTINUOUS -->
+      <!-- MAIN LINE CHART: CONTINUOUS & MULTI-MONTH -->
       <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
         <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 24</h3>
         <div class="relative w-full h-72 md:h-80">
@@ -933,7 +933,7 @@
       dispatchDateRange(fromDate, toDate);
     }
 
-    // MULTI-MONTH CONSOLIDATOR (MATCHES BY EXACT DATE STRINGS IN JSON)
+    // MULTI-MONTH CONSOLIDATOR
     function dispatchDateRange(sDate, eDate) {
       const julEnd = new Date(2026, 6, 31);
       const augStart = new Date(2026, 7, 1);
@@ -973,11 +973,26 @@
 
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
-      const isFull = (sYMD === monthData.date_range.start && eYMD === monthData.date_range.end);
+
+      // Reliable date-based check for full month
+      const isFull = (
+        sDate.getDate() === 1 &&
+        eDate.getDate() === (isAug ? 31 : 24) &&
+        sDate.getMonth() === eDate.getMonth()
+      );
 
       const daily = monthData.daily_series || [];
-      // Match by exact date strings from JSON
-      const slice = daily.filter(r => r.date >= sYMD && r.date <= eYMD);
+
+      // Match by exact date strings from JSON, with fallback to day number if needed
+      const slice = daily.filter(r => {
+        if (r.date) return r.date >= sYMD && r.date <= eYMD;
+        if (r.d) {
+          const rDateStr = `2026-${String(sDate.getMonth() + 1).padStart(2, '0')}-${String(r.d).padStart(2, '0')}`;
+          return rDateStr >= sYMD && rDateStr <= eYMD;
+        }
+        return false;
+      });
+
       const daysCount = Math.max(slice.length, 1);
 
       const intLeads = isFull ? monthData.totals.cpl.mtd : slice.reduce((acc, r) => acc + r.leads, 0);
@@ -1006,7 +1021,8 @@
       const budgetRatio = intBudget / (monthData.totals.budget || 1);
       const revRatio = intRevenue / (monthData.totals.revenue || 1);
 
-      const partners = monthData.partners.map(p => {
+      // FIXED: Strictly uses 'p' parameter throughout the mapper
+      const partners = (monthData.partners || []).map(p => {
         const pLeads = isFull ? p.cplMtd : Math.round(p.cplMtd * leadRatio);
         const pSig = isFull ? p.sigMtd : Math.round(p.sigMtd * sigRatio);
         const pUsers = isFull ? p.cpaMtd : Math.round(p.cpaMtd * userRatio);
@@ -1025,7 +1041,7 @@
           cplMtd: pLeads > 0 ? pLeads : (p.cplKpi !== '—' ? 0 : '—'),
           cplRr: isFull ? p.cplRr : (pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : 0),
           sigKpi: p.sigKpi,
-          sigMtd: pSig > 0 ? pSig : (bp.sigKpi !== '—' ? 0 : '—'),
+          sigMtd: pSig > 0 ? pSig : (p.sigKpi !== '—' ? 0 : '—'),
           sigRr: isFull ? p.sigRr : (pSig > 0 ? Math.round((pSig / daysCount) * 30) : 0),
           cprKpi: p.cprKpi, cprMtd: 0, cprRr: 0,
           cpaKpi: p.cpaKpi,
@@ -1063,8 +1079,8 @@
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
-      const augPart = augDaily.filter(r => r.date >= sYMD && r.date <= eYMD).map(r => ({ ...r, label: `Aug ${r.date.split('-')[2]}` }));
-      const sepPart = sepDaily.filter(r => r.date >= sYMD && r.date <= eYMD).map(r => ({ ...r, label: `Sep ${r.date.split('-')[2]}` }));
+      const augPart = augDaily.filter(r => (r.date ? (r.date >= sYMD && r.date <= eYMD) : false)).map(r => ({ ...r, label: `Aug ${parseInt(r.date.split('-')[2])}` }));
+      const sepPart = sepDaily.filter(r => (r.date ? (r.date >= sYMD && r.date <= eYMD) : false)).map(r => ({ ...r, label: `Sep ${parseInt(r.date.split('-')[2])}` }));
 
       const combinedSlice = augPart.concat(sepPart);
       const totalDays = Math.max(combinedSlice.length, 1);
@@ -1297,7 +1313,10 @@
       const existing = Chart.getChart(canvas);
       if (existing) existing.destroy();
 
-      const labels = slice.map(r => `${monthPrefix} ${r.date.split('-')[2]}`);
+      const labels = slice.map(r => {
+        if (r.date) return `${monthPrefix} ${parseInt(r.date.split('-')[2])}`;
+        return `${monthPrefix} ${r.d}`;
+      });
       const maxLeads = Math.max(...slice.map(r => r.leads), 300);
 
       new Chart(canvas.getContext('2d'), {
