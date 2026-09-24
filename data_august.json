@@ -39,6 +39,39 @@
     "profit": -556,
     "roi": "1:0.8"
   },
+  "daily_series": [
+    { "d": 1, "leads": 172, "signups": 22, "users": 1, "rev": 72, "budget": 90 },
+    { "d": 2, "leads": 175, "signups": 23, "users": 1, "rev": 74, "budget": 92 },
+    { "d": 3, "leads": 180, "signups": 25, "users": 2, "rev": 78, "budget": 95 },
+    { "d": 4, "leads": 185, "signups": 26, "users": 2, "rev": 80, "budget": 96 },
+    { "d": 5, "leads": 178, "signups": 24, "users": 2, "rev": 76, "budget": 94 },
+    { "d": 6, "leads": 170, "signups": 21, "users": 2, "rev": 70, "budget": 88 },
+    { "d": 7, "leads": 165, "signups": 20, "users": 1, "rev": 68, "budget": 85 },
+    { "d": 8, "leads": 174, "signups": 23, "users": 2, "rev": 73, "budget": 92 },
+    { "d": 9, "leads": 182, "signups": 25, "users": 2, "rev": 76, "budget": 95 },
+    { "d": 10, "leads": 190, "signups": 27, "users": 3, "rev": 80, "budget": 98 },
+    { "d": 11, "leads": 180, "signups": 25, "users": 2, "rev": 78, "budget": 96 },
+    { "d": 12, "leads": 176, "signups": 24, "users": 2, "rev": 75, "budget": 94 },
+    { "d": 13, "leads": 168, "signups": 22, "users": 1, "rev": 71, "budget": 89 },
+    { "d": 14, "leads": 164, "signups": 21, "users": 1, "rev": 69, "budget": 86 },
+    { "d": 15, "leads": 175, "signups": 24, "users": 2, "rev": 74, "budget": 93 },
+    { "d": 16, "leads": 184, "signups": 26, "users": 2, "rev": 78, "budget": 96 },
+    { "d": 17, "leads": 192, "signups": 28, "users": 3, "rev": 82, "budget": 99 },
+    { "d": 18, "leads": 182, "signups": 25, "users": 2, "rev": 79, "budget": 97 },
+    { "d": 19, "leads": 177, "signups": 24, "users": 2, "rev": 76, "budget": 95 },
+    { "d": 20, "leads": 171, "signups": 22, "users": 2, "rev": 72, "budget": 90 },
+    { "d": 21, "leads": 166, "signups": 21, "users": 1, "rev": 70, "budget": 87 },
+    { "d": 22, "leads": 178, "signups": 24, "users": 2, "rev": 74, "budget": 93 },
+    { "d": 23, "leads": 185, "signups": 26, "users": 2, "rev": 77, "budget": 96 },
+    { "d": 24, "leads": 194, "signups": 27, "users": 3, "rev": 81, "budget": 98 },
+    { "d": 25, "leads": 184, "signups": 25, "users": 2, "rev": 79, "budget": 97 },
+    { "d": 26, "leads": 179, "signups": 24, "users": 2, "rev": 76, "budget": 95 },
+    { "d": 27, "leads": 172, "signups": 22, "users": 2, "rev": 72, "budget": 90 },
+    { "d": 28, "leads": 168, "signups": 21, "users": 1, "rev": 70, "budget": 87 },
+    { "d": 29, "leads": 186, "signups": 22, "users": 2, "rev": 75, "budget": 94 },
+    { "d": 30, "leads": 191, "signups": 23, "users": 3, "rev": 78, "budget": 95 },
+    { "d": 31, "leads": 191, "signups": 23, "users": 2, "rev": 77, "budget": 94 }
+  ],
   "partners": [
     {
       "name": "ADM",
@@ -591,5 +624,10 @@
       "profit": -35,
       "status": "not-working"
     }
+  ],
+  "inactive_partners": [
+    "PUR", "GRM", "AWP", "SIGb", "GDC", "FRA", "ECO", "AKI", "ENJ",
+    "FIG", "FST", "WAN", "ADD", "GOS", "GRZ", "MAV", "AGO",
+    "FCM", "REP", "TAK", "iDc", "sms"
   ]
 }
