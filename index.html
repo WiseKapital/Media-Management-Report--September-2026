@@ -475,7 +475,7 @@
 
       </div>
 
-      <!-- MAIN LINE CHART: CONTINUOUS & MULTI-MONTH -->
+      <!-- MAIN LINE CHART -->
       <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
         <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 24</h3>
         <div class="relative w-full h-72 md:h-80">
@@ -507,7 +507,6 @@
             
             <!-- ROW 0: CLEAN BORDERLESS ROW WITH FLOATING BUTTONS DIRECTLY ABOVE EACH COLUMN TITLE -->
             <tr class="sort-row-borderless select-none">
-              <!-- Empty above MEDIA PARTNER -->
               <th></th>
 
               <!-- FLOATING SORT DIRECTLY ABOVE CPL -->
@@ -559,7 +558,6 @@
                 </button>
               </th>
 
-              <!-- Empty above STATUS -->
               <th></th>
             </tr>
 
@@ -745,19 +743,16 @@
 
   </div>
 
-  <!-- JAVASCRIPT: TWO INDEPENDENT POPUP CALENDARS & STRICT DATE-MATCHING FETCH -->
+  <!-- JAVASCRIPT: DATA HANDLER, STRICT DATE-FILTERING & FIX -->
   <script>
-    // DATA STORE LOADED EXCLUSIVELY VIA FETCH
     const DATA_CACHE = {
       august: null,
       september: null
     };
 
-    // CURRENT SELECTED DATES
     let fromDate = new Date(2026, 8, 1);
     let toDate = new Date(2026, 8, 24);
 
-    // CURRENT MONTHS VIEWED IN EACH POPUP CALENDAR
     let fromViewMonth = 8;
     let toViewMonth = 8;
     const viewYear = 2026;
@@ -770,7 +765,6 @@
       "July", "August", "September", "October", "November", "December"
     ];
 
-    // ASYNC FETCH FROM data_september.json AND data_august.json
     async function loadAllJSONs() {
       try {
         const [resSep, resAug] = await Promise.all([
@@ -815,7 +809,6 @@
       if (chartTitle) chartTitle.textContent = `LEADS vs SIGNUPS vs USERS vs KPIs — ${formatMDY(fromDate)} to ${formatMDY(toDate)}`;
     }
 
-    // TOGGLE INDIVIDUAL CALENDARS (FROM or TO)
     function toggleCalendarPopover(type, e) {
       if (e) e.stopPropagation();
       const fromPop = document.getElementById('fromCalendarPopover');
@@ -868,7 +861,7 @@
 
       const firstDay = new Date(viewYear, curMonth, 1);
       const daysInMonth = new Date(viewYear, curMonth + 1, 0).getDate();
-      const startDayIndex = (firstDay.getDay() + 6) % 7; // Monday = 0
+      const startDayIndex = (firstDay.getDay() + 6) % 7;
 
       for (let i = 0; i < startDayIndex; i++) {
         const blank = document.createElement('div');
@@ -913,7 +906,6 @@
       }
     }
 
-    // ON SELECTING A DATE FROM EITHER CALENDAR
     function selectCalendarDate(type, date) {
       if (type === 'from') {
         fromDate = date;
@@ -933,36 +925,38 @@
       dispatchDateRange(fromDate, toDate);
     }
 
-    // MULTI-MONTH CONSOLIDATOR
+    // DISPATCHER USING STRING DATES TO AVOID ANY TIMEZONE DRIFT
     function dispatchDateRange(sDate, eDate) {
-      const julEnd = new Date(2026, 6, 31);
-      const augStart = new Date(2026, 7, 1);
-      const augEnd = new Date(2026, 7, 31);
-      const sepStart = new Date(2026, 8, 1);
+      const sYMD = formatYMD(sDate);
+      const eYMD = formatYMD(eDate);
 
-      // CASE 1: STRICTLY IN JULY (NO DATA)
-      if (eDate <= julEnd) {
+      // CASE 1: STRICTLY JULY
+      if (eYMD <= '2026-07-31') {
         renderZeroDataState(sDate, eDate);
         return;
       }
 
       // CASE 2: STRICTLY AUGUST
-      if (sDate >= augStart && eDate <= augEnd) {
+      if (sYMD >= '2026-08-01' && eYMD <= '2026-08-31') {
         if (DATA_CACHE.august) {
           renderSingleMonth(DATA_CACHE.august, sDate, eDate, 'Aug');
+        } else {
+          renderZeroDataState(sDate, eDate);
         }
         return;
       }
 
       // CASE 3: STRICTLY SEPTEMBER
-      if (sDate >= sepStart) {
+      if (sYMD >= '2026-09-01') {
         if (DATA_CACHE.september) {
           renderSingleMonth(DATA_CACHE.september, sDate, eDate, 'Sep');
+        } else {
+          renderZeroDataState(sDate, eDate);
         }
         return;
       }
 
-      // CASE 4: MULTI-MONTH COMBINED (CROSSING AUGUST & SEPTEMBER, OR JULY TO SEPT)
+      // CASE 4: COMBINED AUGUST + SEPTEMBER
       renderCombinedMultiMonth(sDate, eDate);
     }
 
@@ -974,23 +968,15 @@
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
-      // Reliable date-based check for full month
-      const isFull = (
-        sDate.getDate() === 1 &&
-        eDate.getDate() === (isAug ? 31 : 24) &&
-        sDate.getMonth() === eDate.getMonth()
-      );
+      // Check if full month range is selected
+      const isFull = isAug 
+        ? (sYMD === '2026-08-01' && eYMD === '2026-08-31')
+        : (sYMD === '2026-09-01' && eYMD === '2026-09-24');
 
       const daily = monthData.daily_series || [];
-
-      // Match by exact date strings from JSON, with fallback to day number if needed
       const slice = daily.filter(r => {
-        if (r.date) return r.date >= sYMD && r.date <= eYMD;
-        if (r.d) {
-          const rDateStr = `2026-${String(sDate.getMonth() + 1).padStart(2, '0')}-${String(r.d).padStart(2, '0')}`;
-          return rDateStr >= sYMD && rDateStr <= eYMD;
-        }
-        return false;
+        const rDate = r.date || (r.d ? `2026-${isAug ? '08' : '09'}-${String(r.d).padStart(2, '0')}` : '');
+        return rDate >= sYMD && rDate <= eYMD;
       });
 
       const daysCount = Math.max(slice.length, 1);
@@ -1021,33 +1007,38 @@
       const budgetRatio = intBudget / (monthData.totals.budget || 1);
       const revRatio = intRevenue / (monthData.totals.revenue || 1);
 
-      // FIXED: Strictly uses 'p' parameter throughout the mapper
+      // SAFE PARTNERS MAPPING (NO UNDEFINED VARIABLES)
       const partners = (monthData.partners || []).map(p => {
-        const pLeads = isFull ? p.cplMtd : Math.round(p.cplMtd * leadRatio);
-        const pSig = isFull ? p.sigMtd : Math.round(p.sigMtd * sigRatio);
-        const pUsers = isFull ? p.cpaMtd : Math.round(p.cpaMtd * userRatio);
-        const pBudget = isFull ? p.budget : Math.round(p.budget * budgetRatio);
-        const pRev = isFull ? p.rev : Number((p.rev * revRatio).toFixed(2));
+        const pLeads = isFull ? p.cplMtd : (p.cplMtd !== '—' && p.cplMtd > 0 ? Math.round(p.cplMtd * leadRatio) : '—');
+        const pSig = isFull ? p.sigMtd : (p.sigMtd !== '—' && p.sigMtd > 0 ? Math.round(p.sigMtd * sigRatio) : '—');
+        const pUsers = isFull ? p.cpaMtd : (p.cpaMtd !== '—' && p.cpaMtd > 0 ? Math.round(p.cpaMtd * userRatio) : '—');
+        const pBudget = isFull ? p.budget : Math.round((p.budget || 0) * budgetRatio);
+        const pRev = isFull ? p.rev : Number(((p.rev || 0) * revRatio).toFixed(2));
         const pProfit = Number((pRev - pBudget).toFixed(2));
 
         let pStatus = 'neutral';
         if (pProfit > 0 && pRev > 0) pStatus = 'working-well';
         else if (pProfit < 0 && pBudget > 0) pStatus = 'not-working';
-        else if (pSig >= 9 || pUsers >= 2) pStatus = 'potential';
+        else if ((typeof pSig === 'number' && pSig >= 9) || (typeof pUsers === 'number' && pUsers >= 2)) pStatus = 'potential';
 
         return {
           name: p.name,
           cplKpi: p.cplKpi,
-          cplMtd: pLeads > 0 ? pLeads : (p.cplKpi !== '—' ? 0 : '—'),
-          cplRr: isFull ? p.cplRr : (pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : 0),
+          cplMtd: pLeads,
+          cplRr: isFull ? p.cplRr : (typeof pLeads === 'number' && pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : (p.cplKpi !== '—' ? 0 : '—')),
           sigKpi: p.sigKpi,
-          sigMtd: pSig > 0 ? pSig : (p.sigKpi !== '—' ? 0 : '—'),
-          sigRr: isFull ? p.sigRr : (pSig > 0 ? Math.round((pSig / daysCount) * 30) : 0),
-          cprKpi: p.cprKpi, cprMtd: 0, cprRr: 0,
+          sigMtd: pSig,
+          sigRr: isFull ? p.sigRr : (typeof pSig === 'number' && pSig > 0 ? Math.round((pSig / daysCount) * 30) : (p.sigKpi !== '—' ? 0 : '—')),
+          cprKpi: p.cprKpi || 200,
+          cprMtd: 0,
+          cprRr: 0,
           cpaKpi: p.cpaKpi,
-          cpaMtd: pUsers > 0 ? pUsers : (p.cpaKpi !== '—' ? 0 : '—'),
-          cpaRr: isFull ? p.cpaRr : (pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : 0),
-          rev: pRev, budget: pBudget, profit: pProfit, status: pStatus
+          cpaMtd: pUsers,
+          cpaRr: isFull ? p.cpaRr : (typeof pUsers === 'number' && pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : (p.cpaKpi !== '—' ? 0 : '—')),
+          rev: pRev,
+          budget: pBudget,
+          profit: pProfit,
+          status: pStatus
         };
       });
 
@@ -1104,7 +1095,6 @@
         rrBudget, rrSignups, rrUsers, rrRevenue, rrProfit, rrLeads
       });
 
-      // Consolidate Partner Lists
       const pMap = {};
       const addPartnerData = (pList) => {
         (pList || []).forEach(p => {
@@ -1115,9 +1105,9 @@
               cplMtd: 0, sigMtd: 0, cpaMtd: 0, rev: 0, budget: 0
             };
           }
-          pMap[p.name].cplMtd += (p.cplMtd || 0);
-          pMap[p.name].sigMtd += (p.sigMtd || 0);
-          pMap[p.name].cpaMtd += (p.cpaMtd || 0);
+          if (typeof p.cplMtd === 'number') pMap[p.name].cplMtd += p.cplMtd;
+          if (typeof p.sigMtd === 'number') pMap[p.name].sigMtd += p.sigMtd;
+          if (typeof p.cpaMtd === 'number') pMap[p.name].cpaMtd += p.cpaMtd;
           pMap[p.name].rev += Number((p.rev || 0).toFixed(2));
           pMap[p.name].budget += (p.budget || 0);
         });
@@ -1196,11 +1186,11 @@
 
     // HELPER: RENDER PROGRESS BARS
     function renderAllBars(partners) {
-      const budgetBars = partners.filter(p => p.budget > 0).map(p => ({ name: p.name, val: p.budget })).sort((a,b) => b.val - a.val);
-      const sigBars = partners.filter(p => p.sigMtd > 0).map(p => ({ name: p.name, val: p.sigMtd })).sort((a,b) => b.val - a.val);
-      const userBars = partners.filter(p => p.cpaMtd > 0).map(p => ({ name: p.name, val: p.cpaMtd })).sort((a,b) => b.val - a.val);
-      const revBars = partners.filter(p => p.rev > 0).map(p => ({ name: p.name, val: p.rev })).sort((a,b) => b.val - a.val);
-      const profitBars = partners.filter(p => p.profit !== 0).map(p => ({ name: p.name, val: p.profit })).sort((a,b) => b.val - a.val);
+      const budgetBars = partners.filter(p => (p.budget || 0) > 0).map(p => ({ name: p.name, val: p.budget })).sort((a,b) => b.val - a.val);
+      const sigBars = partners.filter(p => typeof p.sigMtd === 'number' && p.sigMtd > 0).map(p => ({ name: p.name, val: p.sigMtd })).sort((a,b) => b.val - a.val);
+      const userBars = partners.filter(p => typeof p.cpaMtd === 'number' && p.cpaMtd > 0).map(p => ({ name: p.name, val: p.cpaMtd })).sort((a,b) => b.val - a.val);
+      const revBars = partners.filter(p => (p.rev || 0) > 0).map(p => ({ name: p.name, val: p.rev })).sort((a,b) => b.val - a.val);
+      const profitBars = partners.filter(p => (p.profit || 0) !== 0).map(p => ({ name: p.name, val: p.profit })).sort((a,b) => b.val - a.val);
 
       renderProgressBars('budget', budgetBars, '#f59e0b', '$');
       renderProgressBars('signups', sigBars, '#2563eb', '');
@@ -1258,7 +1248,7 @@
 
     // HELPER: RENDER LEADS DOUGHNUT
     function renderLeadsDonutFromPartners(partners, totalMtd, totalRr) {
-      const leadsPartners = partners.filter(p => p.cplMtd > 0).map((p, idx) => ({
+      const leadsPartners = partners.filter(p => typeof p.cplMtd === 'number' && p.cplMtd > 0).map((p, idx) => ({
         name: p.name,
         val: p.cplMtd,
         color: ['#00d285', '#2563eb', '#a855f7', '#06b6d4', '#f59e0b', '#ec4899', '#6366f1'][idx % 7]
@@ -1555,7 +1545,7 @@
     // 4 MINI BREAKDOWN TABLES
     function renderMiniCampaignTables(partners, totals) {
       // 1. CPL
-      const cplPartners = partners.filter(p => p.cplMtd !== '—' && p.cplMtd > 0).sort((a,b) => b.cplMtd - a.cplMtd);
+      const cplPartners = partners.filter(p => typeof p.cplMtd === 'number' && p.cplMtd > 0).sort((a,b) => b.cplMtd - a.cplMtd);
       const cplTbody = document.getElementById('mini-cpl-tbody');
       const cplTfoot = document.getElementById('mini-cpl-tfoot');
       if (cplTbody && cplTfoot) {
@@ -1579,7 +1569,7 @@
       }
 
       // 2. SIGNUPS
-      const cprPartners = partners.filter(p => p.sigMtd !== '—' && p.sigMtd > 0).sort((a,b) => b.sigMtd - a.sigMtd);
+      const cprPartners = partners.filter(p => typeof p.sigMtd === 'number' && p.sigMtd > 0).sort((a,b) => b.sigMtd - a.sigMtd);
       const cprTbody = document.getElementById('mini-cpr-tbody');
       const cprTfoot = document.getElementById('mini-cpr-tfoot');
       if (cprTbody && cprTfoot) {
@@ -1611,7 +1601,7 @@
       }
 
       // 4. CPA
-      const cpaPartners = partners.filter(p => p.cpaMtd !== '—' && p.cpaMtd > 0).sort((a,b) => b.cpaMtd - a.cpaMtd);
+      const cpaPartners = partners.filter(p => typeof p.cpaMtd === 'number' && p.cpaMtd > 0).sort((a,b) => b.cpaMtd - a.cpaMtd);
       const cpaTbody = document.getElementById('mini-cpa-tbody');
       const cpaTfoot = document.getElementById('mini-cpa-tfoot');
       if (cpaTbody && cpaTfoot) {
@@ -1741,7 +1731,7 @@
       }
     }
 
-    // INITIALIZATION: LOAD BOTH JSONs ON LOAD
+    // INITIALIZATION: LOAD JSONS ON LOAD
     document.addEventListener('DOMContentLoaded', () => {
       loadAllJSONs();
 
