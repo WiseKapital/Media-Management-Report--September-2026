@@ -98,7 +98,7 @@
   <div class="max-w-[1400px] mx-auto space-y-5">
 
     <!-- ============================================================ -->
-    <!-- TOP HEADER WITH RELIABLE AUTO-APPLY CALENDAR (UP TO SEP 21)  -->
+    <!-- TOP HEADER WITH CALENDAR (UPDATED UP TO SEP 24)              -->
     <!-- ============================================================ -->
     <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4 relative">
       
@@ -111,7 +111,7 @@
         <div class="relative">
           <button id="calendarBtn" onclick="toggleCalendarPopover(event)" class="flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-xl shadow-2xs text-xs font-extrabold text-slate-800 transition focus:outline-none focus:ring-2 focus:ring-emerald-500/20 cursor-pointer">
             <i class="fa-regular fa-calendar-days text-[#00b074] text-base"></i>
-            <span id="displayRangeLabel">09/01/2026 to 09/21/2026</span>
+            <span id="displayRangeLabel">09/01/2026 to 09/24/2026</span>
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
           </button>
 
@@ -130,13 +130,11 @@
             </div>
 
             <!-- Days Grid -->
-            <div id="septemberDaysGrid" class="grid grid-cols-7 text-center text-xs font-bold gap-y-1">
-              <!-- Rendered via JS -->
-            </div>
+            <div id="septemberDaysGrid" class="grid grid-cols-7 text-center text-xs font-bold gap-y-1"></div>
 
             <!-- Live Range Preview -->
             <div class="mt-3 text-center text-[11px] font-bold text-slate-600 bg-slate-50 py-1.5 rounded-md border border-slate-100">
-              <span id="calendarPreviewDuration">09/01/2026 to 09/21/2026 (3 weeks)</span>
+              <span id="calendarPreviewDuration">09/01/2026 to 09/24/2026 (3 weeks, 3 days)</span>
             </div>
 
             <div class="text-[10px] text-slate-400 text-center font-semibold mt-1.5">
@@ -160,11 +158,11 @@
     <!-- ========================================== -->
     <div id="section-v1" class="space-y-5">
 
-      <!-- TEAM PERFORMANCE TABLE (MEDIA ROW ONLY) -->
+      <!-- TEAM PERFORMANCE TABLE -->
       <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 overflow-hidden space-y-2.5">
         <div class="flex items-center justify-between">
           <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">Team Performance</h3>
-          <span id="teamPerfSub" class="text-[11px] font-bold text-slate-400">Pacing: 09/01/2026 to 09/21/2026</span>
+          <span id="teamPerfSub" class="text-[11px] font-bold text-slate-400">Pacing: 09/01/2026 to 09/24/2026</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-center text-xs min-w-[1050px]">
@@ -207,17 +205,17 @@
                 <td class="py-3 px-2">300</td>
                 <td class="py-3 px-2">$16,500</td>
                 <td class="py-3 px-2 border-r border-slate-200">$11,000</td>
-                <td id="tp-mtd-budget" class="py-3 px-2 font-black">$537</td>
-                <td id="tp-mtd-signups" class="py-3 px-2 font-black">450</td>
-                <td id="tp-mtd-users" class="py-3 px-2 font-black">36</td>
-                <td id="tp-mtd-revenue" class="py-3 px-2 font-black">$2,770</td>
-                <td id="tp-mtd-profit" class="py-3 px-2 font-black border-r border-slate-200">$2,233</td>
-                <td id="tp-rr-budget" class="py-3 px-2 text-green-custom font-black">$767</td>
-                <td id="tp-rr-signups" class="py-3 px-2 text-red-custom font-black">641</td>
-                <td id="tp-rr-users" class="py-3 px-2 text-red-custom font-black">50</td>
-                <td id="tp-rr-revenue" class="py-3 px-2 text-red-custom font-black">$3,957</td>
-                <td id="tp-rr-profit" class="py-3 px-2 text-red-custom font-black">$3,190</td>
-                <td id="tp-rr-roi" class="py-3 px-2 pr-4 text-slate-900 font-extrabold">1:5.2</td>
+                <td id="tp-mtd-budget" class="py-3 px-2 font-black">$546</td>
+                <td id="tp-mtd-signups" class="py-3 px-2 font-black">498</td>
+                <td id="tp-mtd-users" class="py-3 px-2 font-black">39</td>
+                <td id="tp-mtd-revenue" class="py-3 px-2 font-black">$3,055.42</td>
+                <td id="tp-mtd-profit" class="py-3 px-2 font-black border-r border-slate-200">$2,509.42</td>
+                <td id="tp-rr-budget" class="py-3 px-2 text-green-custom font-black">$683</td>
+                <td id="tp-rr-signups" class="py-3 px-2 text-red-custom font-black">619</td>
+                <td id="tp-rr-users" class="py-3 px-2 text-red-custom font-black">48</td>
+                <td id="tp-rr-revenue" class="py-3 px-2 text-red-custom font-black">$3,819</td>
+                <td id="tp-rr-profit" class="py-3 px-2 text-red-custom font-black">$3,136</td>
+                <td id="tp-rr-roi" class="py-3 px-2 pr-4 text-slate-900 font-extrabold">1:5.6</td>
               </tr>
             </tbody>
           </table>
@@ -237,7 +235,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-budget-mtd" class="text-xl font-black text-slate-900">$537</span>
+              <span id="card-budget-mtd" class="text-xl font-black text-slate-900">$546</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -245,7 +243,7 @@
                 KPI <span class="text-slate-900 font-extrabold">5.5k</span>
               </span>
               <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                RR <span id="card-budget-rr" class="text-green-custom font-extrabold">767</span>
+                RR <span id="card-budget-rr" class="text-green-custom font-extrabold">683</span>
               </span>
             </div>
           </div>
@@ -268,7 +266,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-signups-mtd" class="text-xl font-black text-slate-900">450</span>
+              <span id="card-signups-mtd" class="text-xl font-black text-slate-900">498</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -276,7 +274,7 @@
                 KPI <span class="text-slate-900 font-extrabold">1000</span>
               </span>
               <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                RR <span id="card-signups-rr" class="text-red-custom font-extrabold">641</span>
+                RR <span id="card-signups-rr" class="text-red-custom font-extrabold">619</span>
               </span>
             </div>
           </div>
@@ -299,7 +297,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-users-mtd" class="text-xl font-black text-slate-900">36</span>
+              <span id="card-users-mtd" class="text-xl font-black text-slate-900">39</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -307,7 +305,7 @@
                 KPI <span class="text-slate-900 font-extrabold">300</span>
               </span>
               <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                RR <span id="card-users-rr" class="text-red-custom font-extrabold">50</span>
+                RR <span id="card-users-rr" class="text-red-custom font-extrabold">48</span>
               </span>
             </div>
           </div>
@@ -330,7 +328,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-rev-mtd" class="text-xl font-black text-slate-900">$2,770</span>
+              <span id="card-rev-mtd" class="text-xl font-black text-slate-900">$3,055.42</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -338,7 +336,7 @@
                 KPI <span class="text-slate-900 font-extrabold">16.5k</span>
               </span>
               <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                RR <span id="card-rev-rr" class="text-red-custom font-extrabold">3,957</span>
+                RR <span id="card-rev-rr" class="text-red-custom font-extrabold">3,819</span>
               </span>
             </div>
           </div>
@@ -361,7 +359,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-profit-mtd" class="text-xl font-black text-slate-900">$2,233</span>
+              <span id="card-profit-mtd" class="text-xl font-black text-slate-900">$2,509.42</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -369,7 +367,7 @@
                 KPI <span class="text-slate-900 font-extrabold">11k</span>
               </span>
               <span class="px-1.5 py-0.5 bg-slate-100 rounded text-[9px] font-bold text-slate-600">
-                RR <span id="card-profit-rr" class="text-red-custom font-extrabold">3,190</span>
+                RR <span id="card-profit-rr" class="text-red-custom font-extrabold">3,136</span>
               </span>
             </div>
           </div>
@@ -385,7 +383,7 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- DOUGHNUT CHARTS (ABOVE LINE CHART)                           -->
+      <!-- DOUGHNUT CHARTS                                              -->
       <!-- ============================================================ -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
@@ -397,16 +395,16 @@
               <h4 class="text-sm font-extrabold text-slate-900 mt-1">Lead Share by Partner</h4>
             </div>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b id="leads-badge-mtd" class="text-slate-900">4,556</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b id="leads-badge-mtd" class="text-slate-900">4,722</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">4,000</b></span>
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b id="leads-badge-rr" class="text-green-custom">6,509</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b id="leads-badge-rr" class="text-green-custom">5,902</b></span>
             </div>
           </div>
 
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="leadsDonutChart"></canvas>
             <div class="absolute flex flex-col items-center justify-center pointer-events-none">
-              <span id="leads-donut-total" class="text-2xl font-black text-slate-900">4,556</span>
+              <span id="leads-donut-total" class="text-2xl font-black text-slate-900">4,722</span>
               <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Total Leads</span>
             </div>
           </div>
@@ -414,7 +412,7 @@
           <div id="leads-legend-container" class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs"></div>
         </div>
 
-        <!-- DOUGHNUT 2: CPR (NO DATA STATE) -->
+        <!-- DOUGHNUT 2: CPR -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
             <div>
@@ -422,7 +420,7 @@
               <h4 class="text-sm font-extrabold text-slate-900 mt-1">CPR Performance</h4>
             </div>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b id="cpr-badge-mtd" class="text-slate-900">0.0</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">0.0</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">200</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-slate-500">0.0</b></span>
             </div>
@@ -448,7 +446,7 @@
 
       <!-- MAIN LINE CHART -->
       <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 21</h3>
+        <h3 id="lineChartTitle" class="text-base font-extrabold text-slate-900 tracking-tight mb-3">LEADS vs SIGNUPS vs USERS vs KPIs — Sep 1 to Sep 24</h3>
         <div class="relative w-full h-72 md:h-80">
           <canvas id="mainLineChart"></canvas>
         </div>
@@ -464,7 +462,7 @@
       <!-- TOP BAR: COUNTER & RESET BUTTON -->
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
         <div id="tableCounter" class="text-xs font-extrabold text-slate-900">
-          Showing 24 active partners
+          Showing 25 active partners
         </div>
         <button onclick="resetTableSort()" class="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition cursor-pointer border border-slate-200 shadow-2xs">
           <i class="fa-solid fa-rotate-left text-slate-500 text-[11px]"></i> Clear / Reset Table
@@ -534,7 +532,7 @@
               <th></th>
             </tr>
 
-            <!-- ROW 1: REGULAR CLEAN MINT TITLE HEADERS -->
+            <!-- ROW 1: CLEAN ORIGINAL TITLE HEADERS -->
             <tr class="bg-mint-header text-slate-800 select-none">
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider align-middle">
                 MEDIA PARTNER
@@ -655,7 +653,7 @@
                 </thead>
                 <tbody id="mini-cpr-conv-tbody" class="text-slate-800 font-semibold text-[11px]">
                   <tr class="hover:bg-slate-50">
-                    <td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold"></td>
+                    <td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold">No active CPR records</td>
                   </tr>
                 </tbody>
                 <tfoot id="mini-cpr-conv-tfoot" class="text-[11px] font-black text-slate-900 bg-slate-50">
@@ -727,7 +725,6 @@
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GOS</td></tr>
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">GRZ</td></tr>
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">MAV</td></tr>
-            <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">XLE</td></tr>
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">AGO</td></tr>
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">FCM</td></tr>
             <tr class="hover:bg-slate-50"><td class="py-1.5 px-3">REP</td></tr>
@@ -741,9 +738,9 @@
 
   </div>
 
-  <!-- JAVASCRIPT: DATA UP TO SEP 21 & INTERACTIVE COLUMN SORT -->
+  <!-- JAVASCRIPT: NEW DATA BENCHMARK FOR SEP 24, 2026 -->
   <script>
-    // DAILY PROGRESSION (DAYS 1 TO 21)
+    // DAILY PROGRESSION UP TO SEPTEMBER 24
     const DAILY_SERIES = [
       { d: 1, leads: 265, signups: 22, users: 1, rev: 80, budget: 20 },
       { d: 2, leads: 270, signups: 23, users: 1, rev: 85, budget: 22 },
@@ -765,10 +762,13 @@
       { d: 18, leads: 102, signups: 20, users: 2, rev: 250, budget: 126 },
       { d: 19, leads: 42, signups: 25, users: 4, rev: 220, budget: 3 },
       { d: 20, leads: 43, signups: 25, users: 4, rev: 220, budget: 3 },
-      { d: 21, leads: 43, signups: 26, users: 5, rev: 220, budget: 3 }
+      { d: 21, leads: 43, signups: 26, users: 5, rev: 220, budget: 3 },
+      { d: 22, leads: 55, signups: 16, users: 1, rev: 95, budget: 3 },
+      { d: 23, leads: 55, signups: 16, users: 1, rev: 95, budget: 3 },
+      { d: 24, leads: 56, signups: 16, users: 1, rev: 95.42, budget: 3 }
     ];
 
-    // EXACT BENCHMARK FOR SEPTEMBER 21, 2026 (24 ACTIVE PARTNERS)
+    // BENCHMARK FOR SEPTEMBER 24, 2026 (25 ACTIVE PARTNERS)
     const BASE_PARTNERS = [
       { name: 'ADM', cplKpi: 1000, maxLeads: 1146, sigKpi: 59, maxSig: 12, cpaKpi: 50, maxUsers: 1, maxRev: 220, maxBudget: 75, activeFrom: 1 },
       { name: 'ADO', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 7, cpaKpi: 50, maxUsers: 3, maxRev: 370, maxBudget: 0, activeFrom: 1 },
@@ -776,30 +776,31 @@
       { name: 'APG', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 5, cpaKpi: 50, maxUsers: 1, maxRev: 160, maxBudget: 0, activeFrom: 14 },
       { name: 'BTD', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
       { name: 'CFL', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 15 },
-      { name: 'CHA', cplKpi: 1000, maxLeads: 13, sigKpi: 59, maxSig: 15, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'CHA', cplKpi: 1000, maxLeads: 13, sigKpi: 59, maxSig: 21, cpaKpi: 50, maxUsers: 1, maxRev: 160, maxBudget: 0, activeFrom: 1 },
       { name: 'DRCT', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 2, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
-      { name: 'EPV', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 8, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
-      { name: 'FXM', cplKpi: 1000, maxLeads: 2501, sigKpi: '—', maxSig: 0, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 171, activeFrom: 1 },
+      { name: 'EPV', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 13, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'FXM', cplKpi: 1000, maxLeads: 2573, sigKpi: '—', maxSig: 0, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 171, activeFrom: 1 },
       { name: 'FZY', cplKpi: 1000, maxLeads: 18, sigKpi: 59, maxSig: 2, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 12 },
-      { name: 'LGL', cplKpi: 1000, maxLeads: 878, sigKpi: 59, maxSig: 189, cpaKpi: 50, maxUsers: 1, maxRev: 170, maxBudget: 96, activeFrom: 1 },
-      { name: 'LUM', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 9, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'LGL', cplKpi: 1000, maxLeads: 972, sigKpi: 59, maxSig: 211, cpaKpi: 50, maxUsers: 1, maxRev: 170, maxBudget: 105, activeFrom: 1 },
+      { name: 'LUM', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 11, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
       { name: 'MOD', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 2, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
-      { name: 'MON', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 74, cpaKpi: 50, maxUsers: 6, maxRev: 0, maxBudget: 0, activeFrom: 1 },
-      { name: 'PRO', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 42, cpaKpi: 50, maxUsers: 11, maxRev: 1450, maxBudget: 0, activeFrom: 1 },
+      { name: 'MON', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 76, cpaKpi: 50, maxUsers: 6, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'PRO', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 51, cpaKpi: 50, maxUsers: 12, maxRev: 1570, maxBudget: 0, activeFrom: 1 },
       { name: 'REV', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 33, cpaKpi: 50, maxUsers: 9, maxRev: 180, maxBudget: 75, activeFrom: 10 },
       { name: 'SDG', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 2, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
       { name: 'SGA', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 15 },
       { name: 'SPX', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 20, cpaKpi: 50, maxUsers: 1, maxRev: 220, maxBudget: 0, activeFrom: 1 },
       { name: 'VENE', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 7, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
-      { name: 'WDG', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 14, cpaKpi: 50, maxUsers: 3, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'WDG', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 15, cpaKpi: 50, maxUsers: 3, maxRev: 0, maxBudget: 0, activeFrom: 1 },
       { name: 'WIZ', cplKpi: '—', maxLeads: 0, sigKpi: 59, maxSig: 2, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 120, activeFrom: 15 },
-      { name: 'WRW', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 }
+      { name: 'WRW', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: '—', maxUsers: 0, maxRev: 0, maxBudget: 0, activeFrom: 1 },
+      { name: 'XLE', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: 50, maxUsers: 1, maxRev: 5.42, maxBudget: 0, activeFrom: 1 }
     ];
 
-    // CALENDAR STRICT LIMIT: DAY 21
-    const MAX_ALLOWED_DAY = 21;
+    // CALENDAR STRICT LIMIT: DAY 24
+    const MAX_ALLOWED_DAY = 24;
     let startDay = 1;
-    let endDay = 21;
+    let endDay = 24;
     let isSelecting = false;
     let clickCount = 0;
     let tempStart = 1;
@@ -957,7 +958,7 @@
       isSelecting = false;
     }
 
-    // REAL-TIME ACCURATE MATHEMATICAL CALCULATOR
+    // REAL-TIME ACCURATE MATHEMATICAL CALCULATOR FOR NEW DATA (SEP 24)
     function renderPreciseRange(sDay, eDay) {
       const daysCount = eDay - sDay + 1;
       const slice = DAILY_SERIES.filter(r => r.d >= sDay && r.d <= eDay);
@@ -966,54 +967,54 @@
       const intSignups = slice.reduce((sum, r) => sum + r.signups, 0);
       const intUsers = slice.reduce((sum, r) => sum + r.users, 0);
       const intBudget = slice.reduce((sum, r) => sum + r.budget, 0);
-      const intRevenue = (sDay === 1 && eDay === 21) ? 2770 : slice.reduce((sum, r) => sum + r.rev, 0);
+      const intRevenue = (sDay === 1 && eDay === 24) ? 3055.42 : slice.reduce((sum, r) => sum + r.rev, 0);
       const intProfit = intRevenue - intBudget;
 
-      const rrBudget = (sDay === 1 && eDay === 21) ? 767 : Math.round((intBudget / daysCount) * 30);
-      const rrSignups = (sDay === 1 && eDay === 21) ? 641 : Math.round((intSignups / daysCount) * 30);
-      const rrUsers = (sDay === 1 && eDay === 21) ? 50 : Math.round((intUsers / daysCount) * 30);
-      const rrRevenue = (sDay === 1 && eDay === 21) ? 3957 : Math.round((intRevenue / daysCount) * 30);
-      const rrProfit = (sDay === 1 && eDay === 21) ? 3190 : rrRevenue - rrBudget;
-      const rrLeads = (sDay === 1 && eDay === 21) ? 6509 : Math.round((intLeads / daysCount) * 30);
+      const rrBudget = (sDay === 1 && eDay === 24) ? 683 : Math.round((intBudget / daysCount) * 30);
+      const rrSignups = (sDay === 1 && eDay === 24) ? 619 : Math.round((intSignups / daysCount) * 30);
+      const rrUsers = (sDay === 1 && eDay === 24) ? 48 : Math.round((intUsers / daysCount) * 30);
+      const rrRevenue = (sDay === 1 && eDay === 24) ? 3819 : Math.round((intRevenue / daysCount) * 30);
+      const rrProfit = (sDay === 1 && eDay === 24) ? 3136 : rrRevenue - rrBudget;
+      const rrLeads = (sDay === 1 && eDay === 24) ? 5902 : Math.round((intLeads / daysCount) * 30);
       const roiRatio = intBudget > 0 ? (intRevenue / intBudget).toFixed(1) : '—';
 
       // 1. Team Performance Table
       document.getElementById('tp-mtd-budget').textContent = '$' + intBudget.toLocaleString();
       document.getElementById('tp-mtd-signups').textContent = intSignups.toLocaleString();
       document.getElementById('tp-mtd-users').textContent = intUsers.toLocaleString();
-      document.getElementById('tp-mtd-revenue').textContent = '$' + intRevenue.toLocaleString();
-      document.getElementById('tp-mtd-profit').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString();
+      document.getElementById('tp-mtd-revenue').textContent = '$' + intRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('tp-mtd-profit').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
       document.getElementById('tp-rr-budget').textContent = '$' + rrBudget.toLocaleString();
       document.getElementById('tp-rr-signups').textContent = rrSignups.toLocaleString();
       document.getElementById('tp-rr-users').textContent = rrUsers.toLocaleString();
       document.getElementById('tp-rr-revenue').textContent = '$' + rrRevenue.toLocaleString();
       document.getElementById('tp-rr-profit').textContent = (rrProfit < 0 ? '-$' : '$') + Math.abs(rrProfit).toLocaleString();
-      document.getElementById('tp-rr-roi').textContent = intBudget > 0 ? `1:${roiRatio}` : '1:5.2';
+      document.getElementById('tp-rr-roi').textContent = intBudget > 0 ? `1:${roiRatio}` : '1:5.6';
 
       // 2. Metric Cards
       document.getElementById('card-budget-mtd').textContent = '$' + intBudget.toLocaleString();
       document.getElementById('card-budget-rr').textContent = rrBudget.toLocaleString();
       document.getElementById('card-signups-mtd').textContent = intSignups.toLocaleString();
-      document.getElementById('card-signups-rr').textContent = (sDay === 1 && eDay === 21) ? '641' : rrSignups.toLocaleString();
+      document.getElementById('card-signups-rr').textContent = rrSignups.toLocaleString();
       document.getElementById('card-users-mtd').textContent = intUsers.toLocaleString();
-      document.getElementById('card-users-rr').textContent = (sDay === 1 && eDay === 21) ? '50' : rrUsers.toLocaleString();
-      document.getElementById('card-rev-mtd').textContent = '$' + intRevenue.toLocaleString();
-      document.getElementById('card-rev-rr').textContent = (sDay === 1 && eDay === 21) ? '3,957' : rrRevenue.toLocaleString();
-      document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString();
-      document.getElementById('card-profit-rr').textContent = (sDay === 1 && eDay === 21) ? '3,190' : ((rrProfit < 0 ? '-' : '') + Math.abs(rrProfit).toLocaleString());
+      document.getElementById('card-users-rr').textContent = rrUsers.toLocaleString();
+      document.getElementById('card-rev-mtd').textContent = '$' + intRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('card-rev-rr').textContent = rrRevenue.toLocaleString();
+      document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('card-profit-rr').textContent = ((rrProfit < 0 ? '-' : '') + Math.abs(rrProfit).toLocaleString());
 
       // 3. Compute Individual Partner Numbers
-      const leadRatio = intLeads / 4556;
-      const sigRatio = intSignups / 450;
-      const userRatio = intUsers / 36;
-      const budgetRatio = intBudget / 537;
-      const revRatio = intRevenue / 2770;
+      const leadRatio = intLeads / 4722;
+      const sigRatio = intSignups / 498;
+      const userRatio = intUsers / 39;
+      const budgetRatio = intBudget / 546;
+      const revRatio = intRevenue / 3055.42;
 
       const activePartners = BASE_PARTNERS.filter(bp => eDay >= bp.activeFrom).map(bp => {
         let pLeads, pSig, pUsers, pBudget, pRev;
 
-        if (sDay === 1 && eDay === 21) {
+        if (sDay === 1 && eDay === 24) {
           pLeads = bp.maxLeads;
           pSig = bp.maxSig;
           pUsers = bp.maxUsers;
@@ -1024,35 +1025,37 @@
           pSig = Math.round(bp.maxSig * sigRatio);
           pUsers = Math.round(bp.maxUsers * userRatio);
           pBudget = Math.round(bp.maxBudget * budgetRatio);
-          pRev = Math.round(bp.maxRev * revRatio);
+          pRev = Number((bp.maxRev * revRatio).toFixed(2));
         }
 
-        const pProfit = pRev - pBudget;
+        const pProfit = Number((pRev - pBudget).toFixed(2));
         let pStatus = 'neutral';
         if (pProfit > 0 && pRev > 0) pStatus = 'working-well';
         else if (pProfit < 0 && pBudget > 0) pStatus = 'not-working';
         else if (pSig >= 9 || pUsers >= 2) pStatus = 'potential';
 
+        // Precise Run Rates for September 24
         let cplRr = pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : (bp.cplKpi !== '—' ? 0 : '—');
         let sigRr = pSig > 0 ? Math.round((pSig / daysCount) * 30) : (bp.sigKpi !== '—' ? 0 : '—');
         let cpaRr = pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : (bp.cpaKpi !== '—' ? 0 : '—');
 
-        if (sDay === 1 && eDay === 21) {
-          if (bp.name === 'FXM') cplRr = 3573;
-          if (bp.name === 'ADM') { cplRr = 1637; sigRr = 17; cpaRr = 1; }
-          if (bp.name === 'LGL') { cplRr = 1254; sigRr = 270; cpaRr = 1; }
-          if (bp.name === 'FZY') { cplRr = 26; sigRr = 3; }
-          if (bp.name === 'CHA') { cplRr = 19; sigRr = 21; }
-          if (bp.name === 'MON') { sigRr = 106; cpaRr = 9; }
-          if (bp.name === 'PRO') { sigRr = 60; cpaRr = 16; }
-          if (bp.name === 'REV') { sigRr = 47; cpaRr = 13; }
-          if (bp.name === 'SPX') { sigRr = 29; cpaRr = 1; }
-          if (bp.name === 'WDG') { sigRr = 20; cpaRr = 4; }
-          if (bp.name === 'LUM') { sigRr = 13; }
-          if (bp.name === 'EPV') { sigRr = 11; }
-          if (bp.name === 'VENE') { sigRr = 10; }
-          if (bp.name === 'ADO') { sigRr = 10; cpaRr = 4; }
-          if (bp.name === 'APG') { sigRr = 7; cpaRr = 1; }
+        if (sDay === 1 && eDay === 24) {
+          if (bp.name === 'FXM') cplRr = 3216;
+          if (bp.name === 'ADM') { cplRr = 1432; sigRr = 15; cpaRr = 1; }
+          if (bp.name === 'LGL') { cplRr = 1215; sigRr = 264; cpaRr = 1; }
+          if (bp.name === 'FZY') { cplRr = 22; sigRr = 2; }
+          if (bp.name === 'CHA') { cplRr = 16; sigRr = 26; cpaRr = 1; }
+          if (bp.name === 'MON') { sigRr = 95; cpaRr = 8; }
+          if (bp.name === 'PRO') { sigRr = 64; cpaRr = 15; }
+          if (bp.name === 'REV') { sigRr = 41; cpaRr = 11; }
+          if (bp.name === 'SPX') { sigRr = 25; cpaRr = 1; }
+          if (bp.name === 'WDG') { sigRr = 19; cpaRr = 4; }
+          if (bp.name === 'EPV') { sigRr = 16; }
+          if (bp.name === 'LUM') { sigRr = 14; }
+          if (bp.name === 'VENE') { sigRr = 9; }
+          if (bp.name === 'ADO') { sigRr = 9; cpaRr = 4; }
+          if (bp.name === 'APG') { sigRr = 6; cpaRr = 1; }
+          if (bp.name === 'XLE') { sigRr = 1; cpaRr = 1; }
         }
 
         return {
@@ -1179,24 +1182,11 @@
       const cprConvTbody = document.getElementById('mini-cpr-conv-tbody');
       const cprConvTfoot = document.getElementById('mini-cpr-conv-tfoot');
       if (cprConvTbody && cprConvTfoot) {
-        const convPartners = partners.filter(p => p.cprMtd && p.cprMtd !== '—' && p.cprMtd > 0);
-        if (convPartners.length > 0) {
-          cprConvTbody.innerHTML = convPartners.map(p => `
-            <tr class="hover:bg-slate-50">
-              <td class="py-1 px-2 text-slate-800 font-extrabold text-left">${p.name}</td>
-              <td class="py-1 px-1.5 text-center text-slate-400 italic">${p.cprKpi || 200}</td>
-              <td class="py-1 px-1.5 text-center font-black text-slate-900">${p.cprMtd}</td>
-              <td class="py-1 px-1.5 text-center font-extrabold text-slate-700">${p.cprRr}</td>
-            </tr>
-          `).join('');
-        } else {
-          cprConvTbody.innerHTML = `
-            <tr class="hover:bg-slate-50">
-              <td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold">No active CPR records</td>
-            </tr>
-          `;
-        }
-
+        cprConvTbody.innerHTML = `
+          <tr class="hover:bg-slate-50">
+            <td colspan="4" class="p-3 text-center text-slate-400 italic font-semibold">No active CPR records</td>
+          </tr>
+        `;
         cprConvTfoot.innerHTML = `
           <tr>
             <td class="py-1 px-2 text-left font-black">Grand total</td>
@@ -1224,7 +1214,7 @@
         cpaTfoot.innerHTML = `
           <tr>
             <td class="py-1 px-2 text-left font-black">Grand total</td>
-            <td class="py-1 px-1.5 text-center text-slate-400 italic">300</td>
+            <td class="py-1 px-1.5 text-center text-slate-400 italic">0</td>
             <td class="py-1 px-1.5 text-center font-black">${totals.cpaMtd}</td>
             <td class="py-1 px-1.5 text-center font-black text-red-custom">${totals.cpaRr}</td>
           </tr>
@@ -1264,7 +1254,7 @@
         const pct = Math.max(Math.round((Math.abs(item.val) / maxAbs) * 100), 2);
         const color = isNeg ? '#ef4444' : '#14b8a6';
         const textClass = isNeg ? 'text-red-600' : 'text-slate-900';
-        const formattedVal = (isNeg ? '-$' : '$') + Math.abs(item.val).toLocaleString();
+        const formattedVal = (isNeg ? '-$' : '$') + Math.abs(item.val).toLocaleString(undefined, {minimumFractionDigits: (item.val % 1 !== 0 ? 2 : 0)});
 
         return `
           <div>
@@ -1426,9 +1416,9 @@
             <td class="p-2.5 text-center font-extrabold">${p.cpaMtd}</td>
             <td class="p-2.5 text-center text-red-custom font-extrabold">${p.cpaRr}</td>
             <!-- REVENUE, BUDGET, PROFIT, STATUS -->
-            <td class="p-2.5 text-center font-extrabold">${p.rev}</td>
+            <td class="p-2.5 text-center font-extrabold">${p.rev > 0 ? (p.rev % 1 !== 0 ? p.rev.toFixed(2) : p.rev) : 0}</td>
             <td class="p-2.5 text-center font-extrabold">${p.budget}</td>
-            <td class="p-2.5 text-center ${profitClass}">${p.profit}</td>
+            <td class="p-2.5 text-center ${profitClass}">${p.profit !== 0 ? (p.profit % 1 !== 0 ? p.profit.toFixed(2) : p.profit) : 0}</td>
             <td class="p-2 text-center whitespace-nowrap">${statusBadge}</td>
           </tr>
         `;
@@ -1450,13 +1440,13 @@
           <td class="p-2.5 text-center font-black">0.0</td>
           <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
           <!-- CPA -->
-          <td class="p-2.5 text-center text-slate-400 italic">300</td>
+          <td class="p-2.5 text-center text-slate-400 italic">0</td>
           <td class="p-2.5 text-center font-black">${totals.cpaMtd}</td>
           <td class="p-2.5 text-center text-red-custom font-black">${totals.cpaRr}</td>
           <!-- REVENUE, BUDGET, PROFIT, STATUS -->
-          <td class="p-2.5 text-center font-black">${totals.rev}</td>
+          <td class="p-2.5 text-center font-black">${Number(totals.rev).toFixed(2)}</td>
           <td class="p-2.5 text-center font-black">${totals.budget}</td>
-          <td class="p-2.5 text-center text-green-custom font-black">${totals.profit}</td>
+          <td class="p-2.5 text-center text-green-custom font-black">${Number(totals.profit).toFixed(2)}</td>
           <td class="p-2 text-center whitespace-nowrap"><span class="text-[10px] font-black uppercase text-slate-500">${partners.length} Media</span></td>
         </tr>
       `;
@@ -1563,10 +1553,10 @@
       }
     }
 
-    // INITIALIZATION (SET TO SEPTEMBER 21, 2026)
+    // INITIALIZATION (CUT SET TO SEPTEMBER 24, 2026)
     document.addEventListener('DOMContentLoaded', () => {
       buildSeptemberCalendarDOM();
-      applyDateSelection(1, 21);
+      applyDateSelection(1, 24);
 
       const ctxCPR = document.getElementById('cprDonutChart');
       if (ctxCPR) {
