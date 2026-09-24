@@ -98,7 +98,7 @@
   <div class="max-w-[1400px] mx-auto space-y-5">
 
     <!-- ============================================================ -->
-    <!-- TOP HEADER WITH CALENDAR (UPDATED UP TO SEP 24)              -->
+    <!-- TOP HEADER WITH CALENDAR NAVIGABLE FROM JULY TO SEPTEMBER    -->
     <!-- ============================================================ -->
     <div class="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4 relative">
       
@@ -115,13 +115,18 @@
             <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
           </button>
 
-          <!-- COMPACT SEPTEMBER 2026 CALENDAR POPOVER -->
+          <!-- COMPACT CALENDAR POPOVER (JULY TO SEPTEMBER 2026) -->
           <div id="calendarPopover" class="hidden absolute top-full left-0 mt-2 z-50 bg-white p-4 rounded-2xl shadow-2xl border border-slate-200 w-72 select-none">
             
-            <!-- Month Header -->
-            <div class="flex items-center justify-center relative font-black text-xs text-slate-800 tracking-wider mb-2.5">
-              <span>SEPTEMBER 2026</span>
-              <span class="absolute right-1 text-slate-400"><i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+            <!-- Month Header with Navigation -->
+            <div class="flex items-center justify-between font-black text-xs text-slate-800 tracking-wider mb-2.5 px-1">
+              <button id="calPrevBtn" onclick="navCalendarMonth(-1, event)" class="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-100 text-slate-600 transition cursor-pointer">
+                <i class="fa-solid fa-chevron-left text-[11px]"></i>
+              </button>
+              <span id="calendarMonthLabel" class="uppercase font-black text-xs tracking-wider">SEPTEMBER 2026</span>
+              <button id="calNextBtn" onclick="navCalendarMonth(1, event)" class="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-100 text-slate-600 transition cursor-pointer">
+                <i class="fa-solid fa-chevron-right text-[11px]"></i>
+              </button>
             </div>
 
             <!-- Weekday Headers -->
@@ -129,8 +134,8 @@
               <span>MO</span><span>TU</span><span>WE</span><span>TH</span><span>FR</span><span>SA</span><span>SU</span>
             </div>
 
-            <!-- Days Grid -->
-            <div id="septemberDaysGrid" class="grid grid-cols-7 text-center text-xs font-bold gap-y-1"></div>
+            <!-- Dynamic Days Grid -->
+            <div id="calendarDaysGrid" class="grid grid-cols-7 text-center text-xs font-bold gap-y-1"></div>
 
             <!-- Live Range Preview -->
             <div class="mt-3 text-center text-[11px] font-bold text-slate-600 bg-slate-50 py-1.5 rounded-md border border-slate-100">
@@ -138,7 +143,7 @@
             </div>
 
             <div class="text-[10px] text-slate-400 text-center font-semibold mt-1.5">
-              Click 2 dates to auto-apply
+              Click 2 dates to auto-apply (July – Sep)
             </div>
           </div>
         </div>
@@ -208,8 +213,8 @@
                 <td id="tp-mtd-budget" class="py-3 px-2 font-black">$546</td>
                 <td id="tp-mtd-signups" class="py-3 px-2 font-black">498</td>
                 <td id="tp-mtd-users" class="py-3 px-2 font-black">39</td>
-                <td id="tp-mtd-revenue" class="py-3 px-2 font-black">$3,055.42</td>
-                <td id="tp-mtd-profit" class="py-3 px-2 font-black border-r border-slate-200">$2,509.42</td>
+                <td id="tp-mtd-revenue" class="py-3 px-2 font-black">$3,055</td>
+                <td id="tp-mtd-profit" class="py-3 px-2 font-black border-r border-slate-200">$2,509</td>
                 <td id="tp-rr-budget" class="py-3 px-2 text-green-custom font-black">$683</td>
                 <td id="tp-rr-signups" class="py-3 px-2 text-red-custom font-black">619</td>
                 <td id="tp-rr-users" class="py-3 px-2 text-red-custom font-black">48</td>
@@ -328,7 +333,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-rev-mtd" class="text-xl font-black text-slate-900">$3,055.42</span>
+              <span id="card-rev-mtd" class="text-xl font-black text-slate-900">$3,055</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -359,7 +364,7 @@
               </div>
             </div>
             <div class="my-0.5 flex items-baseline gap-1">
-              <span id="card-profit-mtd" class="text-xl font-black text-slate-900">$2,509.42</span>
+              <span id="card-profit-mtd" class="text-xl font-black text-slate-900">$2,509</span>
               <span class="text-[9px] font-bold text-slate-400">MTD</span>
             </div>
             <div class="flex items-center gap-1 flex-wrap">
@@ -420,7 +425,7 @@
               <h4 class="text-sm font-extrabold text-slate-900 mt-1">CPR Performance</h4>
             </div>
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b class="text-slate-900">0.0</b></span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">MTD <b id="cpr-badge-mtd" class="text-slate-900">0.0</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">KPI <b class="text-slate-900">200</b></span>
               <span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-bold text-slate-700">RR <b class="text-slate-500">0.0</b></span>
             </div>
@@ -532,7 +537,7 @@
               <th></th>
             </tr>
 
-            <!-- ROW 1: CLEAN ORIGINAL TITLE HEADERS -->
+            <!-- ROW 1: REGULAR CLEAN MINT TITLE HEADERS -->
             <tr class="bg-mint-header text-slate-800 select-none">
               <th rowspan="2" class="p-2.5 font-extrabold uppercase tracking-wider align-middle">
                 MEDIA PARTNER
@@ -738,7 +743,7 @@
 
   </div>
 
-  <!-- JAVASCRIPT: NEW DATA BENCHMARK FOR SEP 24, 2026 -->
+  <!-- JAVASCRIPT: CALENDAR, ZERO-DECIMAL TOTALS & ZERO DATA STATE LOGIC -->
   <script>
     // DAILY PROGRESSION UP TO SEPTEMBER 24
     const DAILY_SERIES = [
@@ -797,71 +802,134 @@
       { name: 'XLE', cplKpi: '—', maxLeads: 0, sigKpi: 58, maxSig: 1, cpaKpi: 50, maxUsers: 1, maxRev: 5.42, maxBudget: 0, activeFrom: 1 }
     ];
 
-    // CALENDAR STRICT LIMIT: DAY 24
-    const MAX_ALLOWED_DAY = 24;
-    let startDay = 1;
-    let endDay = 24;
+    // CALENDAR DATES (FROM JULY 1, 2026 TO SEPTEMBER 24, 2026)
+    const MIN_CAL_DATE = new Date(2026, 6, 1);
+    const MAX_CAL_DATE = new Date(2026, 8, 24);
+
+    let viewYear = 2026;
+    let viewMonth = 8; // September
+
+    let selStartDate = new Date(2026, 8, 1);
+    let selEndDate = new Date(2026, 8, 24);
     let isSelecting = false;
     let clickCount = 0;
-    let tempStart = 1;
-    const dayCellsMap = {};
+    let tempDate = null;
 
-    // COLUMN SORTING STATE
-    let activeSortKey = null;
-    let activeSortDir = 'desc';
+    const MONTH_NAMES = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
 
-    function buildSeptemberCalendarDOM() {
-      const grid = document.getElementById('septemberDaysGrid');
-      if (!grid) return;
+    // RENDER CALENDAR FOR CURRENT VIEW (JULY TO SEPTEMBER)
+    function renderCalendarView() {
+      const grid = document.getElementById('calendarDaysGrid');
+      const label = document.getElementById('calendarMonthLabel');
+      const prevBtn = document.getElementById('calPrevBtn');
+      const nextBtn = document.getElementById('calNextBtn');
+      if (!grid || !label) return;
+
+      label.textContent = `${MONTH_NAMES[viewMonth].toUpperCase()} ${viewYear}`;
+
+      if (viewMonth <= 6 && viewYear === 2026) {
+        prevBtn.classList.add('opacity-30', 'cursor-not-allowed');
+      } else {
+        prevBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+      }
+
+      if (viewMonth >= 8 && viewYear === 2026) {
+        nextBtn.classList.add('opacity-30', 'cursor-not-allowed');
+      } else {
+        nextBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+      }
+
       grid.innerHTML = '';
 
-      const blank = document.createElement('div');
-      blank.className = 'py-1.5';
-      grid.appendChild(blank);
+      const firstDayOfMonth = new Date(viewYear, viewMonth, 1);
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const startDayIndex = (firstDayOfMonth.getDay() + 6) % 7;
 
-      for (let d = 1; d <= 30; d++) {
+      for (let i = 0; i < startDayIndex; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'py-1.5';
+        grid.appendChild(blank);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const thisDate = new Date(viewYear, viewMonth, d);
         const cell = document.createElement('div');
-        cell.className = 'py-1.5 text-center select-none cursor-pointer text-xs font-bold transition-all';
+        cell.className = 'py-1.5 text-center select-none text-xs font-bold transition-all';
         cell.textContent = d;
 
-        const isFuture = d > MAX_ALLOWED_DAY;
+        const isFuture = thisDate > MAX_CAL_DATE;
+        const isPastMin = thisDate < MIN_CAL_DATE;
 
-        if (isFuture) {
+        if (isFuture || isPastMin) {
           cell.classList.add('text-slate-300', 'cursor-not-allowed');
         } else {
+          cell.classList.add('cursor-pointer');
+          
           cell.addEventListener('mouseenter', () => {
-            if (isSelecting) {
-              paintRangeVisuals(tempStart, d);
-              updatePreviewDuration(Math.min(tempStart, d), Math.max(tempStart, d));
+            if (isSelecting && tempDate) {
+              highlightRangeVisuals(tempDate, thisDate);
+              updatePreviewDuration(tempDate, thisDate);
             }
           });
 
           cell.addEventListener('click', (e) => {
             e.stopPropagation();
-            onDayClicked(d);
+            onDateClicked(thisDate);
           });
         }
 
         grid.appendChild(cell);
-        dayCellsMap[d] = cell;
       }
 
-      paintRangeVisuals(startDay, endDay);
-      updatePreviewDuration(startDay, endDay);
+      highlightRangeVisuals(selStartDate, selEndDate);
+      updatePreviewDuration(selStartDate, selEndDate);
     }
 
-    function paintRangeVisuals(fromD, toD) {
-      const s = Math.min(fromD, toD);
-      const e = Math.max(fromD, toD);
+    function navCalendarMonth(step, e) {
+      if (e) e.stopPropagation();
+      const newMonth = viewMonth + step;
+      if (newMonth >= 6 && newMonth <= 8) {
+        viewMonth = newMonth;
+        renderCalendarView();
+      }
+    }
 
-      for (let d = 1; d <= 30; d++) {
-        const cell = dayCellsMap[d];
-        if (!cell || d > MAX_ALLOWED_DAY) continue;
+    function highlightRangeVisuals(fromD, toD) {
+      const s = fromD < toD ? fromD : toD;
+      const e = fromD < toD ? toD : fromD;
 
-        const dayOfWeek = (d + 0) % 7;
-        const inRange = (d >= s && d <= e);
-        const isStart = (d === s);
-        const isEnd = (d === e);
+      const sTime = new Date(s.getFullYear(), s.getMonth(), s.getDate()).getTime();
+      const eTime = new Date(e.getFullYear(), e.getMonth(), e.getDate()).getTime();
+
+      const grid = document.getElementById('calendarDaysGrid');
+      if (!grid) return;
+
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const firstDayOfMonth = new Date(viewYear, viewMonth, 1);
+      const startDayIndex = (firstDayOfMonth.getDay() + 6) % 7;
+
+      const cells = grid.children;
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cellIndex = startDayIndex + d - 1;
+        const cell = cells[cellIndex];
+        if (!cell) continue;
+
+        const thisDate = new Date(viewYear, viewMonth, d);
+        const thisTime = thisDate.getTime();
+
+        const isFuture = thisDate > MAX_CAL_DATE;
+        const isPastMin = thisDate < MIN_CAL_DATE;
+
+        if (isFuture || isPastMin) continue;
+
+        const dayOfWeek = (d - 1 + startDayIndex) % 7;
+        const inRange = (thisTime >= sTime && thisTime <= eTime);
+        const isStart = (thisTime === sTime);
+        const isEnd = (thisTime === eTime);
 
         cell.className = 'py-1.5 text-center select-none cursor-pointer text-xs font-bold transition-all';
 
@@ -875,35 +943,45 @@
       }
     }
 
-    function onDayClicked(d) {
-      if (d > MAX_ALLOWED_DAY) return;
+    function onDateClicked(date) {
+      if (date > MAX_CAL_DATE || date < MIN_CAL_DATE) return;
 
       if (clickCount === 0) {
-        tempStart = d;
+        tempDate = date;
         clickCount = 1;
         isSelecting = true;
-        paintRangeVisuals(d, d);
-        updatePreviewDuration(d, d);
+        highlightRangeVisuals(date, date);
+        updatePreviewDuration(date, date);
       } else {
-        const finalStart = Math.min(tempStart, d);
-        const finalEnd = Math.max(tempStart, d);
+        const finalStart = tempDate < date ? tempDate : date;
+        const finalEnd = tempDate < date ? date : tempDate;
 
-        startDay = finalStart;
-        endDay = finalEnd;
+        selStartDate = finalStart;
+        selEndDate = finalEnd;
         clickCount = 0;
         isSelecting = false;
+        tempDate = null;
 
-        paintRangeVisuals(startDay, endDay);
-        updatePreviewDuration(startDay, endDay);
+        highlightRangeVisuals(selStartDate, selEndDate);
+        updatePreviewDuration(selStartDate, selEndDate);
 
-        applyDateSelection(startDay, endDay);
+        applySelectedDateRange(selStartDate, selEndDate);
       }
     }
 
+    function formatMDY(d) {
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${mm}/${dd}/${d.getFullYear()}`;
+    }
+
     function updatePreviewDuration(s, e) {
-      const sStr = `09/${String(s).padStart(2, '0')}/2026`;
-      const eStr = `09/${String(e).padStart(2, '0')}/2026`;
-      const diffDays = Math.abs(e - s) + 1;
+      const fromD = s < e ? s : e;
+      const toD = s < e ? e : s;
+
+      const sStr = formatMDY(fromD);
+      const eStr = formatMDY(toD);
+      const diffDays = Math.round((toD - fromD) / (1000 * 60 * 60 * 24)) + 1;
 
       let dur = '1 day';
       if (diffDays > 1) {
@@ -921,9 +999,9 @@
       }
     }
 
-    function applyDateSelection(s, e) {
-      const sStr = `09/${String(s).padStart(2, '0')}/2026`;
-      const eStr = `09/${String(e).padStart(2, '0')}/2026`;
+    function applySelectedDateRange(s, e) {
+      const sStr = formatMDY(s);
+      const eStr = formatMDY(e);
 
       closeCalendarPopover();
 
@@ -946,8 +1024,8 @@
       if (!popover.classList.contains('hidden')) {
         clickCount = 0;
         isSelecting = false;
-        paintRangeVisuals(startDay, endDay);
-        updatePreviewDuration(startDay, endDay);
+        tempDate = null;
+        renderCalendarView();
       }
     }
 
@@ -956,10 +1034,201 @@
       if (popover) popover.classList.add('hidden');
       clickCount = 0;
       isSelecting = false;
+      tempDate = null;
     }
 
-    // REAL-TIME ACCURATE MATHEMATICAL CALCULATOR FOR NEW DATA (SEP 24)
-    function renderPreciseRange(sDay, eDay) {
+    // COLUMN SORTING STATE
+    let activeSortKey = null;
+    let activeSortDir = 'desc';
+
+    // RENDER COMPLETE "NO DATA" STATE WHEN SELECTED PERIOD FALLS IN JULY OR AUGUST
+    function renderZeroDataState(sDate, eDate) {
+      const sStr = formatMDY(sDate);
+      const eStr = formatMDY(eDate);
+
+      // 1. Team Performance Table
+      document.getElementById('tp-mtd-budget').textContent = '$0';
+      document.getElementById('tp-mtd-signups').textContent = '0';
+      document.getElementById('tp-mtd-users').textContent = '0';
+      document.getElementById('tp-mtd-revenue').textContent = '$0';
+      document.getElementById('tp-mtd-profit').textContent = '$0';
+
+      document.getElementById('tp-rr-budget').textContent = '$0';
+      document.getElementById('tp-rr-signups').textContent = '0';
+      document.getElementById('tp-rr-users').textContent = '0';
+      document.getElementById('tp-rr-revenue').textContent = '$0';
+      document.getElementById('tp-rr-profit').textContent = '$0';
+      document.getElementById('tp-rr-roi').textContent = '—';
+
+      // 2. Metric Cards
+      document.getElementById('card-budget-mtd').textContent = '$0';
+      document.getElementById('card-budget-rr').textContent = '0';
+      document.getElementById('card-signups-mtd').textContent = '0';
+      document.getElementById('card-signups-rr').textContent = '0';
+      document.getElementById('card-users-mtd').textContent = '0';
+      document.getElementById('card-users-rr').textContent = '0';
+      document.getElementById('card-rev-mtd').textContent = '$0';
+      document.getElementById('card-rev-rr').textContent = '0';
+      document.getElementById('card-profit-mtd').textContent = '$0';
+      document.getElementById('card-profit-rr').textContent = '0';
+
+      // 3. Metric Progress Bars Placeholder
+      ['budget', 'signups', 'users', 'revenue', 'profit'].forEach(cat => {
+        const el = document.getElementById(`bars-container-${cat}`);
+        if (el) {
+          el.innerHTML = `
+            <div class="h-full flex items-center justify-center text-center text-xs text-slate-400 font-bold italic py-8">
+              No data recorded for this period
+            </div>
+          `;
+        }
+      });
+
+      // 4. Doughnuts Zero State
+      const leadsCanvas = document.getElementById('leadsDonutChart');
+      if (leadsCanvas) {
+        try {
+          const existing = Chart.getChart(leadsCanvas);
+          if (existing) existing.destroy();
+          new Chart(leadsCanvas.getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: ['No Data'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0, hoverOffset: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+          });
+        } catch (e) {}
+      }
+      document.getElementById('leads-donut-total').textContent = '0';
+      document.getElementById('leads-badge-mtd').textContent = '0';
+      document.getElementById('leads-badge-rr').textContent = '0';
+      document.getElementById('leads-legend-container').innerHTML = `
+        <div class="col-span-full py-2 text-center text-xs text-slate-400 font-bold italic">
+          No active leads recorded for this period
+        </div>
+      `;
+
+      // 5. Line Chart Zero State
+      const lineCanvas = document.getElementById('mainLineChart');
+      if (lineCanvas) {
+        try {
+          const existing = Chart.getChart(lineCanvas);
+          if (existing) existing.destroy();
+          new Chart(lineCanvas.getContext('2d'), {
+            type: 'line',
+            data: {
+              labels: [sStr, eStr],
+              datasets: [
+                { label: 'LEADS Real', data: [0, 0], borderColor: '#cbd5e1', fill: false, borderWidth: 2 },
+                { label: 'SIGNUPS Real', data: [0, 0], borderColor: '#94a3b8', fill: false, borderWidth: 2 },
+                { label: 'USERS Real', data: [0, 0], borderColor: '#64748b', fill: false, borderWidth: 2 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: { beginAtZero: true, suggestedMax: 100, grid: { color: '#f1f5f9' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+              }
+            }
+          });
+        } catch (e) {}
+      }
+
+      // 6. Main Table Zero State
+      const tbody = document.getElementById('partnersTableBody');
+      const tfoot = document.getElementById('partnersTableFoot');
+      if (tbody) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="17" class="p-8 text-center text-slate-400 font-bold text-sm italic">
+              <i class="fa-regular fa-folder-open text-2xl mb-1.5 block text-slate-300"></i>
+              No data recorded between ${sStr} and ${eStr}
+            </td>
+          </tr>
+        `;
+      }
+      if (tfoot) {
+        tfoot.innerHTML = `
+          <tr class="bg-slate-50 font-black border-t-2 border-slate-300">
+            <td class="p-2.5 font-extrabold">Grand total</td>
+            <td class="p-2.5 text-center text-slate-400 italic">4000</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">1000</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">200</td>
+            <td class="p-2.5 text-center font-black">0.0</td>
+            <td class="p-2.5 text-center text-slate-400 font-bold">0.0</td>
+            <td class="p-2.5 text-center text-slate-400 italic">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center font-black">0</td>
+            <td class="p-2.5 text-center text-slate-400 font-black">0</td>
+            <td class="p-2 text-center whitespace-nowrap"><span class="text-[10px] font-black uppercase text-slate-400">0 Media</span></td>
+          </tr>
+        `;
+      }
+
+      // 7. Mini 4 Tables Zero State
+      ['mini-cpl', 'mini-cpr', 'mini-cpa'].forEach(prefix => {
+        const tb = document.getElementById(`${prefix}-tbody`);
+        const tf = document.getElementById(`${prefix}-tfoot`);
+        if (tb) {
+          tb.innerHTML = `
+            <tr>
+              <td colspan="4" class="p-4 text-center text-slate-400 italic font-semibold">
+                No data for selected period
+              </td>
+            </tr>
+          `;
+        }
+        if (tf) {
+          tf.innerHTML = `
+            <tr>
+              <td class="py-1 px-2 text-left font-black">Grand total</td>
+              <td class="py-1 px-1.5 text-center text-slate-400 italic">—</td>
+              <td class="py-1 px-1.5 text-center font-black">0</td>
+              <td class="py-1 px-1.5 text-center text-slate-400 font-black">0</td>
+            </tr>
+          `;
+        }
+      });
+
+      const counter = document.getElementById('tableCounter');
+      if (counter) {
+        counter.textContent = `Showing 0 active partners`;
+      }
+    }
+
+    // REAL-TIME ACCURATE MATHEMATICAL CALCULATOR
+    function renderPreciseRange(sDate, eDate) {
+      const sepStart = new Date(2026, 8, 1);
+      const sepEnd = new Date(2026, 8, 24);
+
+      // IF RANGE IS STRICTLY IN JULY OR AUGUST (NO DATA RECORDED)
+      if (eDate < sepStart) {
+        renderZeroDataState(sDate, eDate);
+        return;
+      }
+
+      // CALCULATE DAYS IN SEPTEMBER OVERLAPPING THE SELECTED RANGE
+      let sDay = 1;
+      let eDay = 24;
+
+      if (sDate.getFullYear() === 2026 && sDate.getMonth() === 8) {
+        sDay = sDate.getDate();
+      } else {
+        sDay = 1; // Started in July or August
+      }
+
+      if (eDate.getFullYear() === 2026 && eDate.getMonth() === 8) {
+        eDay = Math.min(eDate.getDate(), 24);
+      } else {
+        eDay = 24;
+      }
+
       const daysCount = eDay - sDay + 1;
       const slice = DAILY_SERIES.filter(r => r.d >= sDay && r.d <= eDay);
 
@@ -979,11 +1248,11 @@
       const roiRatio = intBudget > 0 ? (intRevenue / intBudget).toFixed(1) : '—';
 
       // 1. Team Performance Table
-      document.getElementById('tp-mtd-budget').textContent = '$' + intBudget.toLocaleString();
+      document.getElementById('tp-mtd-budget').textContent = '$' + Math.round(intBudget).toLocaleString();
       document.getElementById('tp-mtd-signups').textContent = intSignups.toLocaleString();
       document.getElementById('tp-mtd-users').textContent = intUsers.toLocaleString();
-      document.getElementById('tp-mtd-revenue').textContent = '$' + intRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('tp-mtd-profit').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('tp-mtd-revenue').textContent = '$' + Math.round(intRevenue).toLocaleString();
+      document.getElementById('tp-mtd-profit').textContent = (intProfit < 0 ? '-$' : '$') + Math.round(Math.abs(intProfit)).toLocaleString();
 
       document.getElementById('tp-rr-budget').textContent = '$' + rrBudget.toLocaleString();
       document.getElementById('tp-rr-signups').textContent = rrSignups.toLocaleString();
@@ -993,15 +1262,15 @@
       document.getElementById('tp-rr-roi').textContent = intBudget > 0 ? `1:${roiRatio}` : '1:5.6';
 
       // 2. Metric Cards
-      document.getElementById('card-budget-mtd').textContent = '$' + intBudget.toLocaleString();
+      document.getElementById('card-budget-mtd').textContent = '$' + Math.round(intBudget).toLocaleString();
       document.getElementById('card-budget-rr').textContent = rrBudget.toLocaleString();
       document.getElementById('card-signups-mtd').textContent = intSignups.toLocaleString();
       document.getElementById('card-signups-rr').textContent = rrSignups.toLocaleString();
       document.getElementById('card-users-mtd').textContent = intUsers.toLocaleString();
       document.getElementById('card-users-rr').textContent = rrUsers.toLocaleString();
-      document.getElementById('card-rev-mtd').textContent = '$' + intRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('card-rev-mtd').textContent = '$' + Math.round(intRevenue).toLocaleString();
       document.getElementById('card-rev-rr').textContent = rrRevenue.toLocaleString();
-      document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.abs(intProfit).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('card-profit-mtd').textContent = (intProfit < 0 ? '-$' : '$') + Math.round(Math.abs(intProfit)).toLocaleString();
       document.getElementById('card-profit-rr').textContent = ((rrProfit < 0 ? '-' : '') + Math.abs(rrProfit).toLocaleString());
 
       // 3. Compute Individual Partner Numbers
@@ -1034,7 +1303,6 @@
         else if (pProfit < 0 && pBudget > 0) pStatus = 'not-working';
         else if (pSig >= 9 || pUsers >= 2) pStatus = 'potential';
 
-        // Precise Run Rates for September 24
         let cplRr = pLeads > 0 ? Math.round((pLeads / daysCount) * 30) : (bp.cplKpi !== '—' ? 0 : '—');
         let sigRr = pSig > 0 ? Math.round((pSig / daysCount) * 30) : (bp.sigKpi !== '—' ? 0 : '—');
         let cpaRr = pUsers > 0 ? Math.round((pUsers / daysCount) * 30) : (bp.cpaKpi !== '—' ? 0 : '—');
@@ -1076,7 +1344,7 @@
         };
       });
 
-      // 4. Update General Table First
+      // 4. Update General Table
       const totalsObj = {
         cplMtd: intLeads,
         cplRr: rrLeads,
@@ -1091,7 +1359,7 @@
       renderTableRows(activePartners, totalsObj);
       applyTableSorting();
 
-      // 5. Update the 4 Specific Campaign Tables Below Main Table (Full Cuadricula)
+      // 5. Update the 4 Specific Campaign Tables Below Main Table
       renderMiniCampaignTables(activePartners, totalsObj);
 
       // 6. Update Progress Bars
@@ -1128,7 +1396,7 @@
       });
     }
 
-    // RENDER THE 4 MINI BREAKDOWN TABLES WITH AUTHENTIC VISIBLE CUADRICULA
+    // RENDER THE 4 MINI BREAKDOWN TABLES
     function renderMiniCampaignTables(partners, totals) {
       // 1. CPL LEADS TABLE
       const cplPartners = partners.filter(p => p.cplMtd !== '—' && p.cplMtd > 0).sort((a,b) => b.cplMtd - a.cplMtd);
@@ -1178,7 +1446,7 @@
         `;
       }
 
-      // 3. CPR CONVERSIONS TABLE (ACTIVE CUADRICULA)
+      // 3. CPR CONVERSIONS TABLE
       const cprConvTbody = document.getElementById('mini-cpr-conv-tbody');
       const cprConvTfoot = document.getElementById('mini-cpr-conv-tfoot');
       if (cprConvTbody && cprConvTfoot) {
@@ -1270,7 +1538,7 @@
       }).join('');
     }
 
-    // CHART RENDERERS (CRASH-PROOF VIA Chart.getChart)
+    // CHART RENDERERS
     function renderLeadsDonut(leadsData) {
       const canvas = document.getElementById('leadsDonutChart');
       if (!canvas) return;
@@ -1313,9 +1581,7 @@
             }
           }
         });
-      } catch (err) {
-        console.warn('Leads donut skipped:', err);
-      }
+      } catch (err) {}
 
       const legContainer = document.getElementById('leads-legend-container');
       if (legContainer) {
@@ -1369,12 +1635,10 @@
             }
           }
         });
-      } catch (err) {
-        console.warn('Line chart skipped:', err);
-      }
+      } catch (err) {}
     }
 
-    // GENERAL TABLE RENDERER
+    // GENERAL TABLE RENDERER (TOTALS WITHOUT DECIMALS)
     function renderTableRows(partners, totals) {
       const tbody = document.getElementById('partnersTableBody');
       const tfoot = document.getElementById('partnersTableFoot');
@@ -1443,10 +1707,10 @@
           <td class="p-2.5 text-center text-slate-400 italic">0</td>
           <td class="p-2.5 text-center font-black">${totals.cpaMtd}</td>
           <td class="p-2.5 text-center text-red-custom font-black">${totals.cpaRr}</td>
-          <!-- REVENUE, BUDGET, PROFIT, STATUS -->
-          <td class="p-2.5 text-center font-black">${Number(totals.rev).toFixed(2)}</td>
-          <td class="p-2.5 text-center font-black">${totals.budget}</td>
-          <td class="p-2.5 text-center text-green-custom font-black">${Number(totals.profit).toFixed(2)}</td>
+          <!-- REVENUE, BUDGET, PROFIT, STATUS (NO DECIMALS IN TOTALS) -->
+          <td class="p-2.5 text-center font-black">${Math.round(totals.rev)}</td>
+          <td class="p-2.5 text-center font-black">${Math.round(totals.budget)}</td>
+          <td class="p-2.5 text-center text-green-custom font-black">${Math.round(totals.profit)}</td>
           <td class="p-2 text-center whitespace-nowrap"><span class="text-[10px] font-black uppercase text-slate-500">${partners.length} Media</span></td>
         </tr>
       `;
@@ -1555,8 +1819,8 @@
 
     // INITIALIZATION (CUT SET TO SEPTEMBER 24, 2026)
     document.addEventListener('DOMContentLoaded', () => {
-      buildSeptemberCalendarDOM();
-      applyDateSelection(1, 24);
+      renderCalendarView();
+      applySelectedDateRange(selStartDate, selEndDate);
 
       const ctxCPR = document.getElementById('cprDonutChart');
       if (ctxCPR) {
