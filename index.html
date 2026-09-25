@@ -443,7 +443,7 @@
           <div id="leads-legend-container" class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs"></div>
         </div>
 
-        <!-- DOUGHNUT 2: CPR -->
+        <!-- DOUGHNUT 2: CPR WITH REAL PARTNER DETAILS -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-4">
             <div>
@@ -459,16 +459,19 @@
 
           <div class="relative w-full h-64 flex items-center justify-center">
             <canvas id="cprDonutChart"></canvas>
-            <div class="absolute flex flex-col items-center justify-center pointer-events-none">
-              <span id="cpr-center-val" class="text-3xl font-black text-slate-300">0.0</span>
-              <span id="cpr-center-sub" class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5">No Data Yet</span>
+            <div class="absolute flex flex-col items-center justify-center pointer-events-none text-center">
+              <span id="cpr-center-val" class="text-3xl font-black text-slate-900">5.0</span>
+              <span id="cpr-center-sub" class="text-xs font-black uppercase tracking-wider text-amber-600 mt-0.5">XLE</span>
             </div>
           </div>
 
-          <div class="pt-4 border-t border-slate-100 mt-3">
+          <!-- CPR PARTNER LEGEND -->
+          <div id="cpr-legend-container" class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-4 border-t border-slate-100 mt-3 text-xs"></div>
+
+          <div class="pt-3">
             <div id="cpr-info-box" class="flex items-center justify-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-center text-xs font-bold text-slate-500">
               <i class="fa-solid fa-circle-info text-amber-500"></i>
-              <span id="cpr-info-text">No partner data recorded yet for CPR (Target KPI: 200)</span>
+              <span id="cpr-info-text">Active CPR partner</span>
             </div>
           </div>
         </div>
@@ -743,7 +746,7 @@
 
   </div>
 
-  <!-- JAVASCRIPT: DYNAMIC 'TODAY' AND AUTO-PADDED MISSING DAYS WITH 0 -->
+  <!-- JAVASCRIPT: SUPPORTS DYNAMIC CPR PARTNERS, TODAY AUTO-DETECTION & JSONS -->
   <script>
     const DATA_CACHE = {
       july: null,
@@ -751,7 +754,6 @@
       september: null
     };
 
-    // DETECTS TODAY'S EFFECTIVE DATE (AUTOMATICALLY ADVANCES DAY BY DAY)
     function getSystemToday() {
       const now = new Date();
       if (now.getFullYear() === 2026) {
@@ -977,7 +979,7 @@
       renderCombinedMultiMonth(sDate, eDate);
     }
 
-    // SLICES THE DAILY ENTRIES AND AUTOMATICALLY INSERTS 0 FOR DAYS WITHOUT DATA
+    // PADDED SLICE: MISSING DAYS AUTOMATICALLY TAKE 0
     function getPaddedDailySlice(monthData, sDate, eDate, defaultMonthNum) {
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
@@ -995,7 +997,6 @@
         if (dailyMap[curYMD]) {
           result.push(dailyMap[curYMD]);
         } else {
-          // If the day is selected but has no data yet in the JSON, fill with 0!
           result.push({
             date: curYMD,
             leads: 0,
@@ -1020,12 +1021,10 @@
       const sYMD = formatYMD(sDate);
       const eYMD = formatYMD(eDate);
 
-      // Uses JSON date_range to detect full official month without hardcoded dates
       const jsonStart = monthData.date_range ? monthData.date_range.start : '';
       const jsonEnd = monthData.date_range ? monthData.date_range.end : '';
       const isFull = (sYMD === jsonStart && eYMD === jsonEnd);
 
-      // Padded slice: missing days automatically take 0
       const slice = getPaddedDailySlice(monthData, sDate, eDate, monthNum);
       const daysCount = Math.max(slice.length, 1);
 
@@ -1095,7 +1094,7 @@
 
       const cprMtd = monthData.totals.cpr ? monthData.totals.cpr.mtd : 0;
       const cprRr = monthData.totals.cpr ? monthData.totals.cpr.rr : 0;
-      updateCPRDonutUI(cprMtd, cprRr);
+      updateCPRDonutUI(partners, cprMtd, cprRr);
 
       renderTableRows(partners, {
         cplMtd: intLeads, cplRr: rrLeads,
@@ -1221,7 +1220,7 @@
       if (DATA_CACHE.september && DATA_CACHE.september.totals.cpr) totalCprMtd += DATA_CACHE.september.totals.cpr.mtd;
       const totalCprRr = Number(((totalCprMtd / totalDays) * 30).toFixed(1));
 
-      updateCPRDonutUI(totalCprMtd, totalCprRr);
+      updateCPRDonutUI(consolidatedPartners, totalCprMtd, totalCprRr);
 
       renderTableRows(consolidatedPartners, {
         cplMtd: intLeads, cplRr: rrLeads,
@@ -1241,24 +1240,101 @@
       renderInactivePartners(DATA_CACHE.september ? DATA_CACHE.september.inactive_partners : []);
     }
 
-    function updateCPRDonutUI(cprMtd, cprRr) {
+    // CPR DONUT RENDERER: SHOWS COLORED DONUT & EXACT PARTNERS
+    function updateCPRDonutUI(partners, totalCprMtd, totalCprRr) {
       const badgeMtd = document.getElementById('cpr-badge-mtd');
-      if (badgeMtd) badgeMtd.textContent = cprMtd > 0 ? cprMtd.toFixed(1) : '0.0';
+      if (badgeMtd) badgeMtd.textContent = totalCprMtd > 0 ? Number(totalCprMtd).toFixed(1) : '0.0';
 
       const badgeRr = document.getElementById('cpr-badge-rr');
-      if (badgeRr) badgeRr.textContent = cprRr > 0 ? cprRr : '0.0';
+      if (badgeRr) badgeRr.textContent = totalCprRr > 0 ? totalCprRr : '0.0';
 
       const centerVal = document.getElementById('cpr-center-val');
       const centerSub = document.getElementById('cpr-center-sub');
       const infoBoxText = document.getElementById('cpr-info-text');
+      const legendContainer = document.getElementById('cpr-legend-container');
 
-      if (cprMtd > 0) {
-        if (centerVal) { centerVal.textContent = cprMtd.toFixed(1); centerVal.classList.remove('text-slate-300'); centerVal.classList.add('text-slate-900'); }
-        if (centerSub) centerSub.textContent = 'Active CPR';
-        if (infoBoxText) infoBoxText.textContent = `Active CPR with ${cprMtd.toFixed(1)} conversions (RR: ${cprRr})`;
+      // Filter partners with active CPR
+      const activeCPRPartners = (partners || []).filter(p => typeof p.cprMtd === 'number' && p.cprMtd > 0).map((p, idx) => ({
+        name: p.name,
+        val: p.cprMtd,
+        rr: p.cprRr || 0,
+        color: ['#f59e0b', '#00d285', '#2563eb', '#a855f7', '#ec4899'][idx % 5]
+      }));
+
+      const canvas = document.getElementById('cprDonutChart');
+      if (canvas) {
+        const existing = Chart.getChart(canvas);
+        if (existing) existing.destroy();
+
+        if (activeCPRPartners.length > 0) {
+          new Chart(canvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: activeCPRPartners.map(p => p.name),
+              datasets: [{
+                data: activeCPRPartners.map(p => p.val),
+                backgroundColor: activeCPRPartners.map(p => p.color),
+                borderWidth: 3,
+                borderColor: '#ffffff'
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '72%',
+              plugins: { legend: { display: false } }
+            }
+          });
+        } else {
+          new Chart(canvas.getContext('2d'), {
+            type: 'doughnut',
+            data: { labels: ['No Data Yet'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '76%', plugins: { legend: { display: false } } }
+          });
+        }
+      }
+
+      if (activeCPRPartners.length > 0) {
+        if (centerVal) { 
+          centerVal.textContent = Number(totalCprMtd).toFixed(1); 
+          centerVal.classList.remove('text-slate-300'); 
+          centerVal.classList.add('text-slate-900'); 
+        }
+        if (centerSub) {
+          centerSub.textContent = activeCPRPartners.map(p => p.name).join(' / ');
+          centerSub.className = "text-xs font-black uppercase tracking-wider text-amber-600 mt-0.5";
+        }
+        if (legendContainer) {
+          legendContainer.innerHTML = activeCPRPartners.map(p => {
+            const pct = totalCprMtd > 0 ? ((p.val / totalCprMtd) * 100).toFixed(0) : 100;
+            return `
+              <div class="flex items-center gap-2 p-2 bg-amber-50/70 border border-amber-200/60 rounded-lg">
+                <span class="w-3 h-3 rounded-full shrink-0" style="background-color: ${p.color}"></span>
+                <div>
+                  <p class="font-black text-slate-900">${p.name}: ${Number(p.val).toFixed(1)}</p>
+                  <p class="text-[10px] text-slate-500 font-bold">${pct}% • RR: ${p.rr}</p>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+        if (infoBoxText) {
+          const partnerDetails = activeCPRPartners.map(p => `${p.name} (${Number(p.val).toFixed(1)} conversions, RR: ${p.rr})`).join(', ');
+          infoBoxText.innerHTML = `Active Partner(s): <b class="text-slate-800">${partnerDetails}</b>`;
+        }
       } else {
-        if (centerVal) { centerVal.textContent = '0.0'; centerVal.classList.remove('text-slate-900'); centerVal.classList.add('text-slate-300'); }
-        if (centerSub) centerSub.textContent = 'No Data Yet';
+        if (centerVal) { 
+          centerVal.textContent = '0.0'; 
+          centerVal.classList.remove('text-slate-900'); 
+          centerVal.classList.add('text-slate-300'); 
+        }
+        if (centerSub) {
+          centerSub.textContent = 'No Data Yet';
+          centerSub.className = "text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mt-0.5";
+        }
+        if (legendContainer) {
+          legendContainer.innerHTML = `<div class="col-span-full py-1 text-center text-xs text-slate-400 font-bold italic">No active partner CPR recorded</div>`;
+        }
         if (infoBoxText) infoBoxText.textContent = 'No partner data recorded yet for CPR (Target KPI: 200)';
       }
     }
@@ -1531,6 +1607,8 @@
       document.getElementById('leads-badge-mtd').textContent = '0';
       document.getElementById('leads-badge-rr').textContent = '0';
       document.getElementById('leads-legend-container').innerHTML = `<div class="col-span-full py-2 text-center text-xs text-slate-400 font-bold italic">No active leads recorded for this period</div>`;
+
+      updateCPRDonutUI([], 0, 0);
 
       const tbody = document.getElementById('partnersTableBody');
       if (tbody) {
@@ -1861,15 +1939,6 @@
     // INITIALIZATION
     document.addEventListener('DOMContentLoaded', () => {
       loadAllJSONs();
-
-      const ctxCPR = document.getElementById('cprDonutChart');
-      if (ctxCPR) {
-        new Chart(ctxCPR.getContext('2d'), {
-          type: 'doughnut',
-          data: { labels: ['No Data Yet'], datasets: [{ data: [1], backgroundColor: ['#e2e8f0'], borderWidth: 0 }] },
-          options: { responsive: true, maintainAspectRatio: false, cutout: '76%', plugins: { legend: { display: false } } }
-        });
-      }
     });
   </script>
 </body>
